@@ -12,12 +12,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        get email from login activity
+        String mEmail;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                mEmail= null;
+            } else {
+                mEmail= extras.getString("mEmail");
+            }
+        } else {
+            mEmail= (String) savedInstanceState.getSerializable("mEmail");
+        }
+        Toast.makeText(this, "Logged in " + mEmail + " successfully.",
+                Toast.LENGTH_LONG).show();
+        TextView emailView = (TextView) findViewById(R.id.email_View);
+        if (emailView != null) {
+            emailView.setText(mEmail);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
