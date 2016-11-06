@@ -326,7 +326,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             // TODO: register the new account here.
-            return true;
+
+            return false; //TODO: change back to true after registration is implemented
+                          //need to return true so that the home screen
+                          //is loaded after the registration is done.
         }
 
         @Override
