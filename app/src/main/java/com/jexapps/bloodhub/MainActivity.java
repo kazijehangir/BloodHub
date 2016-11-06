@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    //TODO: add separate layout for organizations
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +34,7 @@ public class MainActivity extends AppCompatActivity
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
         }
         Toast.makeText(this, "Logged in " + mEmail + " successfully.",
-                Toast.LENGTH_LONG).show();
-        TextView emailView = (TextView) findViewById(R.id.email_View);
-        if (emailView != null) {
-            emailView.setText(mEmail);
-        }
+                Toast.LENGTH_SHORT).show();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -61,6 +58,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView emailView = (TextView) navigationView.findViewById(R.id.email_View);
+        if (emailView != null) {
+            emailView.setText(mEmail);
+            Toast.makeText(this, "email_View != null",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "email_View == null",Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -101,17 +106,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_requests) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_donations) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_appointments) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_organizations) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_friend) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_report) {
 
         }
 

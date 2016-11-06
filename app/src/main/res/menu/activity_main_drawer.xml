@@ -3,33 +3,49 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="Home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_requests"
+            android:icon="@drawable/ic_menu_requests"
+            android:title="Your Requests" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_donations"
+            android:icon="@drawable/ic_menu_donations"
+            android:title="Your Donations" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_appointments"
+            android:icon="@drawable/ic_menu_appointments"
+            android:title="Your Appointments" />
     </group>
 
+    <item android:title="Info">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_organizations"
+                    android:icon="@drawable/ic_menu_organizations"
+                    android:title="Organizations" />
+                <item
+                    android:id="@+id/nav_faq"
+                    android:icon="@drawable/ic_menu_faq"
+                    android:title="Frequently Asked Questions" />
+            </group>
+        </menu>
+    </item>
     <item android:title="Communicate">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_friend"
+                    android:icon="@drawable/ic_menu_friend"
+                    android:title="Invite a Friend" />
+                <item
+                    android:id="@+id/nav_report"
+                    android:icon="@drawable/ic_menu_report"
+                    android:title="Report a Problem" />
+            </group>
         </menu>
     </item>
 
