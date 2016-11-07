@@ -1,5 +1,7 @@
 package com.jexapps.bloodhub;
 
+import android.app.ActionBar;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -66,6 +68,28 @@ public class MainActivity extends AppCompatActivity
         } else {
             Toast.makeText(this, "email_View == null",Toast.LENGTH_LONG).show();
         }
+
+
+//        TODO: Implement swipe views for home page
+//        https://developer.android.com/training/implementing-navigation/lateral.html
+        final ActionBar actionBar = getActionBar();
+        // Specify that tabs should be displayed in the action bar.
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        // Create a tab listener that is called when the user changes tabs.
+        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                // show the given tab
+            }
+
+            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+                // hide the given tab
+            }
+
+            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+                // probably ignore this event
+            }
+        };
     }
 
     @Override
