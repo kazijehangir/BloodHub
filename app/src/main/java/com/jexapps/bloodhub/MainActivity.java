@@ -20,7 +20,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     //TODO: add separate layout for organizations
-
+//    TODO: Understand inflating views. probably is fix to update email and photo
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity
@@ -72,24 +73,24 @@ public class MainActivity extends AppCompatActivity
 
 //        TODO: Implement swipe views for home page
 //        https://developer.android.com/training/implementing-navigation/lateral.html
-        final ActionBar actionBar = getActionBar();
-        // Specify that tabs should be displayed in the action bar.
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-        // Create a tab listener that is called when the user changes tabs.
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
-            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // show the given tab
-            }
-
-            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // hide the given tab
-            }
-
-            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                // probably ignore this event
-            }
-        };
+//        final ActionBar actionBar = getActionBar();
+//        // Specify that tabs should be displayed in the action bar.
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//
+//        // Create a tab listener that is called when the user changes tabs.
+//        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+//            public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+//                // show the given tab
+//            }
+//
+//            public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+//                // hide the given tab
+//            }
+//
+//            public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+//                // probably ignore this event
+//            }
+//        };
     }
 
     @Override
