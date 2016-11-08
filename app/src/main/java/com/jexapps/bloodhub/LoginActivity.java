@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
         });
-
+//        Set OnClick Listeners for buttons
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -92,8 +92,47 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        Button mEmailRegisterIndividualButton = (Button) findViewById(R.id.email_register_individual_button);
+        mEmailRegisterIndividualButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {registerIndividual();
+            }
+        });
+
+        Button mEmailRegisterOrganizationButton = (Button) findViewById(R.id.email_register_organization_button);
+        mEmailRegisterOrganizationButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {registerOrganization();
+            }
+        });
+
+        Button mEmergencyRequestButton = (Button) findViewById(R.id.emergency_request_button);
+        mEmergencyRequestButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {emergencyRequest();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+    private void registerIndividual() {
+//        TODO: Implement individual registration activity
+        Intent intent = new Intent(LoginActivity.this,
+                IndividualRegistrationActivity.class);
+        startActivity(intent);
+    }
+    private void registerOrganization() {
+//        TODO: Implement organization registration activity
+        Intent intent = new Intent(LoginActivity.this,
+                OrganizationRegistrationActivity.class);
+        startActivity(intent);
+    }
+    private void emergencyRequest() {
+//        TODO: Implement emergency request
+        Intent intent = new Intent(LoginActivity.this,
+                EmergencyRequestActivity.class);
+        startActivity(intent);
     }
 
     private void populateAutoComplete() {
