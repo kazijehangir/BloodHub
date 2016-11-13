@@ -25,7 +25,7 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <Button
                 android:id="@+id/emergency_request_button"
                 style="?android:textAppearanceLarge"
@@ -92,7 +92,8 @@
                 android:gravity="center|bottom"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:textSize="22sp"
+                android:textAlignment="center" />
 
             <Button
                 android:id="@+id/email_register_individual_button"
@@ -102,7 +103,9 @@
                 android:gravity="center|bottom"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_register_individual"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textAlignment="center" />
 
             <Button
                 android:id="@+id/email_register_organization_button"
@@ -112,7 +115,8 @@
                 android:gravity="center|bottom"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_register_organization"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>
