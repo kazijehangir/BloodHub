@@ -31,10 +31,14 @@
                 style="?android:textAppearanceLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|top"
-                android:layout_marginTop="16dp"
+                android:gravity="center_vertical|center"
+                android:layout_marginTop="25dp"
                 android:text="@string/action_emergency_request"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:textColorLink="@android:color/black"
+                android:textColor="@android:color/background_light"
+                android:background="@color/colorPrimaryDark" />
         </LinearLayout>
     </ScrollView>
 
@@ -61,7 +65,8 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:layout_marginTop="30dp" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -90,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|bottom"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/action_sign_in"
                 android:textSize="22sp"
                 android:textAlignment="center" />
@@ -101,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|bottom"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="50dp"
                 android:text="@string/action_register_individual"
                 android:textStyle="bold"
                 android:textSize="20sp"
@@ -113,10 +118,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|bottom"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/action_register_organization"
                 android:textStyle="bold"
-                android:textSize="18sp" />
+                android:textSize="20sp"
+                android:textAlignment="center" />
 
         </LinearLayout>
     </ScrollView>
