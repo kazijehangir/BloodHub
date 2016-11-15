@@ -11,4 +11,5 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_individual_registration);
     }
 
+
 }

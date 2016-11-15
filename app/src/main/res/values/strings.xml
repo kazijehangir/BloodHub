@@ -18,6 +18,23 @@
         completions."
     </string>
 
+    <!-- Strings related to Individual User Registeration -->
+    <string name="prompt_name">Name</string>
+    <?xml version="1.0" encoding="utf-8"?>
+    <resources>
+        <string-array name="blood_groups">
+            <item>A+</item>
+            <item>B+</item>
+            <item>AB+</item>
+            <item>O+</item>
+            <item>A-</item>
+            <item>B-</item>
+            <item>AB-</item>
+            <item>O-</item>
+        </string-array>
+
+    </resources>
+
     <!--Strings related to main activity-->
     <string name="title_activity_main">Home</string>
 
