@@ -4,44 +4,74 @@
     android:id="@+id/activity_individual_registration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     tools:context="com.jexapps.bloodhub.IndividualRegistrationActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_horizontal" >
 
-    <TextView
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:textSize="16sp"
-        android:textColor="#401717"
-        android:id="@+id/textView2"
-        android:layout_marginTop="10dp"
-        android:hint="Name"
-        android:textColorHint="#401717"
-        android:textStyle="bold" />
+        android:gravity="center|bottom">
 
-    <TextView
+        <AutoCompleteTextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_marginTop="30dp"
+
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:textSize="16sp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:hint="Email address"
-        android:textColorHint="#401717"
-        android:textStyle="bold" />
+        android:gravity="center|bottom">
 
-    <TextView
+        <AutoCompleteTextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:layout_marginTop="30dp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:textSize="16sp"
-        android:layout_marginTop="10dp"
-        android:hint="Password"
-        android:textColorHint="#401717"
-        android:textStyle="bold" />
+        android:gravity="center|bottom">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_password"
+            android:imeActionId="@+id/login"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

@@ -1,7 +1,7 @@
 package com.jexapps.bloodhub;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
 
@@ -10,4 +10,5 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_registration);
     }
+
 }
