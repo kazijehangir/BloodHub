@@ -26,9 +26,34 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".IndividualRegistrationActivity" />
-        <activity android:name=".OrganizationRegistrationActivity" />
-        <activity android:name=".EmergencyRequestActivity"></activity>
+
+        <activity
+            android:name=".IndividualRegistrationActivity"
+            android:parentActivityName="com.jexapps.bloodhub.LoginActivity">
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.jexapps.bloodhub.LoginActivity" />
+        </activity>
+
+        <activity
+            android:name=".OrganizationRegistrationActivity"
+            android:parentActivityName="com.jexapps.bloodhub.LoginActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.LoginActivity" />
+        </activity>
+
+        <activity
+            android:name=".EmergencyRequestActivity"
+            android:parentActivityName="com.jexapps.bloodhub.LoginActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.LoginActivity" />
+        </activity>
+
     </application>
 
 </manifest>
