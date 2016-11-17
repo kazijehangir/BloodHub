@@ -74,17 +74,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         //    TODO: Store login data in shared preferences file if they dont exist
         //      else load the stored data
+//
         SharedPreferences CREDENTIALS_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
         if (CREDENTIALS_FILE == null) {
             Toast.makeText(this, "Could Not Load Credentials File",
                     Toast.LENGTH_SHORT).show();
         } else {
             int numUsers = CREDENTIALS_FILE.getInt("numUsers", 0);
+//            Toast.makeText(this, "Loaded Credentials file, numusers = " + numUsers,
+//                    Toast.LENGTH_SHORT).show();
 //            if users exist in file, load array from that.
             if (numUsers > 0) {
                 CREDENTIALS = new String[numUsers];
                 for (int i = 0; i < numUsers; i++)
-                    CREDENTIALS_FILE.getString("user_" + i, null);
+                    CREDENTIALS[i] = CREDENTIALS_FILE.getString("user_" + i, null);
             } else {
 //                else save dummy credentials
                 SharedPreferences.Editor credentials_edit = CREDENTIALS_FILE.edit();
@@ -94,6 +97,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 credentials_edit.commit();
             }
         }
+//        Test to see which users are there
+//        for (String credential : CREDENTIALS) {
+//            Toast.makeText(this, "User => " + credential,
+//                    Toast.LENGTH_SHORT).show();
+//        }
 
 
 //       set layout
