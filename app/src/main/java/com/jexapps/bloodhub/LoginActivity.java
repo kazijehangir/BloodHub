@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (numUsers > 0) {
                 CREDENTIALS = new String[numUsers];
                 for (int i = 0; i < numUsers; i++)
-                    CREDENTIALS_FILE.getString("user_" + i, null);
+                    CREDENTIALS[i] = CREDENTIALS_FILE.getString("user_" + i, null);
             } else {
 //                else save dummy credentials
                 SharedPreferences.Editor credentials_edit = CREDENTIALS_FILE.edit();
