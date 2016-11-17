@@ -23,8 +23,7 @@
 
     <!-- Strings related to Individual User Registeration -->
     <string name="prompt_name">Name</string>
-    <string name="check_box">I agree to share my details</string>
-    <string name="action_register">Register</string>
+    <string name="check_box">Agree to share my details</string>
 
     <string-array name="blood_groups">
         <item>A+</item>
@@ -46,6 +45,8 @@
     <!-- Strings related to Emergency Request -->
     <string name="prompt_quan">Quantity</string>
     <string name="prompt_loc">Location</string>
+    <string name="action_submit_request">Submit Request</string>
+    <string name="prompt_reason">Reason/Why</string>
 
     <string-array name="bag_quantity">
         <item>1</item>

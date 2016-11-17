@@ -4,13 +4,13 @@
     android:id="@+id/activity_individual_registration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context="com.jexapps.bloodhub.IndividualRegistrationActivity"
-    android:orientation="vertical"
-    android:gravity="center_horizontal" >
+    tools:context="com.jexapps.bloodhub.IndividualRegistrationActivity">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -21,11 +21,11 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:hint="@string/prompt_org_name"
             android:inputType="textPersonName"
             android:maxLines="1"
             android:singleLine="true"
-            android:layout_marginTop="30dp"
 
             />
 
@@ -40,11 +40,11 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:singleLine="true"
-            android:layout_marginTop="30dp" />
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -66,31 +66,29 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:layout_marginTop="30dp"
             android:ems="10"
-            android:id="@+id/editText"
-            android:text="@string/prompt_contact"
-            android:layout_marginTop="30dp"/>
+            android:inputType="number"
+            android:text="@string/prompt_contact" />
 
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       >
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_add"
             android:layout_marginTop="30dp"
+            android:hint="@string/prompt_add"
             android:maxLines="2" />
 
     </android.support.design.widget.TextInputLayout>
@@ -98,24 +96,24 @@
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="I agree to share my details"
         android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textAlignment="center"
+        android:checked="false"
         android:clickable="false"
-        android:checked="false" />
+        android:gravity="center_horizontal"
+        android:text="Agree to share my details"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/register_button"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|bottom"
         android:layout_marginTop="20dp"
+        android:gravity="center|bottom"
         android:text="@string/action_register"
-        android:textSize="22sp"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="22sp" />
 
 </LinearLayout>
