@@ -84,29 +84,13 @@
         >
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/editText"
-            android:text="@string/prompt_contact"
-            android:layout_marginTop="30dp"/>
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <EditText
-            android:id="@+id/loc"
+            android:id="@+id/"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_loc"
             android:layout_marginTop="30dp"
-            android:maxLines="2"
-             />
+            android:maxLines="1"
+            android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
 
