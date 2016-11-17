@@ -19,28 +19,25 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
-    <ScrollView
-        android:id="@+id/emergency_request"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <Button
+            android:id="@+id/emergency_request_button"
+            style="?android:textAppearanceLarge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/emergency_request_button"
-                style="?android:textAppearanceLarge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical|center"
-                android:layout_marginTop="25dp"
-                android:text="@string/action_emergency_request"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                android:textColorLink="@android:color/black"
-                android:textColor="@android:color/background_light"
-                android:background="@color/colorPrimaryDark" />
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:text="@string/action_emergency_request"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:textColorLink="@android:color/black"
+            android:textColor="@android:color/background_light"
+            android:background="@color/colorPrimaryDark" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/login_form"
