@@ -1,5 +1,6 @@
 package com.jexapps.bloodhub;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 public class IndividualRegistrationActivity extends AppCompatActivity {
 //    TODO: Add user records to credentials storage when registration is successful.
     private static final String CREDENTIALS_FILE_NAME = "credentials";
+    private SharedPreferences CREDENTIAL_FILE;
     private static String[] CREDENTIALS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +64,35 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 //        TODO: just adding email and password now. Need to add other details
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         EditText mPasswordView = (EditText) findViewById(R.id.password);
+        CheckBox mtermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
+        CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
+
+        SharedPreferences.Editor credentials_edit = CREDENTIAL_FILE.edit();
+
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-//        CheckBox = (CheckBox) findViewById(R.id.agreeTerms);
+        if (mtermsAgree.isChecked()) {
+//            add credentials to file
+            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+            credentials_edit.putString("user_" + numUsers, email + ":" + password);
+            credentials_edit.putInt("numUsers", numUsers + 1);
+            credentials_edit.commit();
+//            TESTS: comment out later
+//           j@j
+//            END OF TESTS
+
+//            registration successful, show success popup
+            Toast.makeText(this, "Registration Successful! You can sign in now.",
+                    Toast.LENGTH_SHORT).show();
+//          take user back to login screen
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+
+        } else {
+            Toast.makeText(this, "You need to agree to the terms & conditions to sign up.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
