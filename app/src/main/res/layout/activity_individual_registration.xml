@@ -66,18 +66,24 @@
             android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
+    
+  <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+     >
 
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:id="@+id/bloodg"
-          android:text="Blood Group"
+          android:text="@string/prompt_bloodgroup"
           android:layout_marginTop="30dp"
           android:textSize="18sp"
           />
 
       <Spinner
-          android:layout_width="fill_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:id="@+id/spin"
           android:entries="@array/blood_groups"
@@ -85,22 +91,20 @@
           >
 
       </Spinner>
-    
+
+  </LinearLayout>
+    <!--TODO: add link to terms and conditions-->
     <CheckBox
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I agree to share my details"
+        android:text="@string/prompt_agreeterms"
         android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:clickable="false"
-        android:checked="false" />
+        android:textAllCaps="true"
+        />
 
     <Button
-        android:id="@+id/register_button"
-        style="?android:textAppearanceSmall"
+        android:id="@+id/register_individual_button"
+        style="?android:textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"

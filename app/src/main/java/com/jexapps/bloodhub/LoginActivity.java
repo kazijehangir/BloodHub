@@ -3,6 +3,7 @@ package com.jexapps.bloodhub;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Intent;
+import android.widget.Toast;
 
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -50,9 +52,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
+    private static String[] CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world", "a@a:aaaaa"
     };
+//  TODO: add preferences file for every data to be stored
+    private static final String CREDENTIALS_FILE_NAME = "credentials";
+
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -66,6 +72,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //    TODO: Store login data in shared preferences file if they dont exist
+        //      else load the stored data
+        SharedPreferences CREDENTIALS_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
+        if (CREDENTIALS_FILE == null) {
+            Toast.makeText(this, "Could Not Load Credentials File",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            int numUsers = CREDENTIALS_FILE.getInt("numUsers", 0);
+//            if users exist in file, load array from that.
+            if (numUsers > 0) {
+                CREDENTIALS = new String[numUsers];
+                for (int i = 0; i < numUsers; i++)
+                    CREDENTIALS_FILE.getString("user_" + i, null);
+            } else {
+//                else save dummy credentials
+                SharedPreferences.Editor credentials_edit = CREDENTIALS_FILE.edit();
+                credentials_edit.putInt("numUsers", CREDENTIALS.length);
+                for(int i=0;i<CREDENTIALS.length; i++)
+                    credentials_edit.putString("user_" + i, CREDENTIALS[i]);
+                credentials_edit.commit();
+            }
+        }
+
+
+//       set layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -356,7 +387,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
+            for (String credential : CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
