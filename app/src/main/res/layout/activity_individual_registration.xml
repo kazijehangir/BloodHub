@@ -66,12 +66,6 @@
             android:singleLine="true" />
 
     </android.support.design.widget.TextInputLayout>
-    
-  <LinearLayout
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-     >
 
       <TextView
           android:layout_width="match_parent"
@@ -91,16 +85,28 @@
           >
 
       </Spinner>
-
-  </LinearLayout>
     
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="agree"
+        android:text="I agree to share my details"
         android:layout_marginTop="20dp"
-        android:textAllCaps="true"
-        android:onClick="onCheckboxClicked"
-        />
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:clickable="false"
+        android:checked="false" />
+
+    <Button
+        android:id="@+id/register_button"
+        style="?android:textAppearanceSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center|bottom"
+        android:layout_marginTop="20dp"
+        android:text="@string/action_register"
+        android:textSize="22sp"
+        android:textAlignment="center" />
 
 </LinearLayout>
