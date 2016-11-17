@@ -70,12 +70,12 @@
         >
 
         <EditText
-            android:id="@+id/contact_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_contact"
-            android:maxLines="1"
-            android:singleLine="true"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:text="@string/prompt_contact"
             android:layout_marginTop="30dp"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -91,8 +91,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_add"
             android:layout_marginTop="30dp"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:maxLines="2" />
 
     </android.support.design.widget.TextInputLayout>
 

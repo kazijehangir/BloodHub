@@ -38,6 +38,23 @@
     <string name="prompt_org_name">Institute Name</string>
     <string name="prompt_contact">Contact No.</string>
     <string name="prompt_add">Address</string>
+
+
+    <!-- Strings related to Emergency Request -->
+    <string name="prompt_quan">Quantity</string>
+    <string name="prompt_loc">Location</string>
+
+    <string-array name="bag_quantity">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
     <!--Strings related to main activity-->
     <string name="title_activity_main">Home</string>
 
