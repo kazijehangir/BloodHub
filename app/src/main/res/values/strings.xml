@@ -34,7 +34,10 @@
         <item>O-</item>
     </string-array>
 
-
+    <!-- Strings related to Individual User Registeration -->
+    <string name="prompt_org_name">Institute Name</string>
+    <string name="prompt_contact">Contact No.</string>
+    <string name="prompt_add">Address</string>
     <!--Strings related to main activity-->
     <string name="title_activity_main">Home</string>
 

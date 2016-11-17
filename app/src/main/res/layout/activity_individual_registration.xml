@@ -87,7 +87,7 @@
       </Spinner>
     
     <CheckBox
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="I agree to share my details"
         android:layout_marginTop="20dp"
@@ -101,7 +101,7 @@
     <Button
         android:id="@+id/register_button"
         style="?android:textAppearanceSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
         android:layout_marginTop="20dp"
