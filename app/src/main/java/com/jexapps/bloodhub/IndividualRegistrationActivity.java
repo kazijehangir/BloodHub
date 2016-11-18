@@ -79,7 +79,16 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
             credentials_edit.putInt("numUsers", numUsers + 1);
             credentials_edit.commit();
 //            TESTS: comment out later
-//           j@j
+            numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+            String[] CREDENTIALS = new String[numUsers];
+            for (int i = 0; i < numUsers; i++) {
+                CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
+            }
+            //        Test to see which users are there
+            for (String credential : CREDENTIALS) {
+                Toast.makeText(this, "User => " + credential,
+                        Toast.LENGTH_SHORT).show();
+            }
 //            END OF TESTS
 
 //            registration successful, show success popup

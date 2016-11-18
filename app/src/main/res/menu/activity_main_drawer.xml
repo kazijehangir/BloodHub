@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!--TODO: improve icons-->
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_home"
+            android:icon="@drawable/ic_home_white_24dp"
             android:title="@string/nav_home" />
         <item
             android:id="@+id/nav_requests"
-            android:icon="@drawable/ic_menu_requests"
+            android:icon="@drawable/ic_accessible_white_24dp"
             android:title="@string/nav_requests" />
         <item
             android:id="@+id/nav_donations"
-            android:icon="@drawable/ic_menu_donations"
+            android:icon="@drawable/ic_mood_white_24dp"
             android:title="@string/nav_donations" />
         <item
             android:id="@+id/nav_appointments"
-            android:icon="@drawable/ic_menu_appointments"
+            android:icon="@drawable/ic_event_white_24dp"
             android:title="@string/nav_appointments" />
     </group>
 
@@ -25,11 +25,11 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_organizations"
-                    android:icon="@drawable/ic_menu_organizations"
+                    android:icon="@drawable/ic_business_white_24dp"
                     android:title="@string/nav_organizations" />
                 <item
                     android:id="@+id/nav_faq"
-                    android:icon="@drawable/ic_menu_faq"
+                    android:icon="@drawable/ic_help_white_24dp"
                     android:title="@string/nav_faqs" />
             </group>
         </menu>
@@ -39,11 +39,11 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_friend"
-                    android:icon="@drawable/ic_menu_friend"
+                    android:icon="@drawable/ic_person_add_white_24dp"
                     android:title="@string/nav_friend" />
                 <item
                     android:id="@+id/nav_report"
-                    android:icon="@drawable/ic_menu_report"
+                    android:icon="@drawable/ic_feedback_white_24dp"
                     android:title="@string/nav_report" />
             </group>
         </menu>
