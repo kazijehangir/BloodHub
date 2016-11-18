@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
-//    TODO: Add user records to credentials storage when registration is successful.
     private static final String CREDENTIALS_FILE_NAME = "credentials";
     private SharedPreferences CREDENTIAL_FILE;
     private static String[] CREDENTIALS;

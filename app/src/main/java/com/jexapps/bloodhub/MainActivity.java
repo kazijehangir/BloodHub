@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
         } else {
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
         }
+//        TODO: comment this toast out when done debugging
         Toast.makeText(this, "Logged in " + mEmail + " successfully.",
                 Toast.LENGTH_SHORT).show();
 

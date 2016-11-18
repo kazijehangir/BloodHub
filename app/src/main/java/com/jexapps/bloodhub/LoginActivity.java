@@ -72,9 +72,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //    TODO: Store login data in shared preferences file if they dont exist
-        //      else load the stored data
-//
+        //Store login data in shared preferences file if they dont exist
+        //else load the stored data
+
         SharedPreferences CREDENTIALS_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
         if (CREDENTIALS_FILE == null) {
             Toast.makeText(this, "Could Not Load Credentials File",
