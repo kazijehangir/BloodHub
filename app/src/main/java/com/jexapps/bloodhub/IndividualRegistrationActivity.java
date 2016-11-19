@@ -11,9 +11,10 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.Arrays;
 
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
@@ -29,15 +30,15 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 //        Load credentials file so that we can update it.
-        SharedPreferences CREDENTIALS_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
-        if (CREDENTIALS_FILE == null) {
+        CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
+        if (CREDENTIAL_FILE == null) {
             Toast.makeText(this, "Could Not Load Credentials File",
                     Toast.LENGTH_SHORT).show();
         } else {
-            int numUsers = CREDENTIALS_FILE.getInt("numUsers", 0);
+            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
             CREDENTIALS = new String[numUsers];
             for (int i = 0; i < numUsers; i++)
-                CREDENTIALS[i] = CREDENTIALS_FILE.getString("user_" + i, null);
+                CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
         }
         // Set OnClick Listeners for buttons
         Button mRegisterButton = (Button) findViewById(R.id.register_individual_button);
@@ -64,44 +65,59 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         EditText mPasswordView = (EditText) findViewById(R.id.password);
         CheckBox mtermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
-        CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
 
         SharedPreferences.Editor credentials_edit = CREDENTIAL_FILE.edit();
 
-        // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        if (mtermsAgree.isChecked()) {
-//            add credentials to file
-            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-            credentials_edit.putString("user_" + numUsers, email + ":" + password);
-            credentials_edit.putInt("numUsers", numUsers + 1);
-            credentials_edit.commit();
-//            TESTS: comment out later
-//            numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-//            String[] CREDENTIALS = new String[numUsers];
-//            for (int i = 0; i < numUsers; i++) {
-//                CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
-//            }
-//            //        Test to see which users are there
-//            for (String credential : CREDENTIALS) {
-//                Toast.makeText(this, "User => " + credential,
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//            END OF TESTS
-
-//            registration successful, show success popup
-            Toast.makeText(this, "Registration Successful!",
-                    Toast.LENGTH_SHORT).show();
-//          take user to main screen
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("mEmail", email);
-            startActivity(intent);
-
-        } else {
+        if (!mtermsAgree.isChecked()) {
             Toast.makeText(this, "You need to agree to the terms & conditions to sign up.",
                     Toast.LENGTH_SHORT).show();
+        } else {
+            if (Arrays.asList(CREDENTIALS).contains(email+":"+password)) {
+                Toast.makeText(this, "User with this Email address and Password already Exists.",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                if (email.contains(":") || password.contains(":")) {
+                    Toast.makeText(this, "Email address and Password cannot contain ':'",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    if (password.length() <= 4) {
+                        Toast.makeText(this, "Password is too short, minimum length is 4.",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (!email.contains("@")) {
+                            Toast.makeText(this, "Not a valid email address",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+//                    add credentials to file
+                            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+                            credentials_edit.putString("user_" + numUsers, email + ":" + password);
+                            credentials_edit.putInt("numUsers", numUsers + 1);
+                            credentials_edit.commit();
+//                    registration successful, show success popup
+                            Toast.makeText(this, "Registration Successful!",
+                                    Toast.LENGTH_SHORT).show();
+//                    take user to main screen
+                            Intent intent = new Intent(this, MainActivity.class);
+                            intent.putExtra("mEmail", email);
+                            startActivity(intent);
+                        }
+                    }
+                }
+            }
         }
+//        TESTS: comment out later
+//        numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+//        String[] CREDENTIALS = new String[numUsers];
+//        for (int i = 0; i < numUsers; i++) {
+//            CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
+//        }
+//        //        Test to see which users are there
+//        for (String credential : CREDENTIALS) {
+//            Toast.makeText(this, "User => " + credential,
+//                    Toast.LENGTH_SHORT).show();
+//        }
+//        END OF TESTS
     }
-
 }
