@@ -21,7 +21,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     //TODO: add separate layout for organizations
 //    TODO: Understand inflating views. probably is fix to update email and photo
-    
+//    inflating views is creating view and view-groups from an xml file/resource
+//    not sure if that helps.
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity

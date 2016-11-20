@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * TODO: remove after connecting to a real authentication system.
      */
     private static String[] CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world", "a@a:aaaaa"
+            "foo@example.com:hello", "bar@example.com:world", "a@a.a:aaaaa"
     };
 //  TODO: add preferences file for every data to be stored
     private static final String CREDENTIALS_FILE_NAME = "credentials";

@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import java.util.Arrays;
 
+import static java.lang.Boolean.TRUE;
+
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
     private static final String CREDENTIALS_FILE_NAME = "credentials";
@@ -60,6 +62,23 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    private Boolean emailAlreadyExists(String email) {
+        int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+        String[] CREDENTIALS = new String[numUsers];
+        for (int i = 0; i < numUsers; i++) {
+            CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
+        }
+        //        Test to see which users are there
+        for (String credential : CREDENTIALS) {
+            Toast.makeText(this, "User => " + credential,
+                    Toast.LENGTH_SHORT).show();
+            if (credential.split(":")[0].equals(email)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
     private void registerNewUser() {
 //        TODO: just adding email and password now. Need to add other details
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -74,8 +93,8 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
             Toast.makeText(this, "You need to agree to the terms & conditions to sign up.",
                     Toast.LENGTH_SHORT).show();
         } else {
-            if (Arrays.asList(CREDENTIALS).contains(email+":"+password)) {
-                Toast.makeText(this, "User with this Email address and Password already Exists.",
+            if (emailAlreadyExists(email)) {
+                Toast.makeText(this, "User with this Email address already exists.",
                         Toast.LENGTH_SHORT).show();
             } else {
                 if (email.contains(":") || password.contains(":")) {
