@@ -20,6 +20,11 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+    <!-- The main content view where fragments are loaded -->
+    <FrameLayout
+        android:id="@+id/flContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -31,6 +36,6 @@
         android:src="@drawable/ic_add_white" />
 
 
-    <include layout="@layout/content_main" />
+    <!--<include layout="@layout/content_main" />-->
 
 </android.support.design.widget.CoordinatorLayout>
