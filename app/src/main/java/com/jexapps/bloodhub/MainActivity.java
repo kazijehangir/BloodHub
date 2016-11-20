@@ -73,7 +73,10 @@ public class MainActivity extends AppCompatActivity
         } else {
             Toast.makeText(this, "email_View == null",Toast.LENGTH_LONG).show();
         }
+//        Home should be selected when this activity starts
+        navigationView.setCheckedItem(R.id.nav_home);
 
+//        TODO: Name and email Address should be displayed on nav-bar
 
 //        TODO: Implement swipe views for home page
 //        https://developer.android.com/training/implementing-navigation/lateral.html
@@ -111,6 +114,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+//        TODO: Implement search using this guide
+//        https://developer.android.com/training/search/setup.html
         return true;
     }
 
@@ -137,7 +142,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_requests) {
-            // Handle the camera action
+            // Handle the REQUESTS action
         } else if (id == R.id.nav_donations) {
 
         } else if (id == R.id.nav_appointments) {

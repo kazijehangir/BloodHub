@@ -63,15 +63,9 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     private Boolean emailAlreadyExists(String email) {
-        int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-        String[] CREDENTIALS = new String[numUsers];
-        for (int i = 0; i < numUsers; i++) {
-            CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
-        }
-        //        Test to see which users are there
         for (String credential : CREDENTIALS) {
-            Toast.makeText(this, "User => " + credential,
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "User => " + credential,
+//                    Toast.LENGTH_SHORT).show();
             if (credential.split(":")[0].equals(email)) {
                 return true;
             }
@@ -83,13 +77,13 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 //        TODO: just adding email and password now. Need to add other details
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         EditText mPasswordView = (EditText) findViewById(R.id.password);
-        CheckBox mtermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
+        CheckBox mTermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
 
         SharedPreferences.Editor credentials_edit = CREDENTIAL_FILE.edit();
 
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        if (!mtermsAgree.isChecked()) {
+        if (!mTermsAgree.isChecked()) {
             Toast.makeText(this, "You need to agree to the terms & conditions to sign up.",
                     Toast.LENGTH_SHORT).show();
         } else {
@@ -114,6 +108,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                             credentials_edit.putString("user_" + numUsers, email + ":" + password);
                             credentials_edit.putInt("numUsers", numUsers + 1);
                             credentials_edit.commit();
+//                    add user's name to name file
 //                    registration successful, show success popup
                             Toast.makeText(this, "Registration Successful!",
                                     Toast.LENGTH_SHORT).show();
