@@ -5,6 +5,7 @@
     tools:context="com.jexapps.bloodhub.FaqFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <!--TODO: implement collapsible views-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

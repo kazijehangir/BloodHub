@@ -38,6 +38,10 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
+                    android:id="@+id/nav_Settings"
+                    android:icon="@drawable/ic_settings_white_24dp"
+                    android:title="@string/action_settings" />
+                <item
                     android:id="@+id/nav_friend"
                     android:icon="@drawable/ic_person_add_white_24dp"
                     android:title="@string/nav_friend" />

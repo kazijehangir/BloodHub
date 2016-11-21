@@ -5,6 +5,7 @@
     tools:context="com.jexapps.bloodhub.InviteFriendFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <!--TODO: look at share intents-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
