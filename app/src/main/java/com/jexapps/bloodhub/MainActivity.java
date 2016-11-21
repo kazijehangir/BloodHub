@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
                 Intent intent = new Intent(MainActivity.this, AddRequestActivity.class);
-//                startActivity(intent);
+                startActivity(intent);
             }
         });
 

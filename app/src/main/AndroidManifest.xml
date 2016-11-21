@@ -27,6 +27,8 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".AddRequestActivity" />
+
         <activity
             android:name=".IndividualRegistrationActivity"
             android:parentActivityName="com.jexapps.bloodhub.LoginActivity">
