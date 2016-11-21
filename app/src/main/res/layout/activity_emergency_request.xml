@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:text="@string/action_emergency_request"
         android:textAllCaps="true"
         android:textSize="25sp"
@@ -30,7 +30,7 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:hint="@string/prompt_name"
             android:inputType="textPersonName"
             android:maxLines="1"
@@ -87,6 +87,13 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/contact_num" />
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -107,7 +114,7 @@
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:gravity="center|bottom"
         android:text="@string/action_submit_request"
         android:textAlignment="center"
