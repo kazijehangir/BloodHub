@@ -28,9 +28,41 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@android:color/holo_red_dark"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
         android:src="@drawable/ic_add_white" />
 
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="90dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:visibility="invisible"
+            app:elevation="6dp"
+            app:backgroundTint="@values:color/fab1"
+            app:pressedTranslationZ="12dp"
+            android:src="@drawable/ic_person_add_white_24dp"
+            />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:visibility="invisible"
+        app:backgroundTint="@values:color/fab1"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:src="@drawable/ic_event_white_24dp" />
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textColor="#000000"-->
+            <!--android:text="above"/>-->
+    <!--</RelativeLayout>-->
     <include layout="@layout/content_main" />
 
 </android.support.design.widget.CoordinatorLayout>
