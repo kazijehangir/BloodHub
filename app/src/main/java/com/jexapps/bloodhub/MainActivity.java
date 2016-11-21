@@ -88,6 +88,14 @@ public class MainActivity extends AppCompatActivity
         }
 //        Home should be selected when this activity starts
         navigationView.setCheckedItem(R.id.nav_home);
+        // Insert the home fragment by replacing any existing fragment
+        try {
+            Fragment fragment = HomeFragment.class.newInstance();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 //        TODO: Name and email Address should be displayed on nav-bar
 
@@ -191,6 +199,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+//    TODO: Understand what OnFragmentInteractionListener is supposed to do
     @Override
     public void onAppointmentsFragmentInteraction(Uri uri) {
 
