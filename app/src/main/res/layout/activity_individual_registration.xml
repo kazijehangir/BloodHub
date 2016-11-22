@@ -78,7 +78,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="20dp">
 
                 <Spinner
                     android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
                 android:layout_gravity="bottom|center"
                 android:textColor="@android:color/background_dark"
                 android:background="@android:color/background_light"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="20dp" />
             <ScrollView
                 android:layout_width="364dp"
                 android:layout_height="88dp">
@@ -139,7 +139,7 @@
                 android:id="@+id/agreeTerms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/prompt_agreeterms"
                 android:textAllCaps="true"
                 />
@@ -155,7 +155,8 @@
                 android:textAlignment="center"
                 android:layout_gravity="bottom|center"
                 android:textColor="@android:color/background_light"
-                android:background="@color/fab1" />
+                android:background="@color/fab1"
+                android:layout_marginTop="10dp" />
         </LinearLayout>
 
 </LinearLayout>
