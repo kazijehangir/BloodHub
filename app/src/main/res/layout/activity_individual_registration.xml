@@ -74,32 +74,33 @@
 
             </android.support.design.widget.TextInputLayout>
 
-          <LinearLayout
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-             >
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
 
-              <TextView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/bloodg"
-                  android:text="@string/prompt_bloodgroup"
-                  android:layout_marginTop="30dp"
-                  android:textSize="18sp"
-                  />
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spin"
+                    android:entries="@array/blood_groups"
+                    android:layout_alignTop="@+id/bloodg"
+                    android:layout_centerHorizontal="true">
 
-              <Spinner
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/spin"
-                  android:entries="@array/blood_groups"
-                  android:layout_marginTop="10dp"
-                  >
+                </Spinner>
 
-              </Spinner>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bloodg"
+                    android:text="@string/prompt_bloodgroup"
+                    android:textSize="18sp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
-          </LinearLayout>
+            </RelativeLayout>
             <!--TODO: add link to terms and conditions-->
             <Button
                 android:id="@+id/textTerms"
