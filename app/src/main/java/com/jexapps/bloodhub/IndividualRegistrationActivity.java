@@ -59,32 +59,8 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 registerNewUser();
             }
         });
-        TextView termsCond = (TextView) findViewById(R.id.terms);
-        termsCond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openTerms();
-            }
-        });
     }
 
-    private PopupWindow terms;
-    private void openTerms() {
-//        TODO: Implement individual registration activity
-        LayoutInflater termsLayout = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-        ViewGroup container = (ViewGroup) termsLayout.inflate(R.layout.activity_terms_cond,null);
-        LinearLayout rlayout = (LinearLayout) findViewById(R.id.linear);
-
-        terms = new PopupWindow(container,980,1200,true);
-        terms.showAtLocation(rlayout, Gravity.NO_GRAVITY, 50, 300);
-        container.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                terms.dismiss();
-                return true;
-            }
-        });
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -132,7 +108,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                     Toast.makeText(this, "Email address and Password cannot contain ':'",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    if (password.length() <= 4) {
+                    if (password.length() < 4) {
                         Toast.makeText(this, "Password is too short, minimum length is 4.",
                                 Toast.LENGTH_SHORT).show();
                     } else {

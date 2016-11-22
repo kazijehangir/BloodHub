@@ -4,19 +4,17 @@
     android:id="@+id/activity_individual_registration"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     tools:context="com.jexapps.bloodhub.IndividualRegistrationActivity"
     android:orientation="vertical"
-    android:gravity="center_horizontal" >
-    <ScrollView
+     >
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1"
             android:id="@+id/linear">
@@ -103,40 +101,47 @@
 
           </LinearLayout>
             <!--TODO: add link to terms and conditions-->
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            <ScrollView
+                android:layout_width="364dp"
+                android:layout_height="88dp"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+                    <TextView
+                        android:text="@string/agreeterms"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/termsAndCond"
+                        android:textColorHint="@android:color/background_dark"
+                        android:textColor="@android:color/background_dark" />
+                </LinearLayout>
+            </ScrollView>
+
             <CheckBox
                 android:id="@+id/agreeTerms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:text="@string/prompt_agreeterms"
                 android:textAllCaps="true"
                 />
 
-            <TextView
-                android:text="@string/prompt_agreeterms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/terms"
-                android:textColorHint="@android:color/background_dark"
-                android:textColor="@android:color/background_dark"
-                android:layout_marginTop="22dp" />
-        </LinearLayout>
             <Button
                 android:id="@+id/register_individual_button"
                 style="?android:textAppearanceLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|bottom"
+                android:gravity="center"
                 android:layout_marginTop="20dp"
                 android:text="@string/action_register"
                 android:textSize="22sp"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:layout_gravity="bottom|center"
+                android:textColor="@android:color/background_light"
+                android:background="@color/fab1" />
         </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>
