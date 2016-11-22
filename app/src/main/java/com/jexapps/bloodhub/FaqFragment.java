@@ -7,7 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +54,11 @@ public class FaqFragment extends Fragment {
         return fragment;
     }
 
+    ExpandableListView expandableListView;
+
+    List<String> faq;
+    Map<String, List<String>> faqDet;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +66,9 @@ public class FaqFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+
     }
 
     @Override
@@ -105,4 +116,5 @@ public class FaqFragment extends Fragment {
         // TODO: Update argument type and name
         void onFaqFragmentInteraction(Uri uri);
     }
+
 }
