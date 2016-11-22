@@ -57,36 +57,5 @@
         android:text="Contact No: 0399-3948004"
         android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rew_p"
-        android:layout_below="@+id/con_num"
-        android:layout_alignLeft="@+id/name"
-        android:layout_marginTop="10dp"
-        android:text="Contact No: 0399-3948004"
-        android:textSize="20sp" />
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/b1"
-        android:layout_below="@+id/rew_p"
-        android:layout_alignLeft="@+id/name"
-        android:layout_marginTop="10dp"
-        android:text="Change Timing"
-        android:textSize="15sp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/b2"
-        android:layout_below="@+id/b1"
-        android:layout_alignLeft="@+id/name"
-        android:layout_marginTop="10dp"
-        android:text="Cancel Appointment"
-        android:textSize="15sp" />
-
 
 </RelativeLayout>
