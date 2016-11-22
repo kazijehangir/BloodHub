@@ -5,14 +5,22 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -51,7 +59,31 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 registerNewUser();
             }
         });
+        TextView termsCond = (TextView) findViewById(R.id.terms);
+        termsCond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openTerms();
+            }
+        });
+    }
 
+    private PopupWindow terms;
+    private void openTerms() {
+//        TODO: Implement individual registration activity
+        LayoutInflater termsLayout = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) termsLayout.inflate(R.layout.activity_terms_cond,null);
+        LinearLayout rlayout = (LinearLayout) findViewById(R.id.linear);
+
+        terms = new PopupWindow(container,980,1200,true);
+        terms.showAtLocation(rlayout, Gravity.NO_GRAVITY, 50, 300);
+        container.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                terms.dismiss();
+                return true;
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
