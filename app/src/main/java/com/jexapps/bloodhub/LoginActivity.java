@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private View mEmergencyRequestView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +82,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Toast.LENGTH_SHORT).show();
         } else {
             int numUsers = CREDENTIALS_FILE.getInt("numUsers", 0);
-//            Toast.makeText(this, "Loaded Credentials file, numusers = " + numUsers,
-//                    Toast.LENGTH_SHORT).show();
+           //Toast.makeText(this, "Loaded Credentials file, numusers = " + numUsers,
+                    //Toast.LENGTH_SHORT).show();
 //            if users exist in file, load array from that.
             if (numUsers > 0) {
                 CREDENTIALS = new String[numUsers];
@@ -97,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 credentials_edit.commit();
             }
         }
-//        Test to see which users are there
+//       Test to see which users are there
 //        for (String credential : CREDENTIALS) {
 //            Toast.makeText(this, "User => " + credential,
 //                    Toast.LENGTH_SHORT).show();
@@ -154,6 +155,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        mEmergencyRequestView = findViewById(R.id.emergency_request_button);
     }
     private void registerIndividual() {
 //        TODO: Implement individual registration activity
@@ -291,6 +293,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
+//            animate emergency request button as well
+            mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mEmergencyRequestView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
@@ -299,6 +310,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
             });
+
 
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
@@ -313,6 +325,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 

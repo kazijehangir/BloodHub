@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -81,13 +82,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 //        setupDrawerContent(navigationView);
 
-        TextView emailView = (TextView) navigationView.findViewById(R.id.email_View);
-        if (emailView != null) {
-            emailView.setText(mEmail);
-            Toast.makeText(this, "email_View != null",Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "email_View == null",Toast.LENGTH_LONG).show();
-        }
 //        Home should be selected when this activity starts
         navigationView.setCheckedItem(R.id.nav_home);
         // Insert the home fragment by replacing any existing fragment
@@ -100,7 +94,16 @@ public class MainActivity extends AppCompatActivity
         }
 
 //        TODO: Name and email Address should be displayed on nav-bar
+        View header = navigationView.getHeaderView(0);
+        TextView mNav_email = (TextView) header.findViewById(R.id.nav_header_email);
+        TextView mNav_name = (TextView) header.findViewById(R.id.nav_header_name);
+        ImageView mNav_image = (ImageView) header.findViewById(R.id.nav_header_image);
 
+        mNav_email.setText(mEmail);
+
+//        TODO: Get name and image from database and display here
+//        mNav_name.setText("PLACEHOLDER NAME");
+//        mNav_image.setImageDrawable();
 //        TODO: Implement swipe views for home page
 
     }

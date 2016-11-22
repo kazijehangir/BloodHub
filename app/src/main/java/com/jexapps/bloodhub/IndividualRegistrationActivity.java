@@ -12,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -78,11 +79,15 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         EditText mPasswordView = (EditText) findViewById(R.id.password);
         CheckBox mTermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
+        AutoCompleteTextView username = (AutoCompleteTextView) findViewById(R.id.name);
+        Spinner bloodGroup = (Spinner) findViewById(R.id.spin);
 
         SharedPreferences.Editor credentials_edit = CREDENTIAL_FILE.edit();
 
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String uname = username.getText().toString();
+        String bgroup = bloodGroup.getSelectedItem().toString();
         if (!mTermsAgree.isChecked()) {
             Toast.makeText(this, "You need to agree to the terms & conditions to sign up.",
                     Toast.LENGTH_SHORT).show();
@@ -105,7 +110,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                         } else {
 //                    add credentials to file
                             int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-                            credentials_edit.putString("user_" + numUsers, email + ":" + password);
+                            credentials_edit.putString("user_" + numUsers, email + ":" + password + ":" + uname + ":" + bgroup);
                             credentials_edit.putInt("numUsers", numUsers + 1);
                             credentials_edit.commit();
 //                    add user's name to name file
@@ -122,7 +127,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
             }
         }
 //        TESTS: comment out later
-//        numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+//        int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
 //        String[] CREDENTIALS = new String[numUsers];
 //        for (int i = 0; i < numUsers; i++) {
 //            CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
@@ -130,7 +135,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 //        //        Test to see which users are there
 //        for (String credential : CREDENTIALS) {
 //            Toast.makeText(this, "User => " + credential,
-//                    Toast.LENGTH_SHORT).show();
+//            Toast.LENGTH_SHORT).show();
 //        }
 //        END OF TESTS
     }
