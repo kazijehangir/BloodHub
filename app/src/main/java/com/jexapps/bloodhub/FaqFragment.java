@@ -67,7 +67,7 @@ public class FaqFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        //expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
 
     }
 
