@@ -7,6 +7,7 @@
     <string name="prompt_bloodgroup">Blood Group</string>
     <string name="prompt_agreeterms">I agree to these terms and conditions</string>
     <string name="agreeterms">People registering on this application must understand that the information provided by them on the registration page is available to a person seeking for a particular blood group. We do not sell contact details of potential donors to any third party or use it in any way for commercial gains. We does not arrange for blood. We only provide relevant information about potential donors to those in need of blood. We reserve the right to inactivate member at any given time in case of wrong information given or misuse of service.</string>
+    <string name="termsTitle">TERMS AND CONDITIONS</string>
     <string name="action_register">Register</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_register_individual">Register as Individual</string>
