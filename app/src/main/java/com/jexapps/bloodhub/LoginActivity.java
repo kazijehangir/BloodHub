@@ -81,8 +81,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Toast.LENGTH_SHORT).show();
         } else {
             int numUsers = CREDENTIALS_FILE.getInt("numUsers", 0);
-//            Toast.makeText(this, "Loaded Credentials file, numusers = " + numUsers,
-//                    Toast.LENGTH_SHORT).show();
+           //Toast.makeText(this, "Loaded Credentials file, numusers = " + numUsers,
+                    //Toast.LENGTH_SHORT).show();
 //            if users exist in file, load array from that.
             if (numUsers > 0) {
                 CREDENTIALS = new String[numUsers];
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 credentials_edit.commit();
             }
         }
-//        Test to see which users are there
+//       Test to see which users are there
 //        for (String credential : CREDENTIALS) {
 //            Toast.makeText(this, "User => " + credential,
 //                    Toast.LENGTH_SHORT).show();
