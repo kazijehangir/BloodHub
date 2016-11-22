@@ -115,7 +115,8 @@
                 android:layout_gravity="bottom|center"
                 android:textColor="@android:color/background_dark"
                 android:background="@android:color/background_light"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp"
+                android:textStyle="normal|bold" />
             <ScrollView
                 android:layout_width="364dp"
                 android:layout_height="88dp">
