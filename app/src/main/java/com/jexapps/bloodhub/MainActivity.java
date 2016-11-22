@@ -2,6 +2,7 @@ package com.jexapps.bloodhub;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.database.DatabaseErrorHandler;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity
 //    inflating views is creating view and view-groups from an xml file/resource
 //    not sure if that helps.
     private DrawerLayout mDrawer;
+    private static final String CREDENTIALS_FILE_NAME = "credentials";
+    private SharedPreferences CREDENTIAL_FILE;
+    private static String[] CREDENTIALS;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-//        TODO: Name and email Address should be displayed on nav-bar
+//      Name and email Address should be displayed on nav-bar
         View header = navigationView.getHeaderView(0);
         TextView mNav_email = (TextView) header.findViewById(R.id.nav_header_email);
         TextView mNav_name = (TextView) header.findViewById(R.id.nav_header_name);
@@ -102,12 +106,27 @@ public class MainActivity extends AppCompatActivity
         mNav_email.setText(mEmail);
 
 //        TODO: Get name and image from database and display here
-//        mNav_name.setText("PLACEHOLDER NAME");
+        mNav_name.setText(getNameFromDatabase(mEmail));
 //        mNav_image.setImageDrawable();
 //        TODO: Implement swipe views for home page
 
     }
+    private String getNameFromDatabase(String email) {
+        CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
+        int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+        CREDENTIALS = new String[numUsers];
+        for (int i = 0; i < numUsers; i++)
+            CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
 
+        for (String credential : CREDENTIALS) {
+            String[] pieces = credential.split(":");
+            if (pieces[0].equals(email)) {
+                // Account exists, return true if the password matches.
+                return pieces[2];
+            }
+        }
+        return null;
+    }
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
