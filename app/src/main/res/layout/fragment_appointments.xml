@@ -10,26 +10,20 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:text="Your Appointments"
-        android:textSize="30sp" />
-
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        >
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_marginTop="20dp"
             android:text="Appointments:"
+            android:textStyle="bold"
             android:textSize="25sp" />
 
         <Button
@@ -37,11 +31,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
-            android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/textView3"
             android:layout_toRightOf="@+id/textView3"
             android:inputType="number"
-            android:text="2" />
+            android:text="1" />
 
     </RelativeLayout>
 
