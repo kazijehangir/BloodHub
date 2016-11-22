@@ -4,10 +4,89 @@
     android:id="@+id/activity_user_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.jexapps.bloodhub.UserProfile">
+    tools:context="com.jexapps.bloodhub.UserProfile"
+    android:layout_marginTop="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    >
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:id="@+id/image1"
+        android:src="@drawable/red_crescent"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/name"
+        android:layout_toLeftOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Name: Aimen Gaba"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/age"
+        android:layout_below="@+id/name"
+        android:layout_alignLeft="@+id/name"
+        android:layout_marginTop="10dp"
+        android:text="Age: 20"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/blood_g"
+        android:layout_below="@+id/age"
+        android:layout_alignLeft="@+id/name"
+        android:layout_marginTop="10dp"
+        android:text="Blood Group: A+"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/con_num"
+        android:layout_below="@+id/blood_g"
+        android:layout_alignLeft="@+id/name"
+        android:layout_marginTop="10dp"
+        android:text="Contact No: 0399-3948004"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rew_p"
+        android:layout_below="@+id/con_num"
+        android:layout_alignLeft="@+id/name"
+        android:layout_marginTop="10dp"
+        android:text="Contact No: 0399-3948004"
+        android:textSize="20sp" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/b1"
+        android:layout_below="@+id/rew_p"
+        android:layout_alignLeft="@+id/name"
+        android:layout_marginTop="10dp"
+        android:text="Change Timing"
+        android:textSize="15sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/b2"
+        android:layout_below="@+id/b1"
+        android:layout_alignLeft="@+id/name"
+        android:layout_marginTop="10dp"
+        android:text="Cancel Appointment"
+        android:textSize="15sp" />
+
 
 </RelativeLayout>
