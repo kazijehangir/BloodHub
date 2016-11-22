@@ -88,7 +88,7 @@
                 android:layout_below="@+id/name"
                 android:layout_alignLeft="@+id/name"
                 android:layout_marginTop="10dp"
-                android:text="Timing: 12:00 pm"
+                android:text="Time: 2nd Dec'16, 12:00 pm"
                 android:textSize="15sp" />
 
             <TextView
