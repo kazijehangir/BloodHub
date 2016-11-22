@@ -132,14 +132,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailRegisterIndividualButton = (Button) findViewById(R.id.email_register_individual_button);
+        TextView mEmailRegisterIndividualButton = (TextView) findViewById(R.id.email_register_individual_button);
         mEmailRegisterIndividualButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {registerIndividual();
             }
         });
 
-        Button mEmailRegisterOrganizationButton = (Button) findViewById(R.id.email_register_organization_button);
+        TextView mEmailRegisterOrganizationButton = (TextView) findViewById(R.id.email_register_organization_button);
         mEmailRegisterOrganizationButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {registerOrganization();
