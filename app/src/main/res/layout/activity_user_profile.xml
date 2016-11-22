@@ -4,64 +4,64 @@
     android:id="@+id/activity_user_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jexapps.bloodhub.UserProfile"
-    android:layout_marginTop="20dp"
-    android:layout_marginRight="20dp"
     android:layout_marginLeft="20dp"
-    >
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="20dp"
+    tools:context="com.jexapps.bloodhub.UserProfile">
 
     <TextView
+        android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/age"
-        android:layout_below="@+id/name"
         android:layout_alignLeft="@+id/name"
+        android:layout_below="@+id/name"
         android:layout_marginTop="10dp"
         android:text="Age: 20"
         android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/blood_g"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/blood_g"
-        android:layout_below="@+id/age"
         android:layout_alignLeft="@+id/name"
+        android:layout_below="@+id/age"
         android:layout_marginTop="10dp"
         android:text="Blood Group: A+"
         android:textSize="20sp" />
 
     <TextView
+        android:id="@+id/con_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/con_num"
-        android:layout_below="@+id/blood_g"
         android:layout_alignLeft="@+id/name"
+        android:layout_below="@+id/blood_g"
         android:layout_marginTop="10dp"
         android:text="Contact No: 039994804"
         android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/image1"
-        android:src="@drawable/red_crescent"
-        android:layout_height="150dp"
         android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentTop="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="5dp"
         android:layout_toLeftOf="@+id/name"
         android:layout_toStartOf="@+id/name"
-        android:layout_marginRight="5dp"
-        android:layout_marginEnd="0dp" />
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/red_crescent" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name: Aimen Gaba"
-        android:textSize="20sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
-        android:layout_marginEnd="44dp" />
+        android:text="Name: Aimen Gaba"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>
