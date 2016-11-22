@@ -59,6 +59,14 @@
         <item>8</item>
     </string-array>
 
+    <!-- Strings related to Emergency Request -->
+    <string name="faq1">Eligible to donate</string>
+    <string name="faq2">Compatible blood types</string>
+    <string name="faq3">What to do before/during/after donating blood</string>
+    <string name="faq4">Health benefits of donating blood</string>
+    <string name="faq5">Myths about blood donation</string>
+    <string name="faq6">Blood diseases</string>
+
     <!--Strings related to main activity-->
     <string name="title_activity_main">Home</string>
 
