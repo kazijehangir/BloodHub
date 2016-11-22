@@ -11,16 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jexapps.bloodhub.EmergencyRequestActivity">
 <!--TODO: move emergency request from separate textview to page title-->
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/action_emergency_request"
-        android:textAllCaps="true"
-        android:textSize="25sp"
-        android:textStyle="normal|bold" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -71,7 +61,17 @@
         android:entries="@array/bag_quantity">
 
     </Spinner>
-
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/contact_num"
+            android:hint="Contact no" />
+    </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -86,13 +86,6 @@
             />
 
     </android.support.design.widget.TextInputLayout>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/contact_num" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -115,10 +108,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="center|bottom"
+        android:gravity="center"
         android:text="@string/action_submit_request"
         android:textAlignment="center"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:textColor="@android:color/background_light"
+        android:background="@color/fab1"
+        android:textStyle="normal|bold" />
 
 
 </LinearLayout>
