@@ -35,7 +35,10 @@ public class MainActivity extends AppCompatActivity
         HomeFragment.OnFragmentInteractionListener,
         InviteFriendFragment.OnFragmentInteractionListener,
         OrganizationsFragment.OnFragmentInteractionListener,
-        ReportFragment.OnFragmentInteractionListener{
+        ReportFragment.OnFragmentInteractionListener,
+        NewsListFragment.OnFragmentInteractionListener,
+        RequestListFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener{
     //TODO: add separate layout for organizations
 //    TODO: Understand inflating views. probably is fix to update email and photo
 //    inflating views is creating view and view-groups from an xml file/resource
@@ -166,6 +169,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_report:
                 fragmentClass = ReportFragment.class;
                 break;
+            case R.id.nav_Settings:
+                fragmentClass = SettingsFragment.class;
+                break;
             default:
                 fragmentClass = HomeFragment.class;
         }
@@ -267,5 +273,16 @@ public class MainActivity extends AppCompatActivity
     public void onRequestsFragmentInteraction(Uri uri) {
 
     }
+    @Override
+    public void onNewsListFragmentInteraction(Uri iri) {
 
+    }
+    @Override
+    public void onRequestListFragmentInteraction(Uri iri) {
+
+    }
+    @Override
+    public void onSettingsFragmentInteraction(Uri iri) {
+
+    }
 }

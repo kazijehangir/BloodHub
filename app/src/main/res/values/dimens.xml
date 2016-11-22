@@ -8,4 +8,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+<!--Custom dimensions for padding-->
+    <dimen name="home_tabs_top_padding">56dp</dimen>
+
 </resources>
