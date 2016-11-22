@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -21,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity
-        String mEmail;
+        final String mEmail;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -109,7 +111,15 @@ public class MainActivity extends AppCompatActivity
         mNav_name.setText(getNameFromDatabase(mEmail));
 //        mNav_image.setImageDrawable();
 //        TODO: Implement swipe views for home page
-
+        LinearLayout lheader = (LinearLayout) header.findViewById(R.id.header);
+        lheader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserProfile.class);
+                intent.putExtra("mEmail", mEmail);
+                startActivity(intent);
+            }
+        });
     }
     private String getNameFromDatabase(String email) {
         CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
