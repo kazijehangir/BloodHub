@@ -54,6 +54,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.LoginActivity" />
         </activity>
+        <activity android:name=".UserProfile"></activity>
     </application>
 
 </manifest>
