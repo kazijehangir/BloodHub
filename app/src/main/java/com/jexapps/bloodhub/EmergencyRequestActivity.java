@@ -15,5 +15,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
 
         LinearLayout rlayout = (LinearLayout) findViewById(R.id.activity_emergency_request);
         setTitle("EMERGENCY REQUEST");
+
+
     }
 }
