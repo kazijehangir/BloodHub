@@ -110,8 +110,8 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textAlignment="center"
-                android:textColor="@android:color/background_light"
-                android:background="@color/fab1" />
+                android:textColor="@color/fab1"
+                android:background="@android:color/background_light" />
             <TextView
                 android:text="@string/action_register_individual"
                 android:layout_width="match_parent"
@@ -120,8 +120,8 @@
                 android:textStyle="normal|bold"
                 android:textSize="22sp"
                 android:textAlignment="center"
-                android:textColor="#44AAFF"
-                android:layout_marginTop="150dp" />
+                android:textColor="@color/fab1"
+                android:layout_marginTop="100dp" />
             <TextView
                 android:text="@string/action_register_organization"
                 android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                 android:textSize="22sp"
                 android:textAlignment="center"
                 android:textColor="#44AAFF"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="3dp" />
 
         </LinearLayout>
     </ScrollView>
