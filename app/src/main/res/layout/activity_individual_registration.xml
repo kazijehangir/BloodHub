@@ -108,7 +108,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 android:gravity="center"
-
                 android:text="@string/termsTitle"
                 android:textSize="15sp"
                 android:textAlignment="center"

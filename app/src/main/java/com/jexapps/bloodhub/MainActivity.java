@@ -5,6 +5,8 @@ import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.database.DatabaseErrorHandler;
 import android.net.Uri;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity
     private static final String CREDENTIALS_FILE_NAME = "credentials";
     private SharedPreferences CREDENTIAL_FILE;
     private static String[] CREDENTIALS;
+    FloatingActionButton fab_plus, fab_request, fab_appointment;
+    Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
+    boolean isOpen = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity
@@ -69,17 +74,56 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        fab_plus = (FloatingActionButton)findViewById(R.id.fab2);
+        fab_request = (FloatingActionButton)findViewById(R.id.fab1);
+        fab_appointment = (FloatingActionButton)findViewById(R.id.fab);
+        FabOpen = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
+        FabClose = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
+        FabRClockwise=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
+        FabRanticlockwise = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_backward);
 
+        fab_plus.setOnClickListener(new View.OnClickListener(){
+           @Override
+            public void onClick(View v) {
+               if(isOpen) {
+                   fab_request.startAnimation(FabClose);
+                   fab_appointment.startAnimation(FabClose);
+                   fab_plus.startAnimation(FabRanticlockwise);
+                   fab_request.setClickable(false);
+                   fab_appointment.setClickable(false);
+                   isOpen = false;
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
-        fab.setOnClickListener(new View.OnClickListener() {
+               }
+               else
+               {
+                   fab_request.startAnimation(FabOpen);
+                   fab_appointment.startAnimation(FabOpen);
+                   fab_plus.startAnimation(FabRClockwise);
+                   fab_request.setClickable(true);
+                   fab_appointment.setClickable(true);
+                   isOpen = true;
+
+               }
+           }
+        });
+        fab_request.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View view)
+            {
                 Intent intent = new Intent(MainActivity.this, AddRequestActivity.class);
                 startActivity(intent);
             }
         });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent intent = new Intent(MainActivity.this, AddRequestActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
