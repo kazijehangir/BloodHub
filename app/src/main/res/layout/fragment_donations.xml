@@ -57,178 +57,192 @@
 
     </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cardView2"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        card_view:cardCornerRadius="1dp"
-        card_view:contentPadding="5dp">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            >
 
-            <ImageView
-                android:id="@+id/image1"
-                android:layout_width="150dp"
-                android:layout_height="170dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/girl" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="16dp"
-                android:layout_toEndOf="@+id/image1"
-                android:layout_toRightOf="@+id/image1"
-                android:text="Name: Aliya Butt"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/name"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/name"
-                android:layout_marginTop="10dp"
-                android:text="When: 2 hours ago"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/name"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/time"
-                android:layout_marginTop="10dp"
-                android:text="Where: Red Crescent"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/diagnosis"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/name"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/location"
-                android:layout_marginTop="10dp"
-                android:text="Reason: Thallasymia"
-                android:textSize="20sp" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardView2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/image1"
-                android:layout_centerHorizontal="true" />
+                android:layout_height="210dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                card_view:cardCornerRadius="1dp"
+                card_view:contentPadding="5dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Donated" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-        </RelativeLayout>
+                    >
+
+                    <ImageView
+                        android:id="@+id/image1"
+                        android:layout_width="150dp"
+                        android:layout_height="170dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/girl" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="16dp"
+                        android:layout_toEndOf="@+id/image1"
+                        android:layout_toRightOf="@+id/image1"
+                        android:text="Name: Aliya Butt"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/name"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/name"
+                        android:layout_marginTop="10dp"
+                        android:text="When: 2 hours ago"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/name"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/time"
+                        android:layout_marginTop="10dp"
+                        android:text="Where: Red Crescent"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/diagnosis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/name"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/location"
+                        android:layout_marginTop="10dp"
+                        android:text="Reason: Thallasymia"
+                        android:textSize="20sp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/image1"
+                        android:layout_centerHorizontal="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Donated" />
+
+                </RelativeLayout>
 
 
-    </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cardView3"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        card_view:cardCornerRadius="1dp"
-        card_view:contentPadding="5dp">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            >
-
-            <ImageView
-                android:id="@+id/image3"
-                android:layout_width="150dp"
-                android:layout_height="170dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/boy" />
-
-            <TextView
-                android:id="@+id/name3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="16dp"
-                android:layout_toEndOf="@+id/image3"
-                android:layout_toRightOf="@+id/image3"
-                android:text="Name: Farhan Shahid"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/time3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/name3"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/name3"
-                android:layout_marginTop="10dp"
-                android:text="When: 6 months ago"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/location3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/name3"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/time3"
-                android:layout_marginTop="10dp"
-                android:text="Where: Fatmid Foundation"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/diagnosis3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/name3"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/location3"
-                android:layout_marginTop="10dp"
-                android:text="Reason: Surgery "
-                android:textSize="20sp" />
-
-            <ProgressBar
-                android:id="@+id/progressBar3"
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardView3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/image3"
-                android:layout_centerHorizontal="true" />
+                android:layout_height="210dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                card_view:cardCornerRadius="1dp"
+                card_view:contentPadding="5dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Received" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-        </RelativeLayout>
+                    >
+
+                    <ImageView
+                        android:id="@+id/image3"
+                        android:layout_width="150dp"
+                        android:layout_height="170dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/boy" />
+
+                    <TextView
+                        android:id="@+id/name3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="16dp"
+                        android:layout_toEndOf="@+id/image3"
+                        android:layout_toRightOf="@+id/image3"
+                        android:text="Name: Farhan Shahid"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/time3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/name3"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/name3"
+                        android:layout_marginTop="10dp"
+                        android:text="When: 6 months ago"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/location3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/name3"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/time3"
+                        android:layout_marginTop="10dp"
+                        android:text="Where: Fatmid Foundation"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/diagnosis3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/name3"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/location3"
+                        android:layout_marginTop="10dp"
+                        android:text="Reason: Surgery "
+                        android:textSize="20sp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_below="@+id/image3"
+                        android:layout_centerHorizontal="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Received" />
+
+                </RelativeLayout>
 
 
-    </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
