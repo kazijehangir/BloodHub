@@ -106,6 +106,15 @@ public class MainActivity extends AppCompatActivity
                }
            }
         });
+        fab_request.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(MainActivity.this, AddRequestActivity.class);
+                startActivity(intent);
+            }
+        });
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
