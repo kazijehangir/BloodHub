@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,11 +11,14 @@
     <!--TODO: implement collapsible views-->
 
     <ExpandableListView
-        android:layout_width="wrap_content"
-        android:layout_height="315dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/expandableListView"
+        android:divider="#cb6767"
+        android:dividerHeight="10dp"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
         >
 
     </ExpandableListView>
 
-</RelativeLayout>
+</LinearLayout>

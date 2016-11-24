@@ -9,12 +9,17 @@
     android:layout_marginLeft="15dp"
     >
 
-
     <TextView
+        android:id="@+id/txtParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:paddingBottom="10dp"
+        android:paddingLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:paddingTop="10dp"
         android:text="Large Text"
-        android:id="@+id/txtParent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#701e1e"
+        android:textStyle="bold"
         />
+
 </LinearLayout>

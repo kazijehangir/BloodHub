@@ -10,11 +10,16 @@
     >
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:id="@+id/txtChild"
-        android:layout_gravity="center"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#e6cbcb"
+        android:gravity="center_horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white">
+
+    </TextView>
+
 </LinearLayout>
