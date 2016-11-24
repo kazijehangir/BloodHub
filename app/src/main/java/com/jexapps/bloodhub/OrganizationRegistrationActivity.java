@@ -19,6 +19,7 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
     private static final String CREDENTIALS_FILE_NAME = "credentials";
     private SharedPreferences CREDENTIAL_FILE;
     private static String[] CREDENTIALS;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,7 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     private Boolean emailAlreadyExists(String email) {
         for (String credential : CREDENTIALS) {
 //            Toast.makeText(this, "User => " + credential,
@@ -68,6 +70,7 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
         return false;
 
     }
+
     private void registerNewOrg() {
 //        TODO: just adding email and password now. Need to add other details
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -123,17 +126,5 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
                 }
             }
         }
-        //        TESTS: comment out later
-        int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-        String[] CREDENTIALS = new String[numUsers];
-        for (int i = 0; i < numUsers; i++) {
-            CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
-        }
-        //        Test to see which users are there
-        for (String credential : CREDENTIALS) {
-            Toast.makeText(this, "User => " + credential,
-            Toast.LENGTH_SHORT).show();
-        }
-//        END OF TESTS
     }
 }

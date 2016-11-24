@@ -430,7 +430,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                String status = "";
+                for (String credential : CREDENTIALS) {
+                    String[] pieces = credential.split(":");
+                    if (pieces[0].equals(mEmail)) {
+                        // Account exists, return true if the password matches.
+                        status = pieces[pieces.length-1];
+                    }
+                }
+                Intent intent = null;
+                if (status.equals("org"))
+                    intent = new Intent(LoginActivity.this, MainActivityOrg.class);
+                else
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra("mEmail", mEmail);
                 startActivity(intent);
 //                finish();
