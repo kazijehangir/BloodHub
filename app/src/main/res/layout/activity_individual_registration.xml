@@ -155,7 +155,7 @@
                 android:textAlignment="center"
                 android:layout_gravity="bottom|center"
                 android:textColor="@android:color/background_light"
-                android:background="@color/fab1"
+                android:background="@drawable/dialog_bg"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
 

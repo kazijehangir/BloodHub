@@ -119,7 +119,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 //                    add credentials to file
                             int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
                             credentials_edit.putString("user_" + numUsers, email + ":" + password
-                                                        + ":" + uname + ":" + bgroup);
+                                                        + ":" + uname + ":" + bgroup + ":" + "ind");
                             credentials_edit.putInt("numUsers", numUsers + 1);
                             credentials_edit.commit();
 //                    add user's name to name file

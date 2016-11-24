@@ -69,13 +69,13 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:ems="10"
             android:inputType="number"
-            android:text="@string/prompt_contact" />
+            android:hint="@string/prompt_contact" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -98,22 +98,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:checked="false"
-        android:clickable="false"
-        android:gravity="center_horizontal"
-        android:text="Agree to share my details"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:gravity="center_horizontal|center"
+        android:text="I agree to share my details"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        android:textAllCaps="true"
+        android:id="@+id/agreeTerms" />
 
     <Button
         android:id="@+id/register_button"
-        style="?android:textAppearanceSmall"
+        style="?android:textAppearanceLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center|bottom"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:text="@string/action_register"
         android:textAlignment="center"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:layout_gravity="bottom|center"
+        android:textColor="@android:color/background_light"
+        android:background="@drawable/dialog_bg" />
 
 </LinearLayout>
