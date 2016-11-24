@@ -2,9 +2,13 @@ package com.jexapps.bloodhub;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.DatabaseErrorHandler;
+import android.graphics.Color;
 import android.net.Uri;
+import android.support.v7.widget.SearchView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.os.Bundle;
@@ -27,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fab_plus, fab_request, fab_appointment;
     Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
     boolean isOpen = false;
+    MaterialSearchView msearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity
@@ -168,6 +175,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
     private String getNameFromDatabase(String email) {
         CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
         int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
@@ -254,6 +262,9 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
 //        TODO: Implement search using this guide
 //        https://developer.android.com/training/search/setup.html
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 

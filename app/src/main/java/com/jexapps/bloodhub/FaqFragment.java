@@ -1,5 +1,6 @@
 package com.jexapps.bloodhub;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -84,15 +85,15 @@ public class FaqFragment extends Fragment {
         fillData();
 
 
-        listAdapter = new myExpListAdapter(this,faq,topics);
+        listAdapter = new myExpListAdapter(getActivity(),faq,topics);
 
         expandableListView.setAdapter(listAdapter);
+        final Activity activity = getActivity();
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-
-                Toast.makeText(MainActivity, this, faq.get(i) + " : " + topics.get(faq.get(i)).get(i1), Toast.LENGTH_LONG).show();
+                Toast.makeText(activity,faq.get(i)+": "+topics.get(faq.get(i)).get(i1),Toast.LENGTH_LONG).show();
                 return false;
             }
         });

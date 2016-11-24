@@ -13,6 +13,7 @@
     <string name="action_register_individual">Register as Individual</string>
     <string name="action_register_organization">Register as Organization</string>
     <string name="action_emergency_request">Emergency Request</string>
+    <string name="search_hint">Search...</string>
 
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -76,7 +77,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="search_title">Search</string>
+    <string name="search_title">Search...</string>
 
     <string name="nav_home">Home</string>
     <string name="nav_requests">Your Requests</string>

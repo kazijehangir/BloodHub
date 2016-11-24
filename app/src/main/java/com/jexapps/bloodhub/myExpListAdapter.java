@@ -1,6 +1,8 @@
 package com.jexapps.bloodhub;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +18,11 @@ import java.util.Map;
 public class myExpListAdapter extends BaseExpandableListAdapter
 {
 
-
     Context context;
     List<String> faq;
     Map<String, List<String>> topics;
 
-    public myExpListAdapter(FaqFragment context, List<String> topics, Map<String, List<String>> faq) {
+    public myExpListAdapter(FragmentActivity context, List<String> faq, Map<String, List<String>> topics) {
         this.context = context;
         this.topics = topics;
         this.faq = faq;
