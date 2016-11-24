@@ -128,7 +128,8 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/background_light"
                 android:layout_marginTop="80dp"
-                android:gravity="bottom|center" />
+                android:gravity="bottom|center"
+                android:textScaleX="1.1" />
             <TextView
                 android:text="@string/action_register_organization"
                 android:layout_width="match_parent"
@@ -137,7 +138,8 @@
                 android:textSize="18sp"
                 android:textAlignment="center"
                 android:textColor="@android:color/background_light"
-                android:layout_marginTop="3dp" />
+                android:layout_marginTop="3dp"
+                android:textScaleX="1.1" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
