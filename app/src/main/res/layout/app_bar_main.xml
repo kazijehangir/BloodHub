@@ -16,8 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/holo_red_dark"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:background="@color/fab1" />
 
     </android.support.design.widget.AppBarLayout>
 <!--TODO: Make fab work-->

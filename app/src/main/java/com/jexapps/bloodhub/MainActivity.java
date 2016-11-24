@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fab_plus, fab_request, fab_appointment;
     Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
     boolean isOpen = false;
-    MaterialSearchView msearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity
@@ -262,9 +262,12 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
 //        TODO: Implement search using this guide
 //        https://developer.android.com/training/search/setup.html
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 
