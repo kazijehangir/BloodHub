@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/relative"
-    android:background="@color/fab1">
+    android:background="@drawable/dialog_bg">
 
     <TextView
         android:layout_width="match_parent"

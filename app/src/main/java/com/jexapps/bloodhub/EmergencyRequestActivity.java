@@ -2,6 +2,7 @@ package com.jexapps.bloodhub;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
                 dialog.setTitle("Submit Request");
                 dialog.setContentView(R.layout.popup_submit);
                 dialog.show();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 final Button request = (Button) dialog.findViewById(R.id.button_ok);
                 request.setOnClickListener(new View.OnClickListener(){
