@@ -38,7 +38,11 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.request_card_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new ViewHolder((TextView) v.findViewById(R.id.info_text));
+        TextView tv = (TextView) v.findViewById(R.id.info_text);
+        if (tv.getParent() != null) {
+            ((ViewGroup)tv.getParent()).removeView(tv);
+        }
+        ViewHolder vh = new ViewHolder(tv);
         return vh;
     }
 

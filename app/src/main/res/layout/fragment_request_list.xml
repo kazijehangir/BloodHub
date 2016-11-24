@@ -6,11 +6,7 @@
     tools:context="com.jexapps.bloodhub.RequestListFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/request_list_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Update fragment_request_list.xml" />
+
     <!-- A RecyclerView with some commonly used attributes -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/request_list_recycler_view"

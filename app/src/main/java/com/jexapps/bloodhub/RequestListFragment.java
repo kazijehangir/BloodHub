@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -78,15 +79,16 @@ public class RequestListFragment extends Fragment {
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-//        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-//        mLayoutManager = new LinearLayoutManager(getActivity());
-//        mRecyclerView.setLayoutManager(mLayoutManager);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         // specify an adapter (see also next example)
-//        mAdapter = new RequestListDataAdapter(dummyDataset);
-//        mRecyclerView.setAdapter(mAdapter);
+        mAdapter = new RequestListDataAdapter(dummyDataset);
+        mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
