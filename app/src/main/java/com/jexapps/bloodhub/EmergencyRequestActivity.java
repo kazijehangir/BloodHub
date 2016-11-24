@@ -1,5 +1,8 @@
 package com.jexapps.bloodhub;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,14 +17,34 @@ import android.widget.RelativeLayout;
 
 public class EmergencyRequestActivity extends AppCompatActivity {
 // TODO: try to get location automatically
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_request);
 
-        LinearLayout rlayout = (LinearLayout) findViewById(R.id.activity_emergency_request);
         setTitle("EMERGENCY REQUEST");
 
+        Button submit = (Button) findViewById(R.id.submit_button);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new Dialog(EmergencyRequestActivity.this);
+                dialog.setTitle("Submit Request");
+                dialog.setContentView(R.layout.popup_submit);
+                dialog.show();
+
+                final Button request = (Button) dialog.findViewById(R.id.button_ok);
+                request.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(EmergencyRequestActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
     }
 }

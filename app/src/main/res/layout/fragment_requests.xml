@@ -19,20 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
             android:layout_marginTop="20dp"
-            android:text="Total Requests:"
+            android:text="Total Requests: 1"
             android:textStyle="bold"
             android:textSize="25sp" />
-
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/textView3"
-            android:layout_toRightOf="@+id/textView3"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:inputType="number"
-            android:text="1" />
 
     </RelativeLayout>
 

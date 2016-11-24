@@ -14,6 +14,7 @@
     <string name="action_register_organization">Register as Organization</string>
     <string name="action_emergency_request">Emergency Request</string>
     <string name="search_hint">Search...</string>
+    <string name="popup_submit">Your request has been sent to all compatible donors.</string>
 
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
