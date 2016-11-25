@@ -87,13 +87,11 @@
         <RadioButton android:id="@+id/radio_yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/yes"
-            android:onClick="onRadioButtonClicked"/>
+            android:text="@string/yes" />
         <RadioButton android:id="@+id/radio_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no"
-            android:onClick="onRadioButtonClicked"/>
+            android:text="@string/no"/>
     </RadioGroup>
     </RelativeLayout>
     <!--<CalendarView-->

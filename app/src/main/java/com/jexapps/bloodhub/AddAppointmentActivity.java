@@ -41,28 +41,40 @@ public class AddAppointmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final String mEmail;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                mEmail= null;
+            } else {
+                mEmail= extras.getString("mEmail");
+            }
+        } else {
+            mEmail= (String) savedInstanceState.getSerializable("mEmail");
+        }
         setContentView(R.layout.activity_add_appointment);
-//        Button submit = (Button) findViewById(R.id.submit_button1);
-//        submit.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick (View view){
-//                dialog = new Dialog(AddAppointmentActivity.this);
-//                dialog.setTitle("Submit Request");
-//                dialog.setContentView(R.layout.popup_submit);
-//                dialog.show();
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                final Button request = (Button) dialog.findViewById(R.id.button_ok);
-//                request.setOnClickListener(new View.OnClickListener(){
-//
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent intent = new Intent(AddAppointmentActivity.this,MainActivity.class);
-//                        startActivity(intent);
-//                    }
-//                });
-//            }
-//        });
+        Button submit = (Button) findViewById(R.id.submit_button1);
+        submit.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View view){
+                dialog = new Dialog(AddAppointmentActivity.this);
+                dialog.setTitle("Submit Request");
+                dialog.setContentView(R.layout.popup_submit);
+                dialog.show();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                final Button request = (Button) dialog.findViewById(R.id.button_ok);
+                request.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(AddAppointmentActivity.this,MainActivity.class);
+                        intent.putExtra("mEmail", mEmail);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
     }
 
 

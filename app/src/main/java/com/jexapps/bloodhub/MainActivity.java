@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view)
             {
                 Intent intent = new Intent(MainActivity.this, AddAppointmentActivity.class);
+                intent.putExtra("mEmail", mEmail);
                 startActivity(intent);
             }
         });

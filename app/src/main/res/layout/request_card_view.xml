@@ -32,7 +32,7 @@
                         android:layout_width="42dp"
                         android:layout_height="match_parent"
                         android:id="@+id/transport_image"
-                        app:srcCompat="@drawable/ic_mood_white_24dp"
+                        app:srcCompat="@drawable/ic_car"
                         android:layout_weight="0"
                         android:layout_gravity="left"/>
                     <!--TODO: replace the transport icon-->
