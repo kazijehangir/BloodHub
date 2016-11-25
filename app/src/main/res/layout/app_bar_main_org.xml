@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.jexapps.bloodhub.MainActivity">
+    tools:context="com.jexapps.bloodhub.MainActivityOrg">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -56,6 +56,12 @@
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
         app:srcCompat="@drawable/ic_event_white_24dp" />
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:textColor="#000000"-->
+    <!--android:text="above"/>-->
+    <!--</RelativeLayout>-->
     <include layout="@layout/content_main" />
 
 </android.support.design.widget.CoordinatorLayout>

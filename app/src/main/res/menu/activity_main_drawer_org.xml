@@ -16,7 +16,7 @@
             android:title="@string/nav_appointments" />
         <item
             android:id="@+id/nav_reviews"
-            android:icon="@drawable/ic_accessible_white_24dp"
+            android:icon="@drawable/ic_mood_white_24dp"
             android:title="@string/nav_reviews" />
     </group>
 
