@@ -84,6 +84,7 @@
     <string name="nav_requests">Your Requests</string>
     <string name="nav_donations">Your Donations</string>
     <string name="nav_appointments">Your Appointments</string>
+    <string name="nav_reviews">Your Reviews</string>
     <string name="nav_info">Info</string>
     <string name="nav_organizations">Organizations</string>
     <string name="nav_faqs">Frequently Asked Questions</string>

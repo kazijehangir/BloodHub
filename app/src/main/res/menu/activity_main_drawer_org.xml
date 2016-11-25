@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--TODO: improve icons-->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_white_24dp"
+            android:title="@string/nav_home" />
+        <item
+            android:id="@+id/nav_requests"
+            android:icon="@drawable/ic_accessible_white_24dp"
+            android:title="@string/nav_requests" />
+        <item
+            android:id="@+id/nav_appointments"
+            android:icon="@drawable/ic_event_white_24dp"
+            android:title="@string/nav_appointments" />
+        <item
+            android:id="@+id/nav_reviews"
+            android:icon="@drawable/ic_accessible_white_24dp"
+            android:title="@string/nav_reviews" />
+    </group>
+
+    <item android:title="@string/nav_info">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_organizations"
+                    android:icon="@drawable/ic_business_white_24dp"
+                    android:title="@string/nav_organizations" />
+                <item
+                    android:id="@+id/nav_faq"
+                    android:icon="@drawable/ic_help_white_24dp"
+                    android:title="@string/nav_faqs" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/nav_communicate">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_Settings"
+                    android:icon="@drawable/ic_settings_white_24dp"
+                    android:title="@string/action_settings" />
+                <item
+                    android:id="@+id/nav_report"
+                    android:icon="@drawable/ic_feedback_white_24dp"
+                    android:title="@string/nav_report" />
+            </group>
+        </menu>
+    </item>
+
+</menu>
