@@ -71,6 +71,19 @@
     <string name="faq5">Myths about blood donation</string>
     <string name="faq6">Blood diseases</string>
 
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="action_appointment">Submit</string>
+    <string name="popup_appointment">Your appointment has been set.</string>
+    <string-array name="organizations_array">
+        <item>Fatmid</item>
+        <item>Shaukat Khanum</item>
+        <item>Sundus Foundation</item>
+        <item>Hussaini Blood Bank</item>
+        <item>National Hospital</item>
+        <item>Red Crescent</item>
+        <item>Children\'s Hospital</item>
+    </string-array>
     <!--Strings related to main activity-->
     <string name="title_activity_main">Home</string>
 
@@ -92,7 +105,7 @@
     <string name="nav_friend">Invite a Friend</string>
     <string name="nav_report">Report a Problem</string>
     <string name="title_activity_individual_registration">IndividualRegistrationActivity</string>
-
+    <string name="organization_name">Organization Name</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tems_cond">TemsCond</string>

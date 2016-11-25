@@ -64,6 +64,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.LoginActivity" />
         </activity>
+        <activity android:name=".AddAppointmentActivity"/>
         <activity android:name=".UserProfile" />
         <activity android:name=".EditProfile" />
         <activity android:name=".SearchResultsActivity">
