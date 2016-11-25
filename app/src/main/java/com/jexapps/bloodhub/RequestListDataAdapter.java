@@ -18,10 +18,14 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
-        public ViewHolder(TextView v) {
-            super(v);
-            mTextView = v;
+        public TextView mName, mLocation, mNeeds, mWhen, mDiagnosis;
+        public ViewHolder(TextView name, TextView location, TextView needs, TextView when, TextView diagnosis) {
+            super(name);
+            mName = name;
+            mLocation = location;
+            mNeeds = needs;
+            mWhen = when;
+            mDiagnosis = diagnosis;
         }
     }
 
@@ -38,11 +42,27 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.request_card_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        TextView tv = (TextView) v.findViewById(R.id.info_text);
-        if (tv.getParent() != null) {
-            ((ViewGroup)tv.getParent()).removeView(tv);
+        TextView tvName = (TextView) v.findViewById(R.id.name_text);
+        if (tvName.getParent() != null) {
+            ((ViewGroup)tvName.getParent()).removeView(tvName);
         }
-        ViewHolder vh = new ViewHolder(tv);
+        TextView tvNeeds = (TextView) v.findViewById(R.id.needs_text);
+        if (tvNeeds.getParent() != null) {
+            ((ViewGroup)tvNeeds.getParent()).removeView(tvNeeds);
+        }
+        TextView tvLocation = (TextView) v.findViewById(R.id.location_text);
+        if (tvLocation.getParent() != null) {
+            ((ViewGroup)tvLocation.getParent()).removeView(tvLocation);
+        }
+        TextView tvWhen = (TextView) v.findViewById(R.id.when_text);
+        if (tvWhen.getParent() != null) {
+            ((ViewGroup)tvWhen.getParent()).removeView(tvWhen);
+        }
+        TextView tvDiagnosis = (TextView) v.findViewById(R.id.diagnosis_text);
+        if (tvDiagnosis.getParent() != null) {
+            ((ViewGroup)tvDiagnosis.getParent()).removeView(tvDiagnosis);
+        }
+        ViewHolder vh = new ViewHolder(tvName, tvNeeds, tvLocation, tvWhen, tvDiagnosis);
         return vh;
     }
 
@@ -51,7 +71,12 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
+        String[] strings = mDataset[position].split(":");
+        holder.mName.setText(strings[0]);
+        holder.mNeeds.setText(strings[1]);
+        holder.mLocation.setText(strings[2]);
+        holder.mWhen.setText(strings[3]);
+        holder.mDiagnosis.setText(strings[4]);
 
     }
 
