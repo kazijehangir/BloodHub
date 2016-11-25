@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
- * Created by jehangir on 23/11/16.
+ * Created by Jehangir Kazi on 23/11/16.
+ * This file is supposed to be used as an adapter with the RequestListFragment.java
+ * and the request_card_view.xml file.
  */
 
 public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListDataAdapter.ViewHolder> {
@@ -19,13 +21,13 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView mName, mLocation, mNeeds, mWhen, mDiagnosis;
-        public ViewHolder(TextView name, TextView location, TextView needs, TextView when, TextView diagnosis) {
-            super(name);
-            mName = name;
-            mLocation = location;
-            mNeeds = needs;
-            mWhen = when;
-            mDiagnosis = diagnosis;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mName = (TextView) itemView.findViewById(R.id.name_text);
+            mLocation = (TextView) itemView.findViewById(R.id.location_text);
+            mNeeds = (TextView) itemView.findViewById(R.id.needs_text);
+            mWhen = (TextView) itemView.findViewById(R.id.when_text);
+            mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
         }
     }
 
@@ -42,28 +44,27 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.request_card_view, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        TextView tvName = (TextView) v.findViewById(R.id.name_text);
-        if (tvName.getParent() != null) {
-            ((ViewGroup)tvName.getParent()).removeView(tvName);
-        }
-        TextView tvNeeds = (TextView) v.findViewById(R.id.needs_text);
-        if (tvNeeds.getParent() != null) {
-            ((ViewGroup)tvNeeds.getParent()).removeView(tvNeeds);
-        }
-        TextView tvLocation = (TextView) v.findViewById(R.id.location_text);
-        if (tvLocation.getParent() != null) {
-            ((ViewGroup)tvLocation.getParent()).removeView(tvLocation);
-        }
-        TextView tvWhen = (TextView) v.findViewById(R.id.when_text);
-        if (tvWhen.getParent() != null) {
-            ((ViewGroup)tvWhen.getParent()).removeView(tvWhen);
-        }
-        TextView tvDiagnosis = (TextView) v.findViewById(R.id.diagnosis_text);
-        if (tvDiagnosis.getParent() != null) {
-            ((ViewGroup)tvDiagnosis.getParent()).removeView(tvDiagnosis);
-        }
-        ViewHolder vh = new ViewHolder(tvName, tvNeeds, tvLocation, tvWhen, tvDiagnosis);
-        return vh;
+//        TextView tvName = (TextView) v.findViewById(R.id.name_text);
+//        if (tvName.getParent() != null) {
+//            ((ViewGroup)tvName.getParent()).removeView(tvName);
+//        }
+//        TextView tvNeeds = (TextView) v.findViewById(R.id.needs_text);
+//        if (tvNeeds.getParent() != null) {
+//            ((ViewGroup)tvNeeds.getParent()).removeView(tvNeeds);
+//        }
+//        TextView tvLocation = (TextView) v.findViewById(R.id.location_text);
+//        if (tvLocation.getParent() != null) {
+//            ((ViewGroup)tvLocation.getParent()).removeView(tvLocation);
+//        }
+//        TextView tvWhen = (TextView) v.findViewById(R.id.when_text);
+//        if (tvWhen.getParent() != null) {
+//            ((ViewGroup)tvWhen.getParent()).removeView(tvWhen);
+//        }
+//        TextView tvDiagnosis = (TextView) v.findViewById(R.id.diagnosis_text);
+//        if (tvDiagnosis.getParent() != null) {
+//            ((ViewGroup)tvDiagnosis.getParent()).removeView(tvDiagnosis);
+//        }
+        return new ViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
