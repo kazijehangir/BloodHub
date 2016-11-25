@@ -10,5 +10,6 @@
     <dimen name="text_margin">16dp</dimen>
     <!--Custom dimensions for padding-->
     <dimen name="home_tabs_top_padding">56dp</dimen>
+    <dimen name="padding_eight">8dp</dimen>
 
 </resources>

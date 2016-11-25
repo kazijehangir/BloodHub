@@ -5,8 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     app:cardBackgroundColor="#FFFFFF"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="8dp">
+    app:cardCornerRadius="2dp"
+    app:cardElevation="4dp">
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="196dp"

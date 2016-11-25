@@ -88,6 +88,8 @@ public class RequestListFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
+
 
         // specify an adapter (see also next example)
         mAdapter = new RequestListDataAdapter(dummyDataset);
