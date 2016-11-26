@@ -24,7 +24,17 @@ public class EmergencyRequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_request);
-
+        final String mEmail;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                mEmail= null;
+            } else {
+                mEmail= extras.getString("mEmail");
+            }
+        } else {
+            mEmail= (String) savedInstanceState.getSerializable("mEmail");
+        }
         setTitle("EMERGENCY REQUEST");
 
         Button submit = (Button) findViewById(R.id.submit_button);
@@ -43,6 +53,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(EmergencyRequestActivity.this,LoginActivity.class);
+                        intent.putExtra("mEmail", mEmail);
                         startActivity(intent);
                     }
                 });
