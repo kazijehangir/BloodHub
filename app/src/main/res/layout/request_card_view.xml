@@ -74,7 +74,8 @@
                         android:id="@+id/name_text"
                         android:layout_weight="0"
                         android:layout_gravity="right"
-                        android:text="Jamshed"/>
+                        android:text="Jamshed"
+                        android:textStyle="normal|bold" />
                 </android.support.v7.widget.LinearLayoutCompat>
                 <android.support.v7.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -95,7 +96,8 @@
                         android:id="@+id/needs_text"
                         android:layout_weight="0"
                         android:layout_gravity="right"
-                        android:text="2 bags of O-"/>
+                        android:text="2 bags of O-"
+                        android:textStyle="normal|bold" />
                 </android.support.v7.widget.LinearLayoutCompat>
                 <android.support.v7.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -116,7 +118,8 @@
                         android:id="@+id/location_text"
                         android:layout_weight="0"
                         android:layout_gravity="right"
-                        android:text="National Hospital"/>
+                        android:text="National Hospital"
+                        android:textStyle="normal|bold" />
                 </android.support.v7.widget.LinearLayoutCompat>
                 <android.support.v7.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -137,7 +140,8 @@
                         android:id="@+id/when_text"
                         android:layout_weight="0"
                         android:layout_gravity="right"
-                        android:text="URGENT"/>
+                        android:text="URGENT"
+                        android:textStyle="normal|bold" />
                 </android.support.v7.widget.LinearLayoutCompat>
                 <android.support.v7.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
@@ -160,7 +164,8 @@
                         android:layout_gravity="right"
                         android:text="Surgery"
                         android:fontFamily="sans-serif"
-                        tools:layout_gravity="right" />
+                        tools:layout_gravity="right"
+                        android:textStyle="normal|bold" />
                 </android.support.v7.widget.LinearLayoutCompat>
             </android.support.v7.widget.LinearLayoutCompat>
         </android.support.v7.widget.LinearLayoutCompat>

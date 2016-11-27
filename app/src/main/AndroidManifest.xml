@@ -65,9 +65,31 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.LoginActivity" />
         </activity>
-        <activity android:name=".AddAppointmentActivity" />
-        <activity android:name=".UserProfile" />
-        <activity android:name=".EditProfile" />
+        <activity
+            android:name=".AddAppointmentActivity"
+            android:parentActivityName=".MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivity" />
+        </activity>
+        <activity android:name=".UserProfile"
+            android:parentActivityName=".MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivity" />
+        </activity>
+        <activity android:name=".EditProfile"
+            android:parentActivityName=".UserProfile">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.UserProfile" />
+        </activity>
         <activity android:name=".SearchResultsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -93,8 +115,22 @@
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
         </activity>
-        <activity android:name=".AddPatientActivity" />
-        <activity android:name=".AddRequestOrgActivity"></activity>
+        <activity android:name=".AddPatientActivity"
+            android:parentActivityName=".MainActivityOrg">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivityOrg" />
+        </activity>
+        <activity android:name=".AddRequestOrgActivity"
+            android:parentActivityName=".MainActivityOrg">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivityOrg" />
+        </activity>
     </application>
 
 </manifest>
