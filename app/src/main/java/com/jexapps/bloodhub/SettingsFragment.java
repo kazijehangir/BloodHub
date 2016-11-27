@@ -81,11 +81,11 @@ public class SettingsFragment extends Fragment {
                 if (b) {
                     if (appoint) {
                         NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.boy).setContentTitle("Ahmed responded to your request").setContentText("Click to view his profile").getNotification();
+                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.ic_stat_name).setContentTitle("Ahmed responded to your request").setContentText("Click to view his profile").getNotification();
                         mNotifyMgr.notify(0, notif);
                     } else {
                         NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.boy).setContentTitle("Ahmed needs 1 bag of A+ blood").setContentText("Click to view his request").getNotification();
+                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.ic_stat_name).setContentTitle("Ahmed needs 1 bag of A+ blood").setContentText("Click to view his request").getNotification();
                         mNotifyMgr.notify(0, notif);
                     }
                 }

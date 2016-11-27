@@ -27,12 +27,12 @@ public class AddRequestOrgActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request_org);
 
-        Button add = (Button) findViewById(R.id.add_patient);
+        Button add = (Button) findViewById(R.id.add_button);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog = new Dialog(AddRequestOrgActivity.this);
-                dialog.setTitle("Add Requestt");
+                dialog.setTitle("Add Request");
                 dialog.setContentView(R.layout.popup_submit);
                 dialog.show();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
