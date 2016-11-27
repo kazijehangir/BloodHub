@@ -83,6 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add an image"
+        android:textColor="#FFFFFF"
         android:background="#a30d17"
         android:layout_gravity="center_horizontal" />
 
@@ -90,8 +91,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add patient"
-        android:textColor="@color/fab1"
+        android:background="@color/fab1"
         android:layout_marginTop="30dp"
+        android:textColor="#FFFFFF"
         />
 
 </LinearLayout>
