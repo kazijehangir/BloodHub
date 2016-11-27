@@ -65,7 +65,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.LoginActivity" />
         </activity>
-        <activity android:name=".AddAppointmentActivity"/>
+        <activity android:name=".AddAppointmentActivity" />
         <activity android:name=".UserProfile" />
         <activity android:name=".EditProfile" />
         <activity android:name=".SearchResultsActivity">
@@ -79,7 +79,8 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".MainActivityOrg"
+        <activity
+            android:name=".MainActivityOrg"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -92,6 +93,8 @@
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
         </activity>
+        <activity android:name=".AddPatientActivity" />
+        <activity android:name=".AddRequestOrgActivity"></activity>
     </application>
 
 </manifest>

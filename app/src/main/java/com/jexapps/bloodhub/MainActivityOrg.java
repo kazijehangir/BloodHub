@@ -58,6 +58,7 @@ public class MainActivityOrg extends AppCompatActivity
     FloatingActionButton fab_plus, fab_request, fab_appointment;
     Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
     boolean isOpen = false;
+    private String appoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,8 @@ public class MainActivityOrg extends AppCompatActivity
 //        TODO: comment this toast out when done debugging
         Toast.makeText(this, "Logged in " + mEmail + " successfully.",
                 Toast.LENGTH_SHORT).show();
-
+        String credential = getInfoFromDatabase(mEmail);
+        appoint = credential+";28-12-16, 12:00;No";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_org);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -118,7 +120,8 @@ public class MainActivityOrg extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(MainActivityOrg.this, AddRequestActivity.class);
+                Intent intent = new Intent(MainActivityOrg.this, AddPatientActivity.class);
+                intent.putExtra("mEmail", mEmail);
                 startActivity(intent);
             }
         });
@@ -196,6 +199,7 @@ public class MainActivityOrg extends AppCompatActivity
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
+        Bundle args = new Bundle();
         if (menuItem.getItemId() == R.id.signout) {
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
@@ -209,6 +213,7 @@ public class MainActivityOrg extends AppCompatActivity
                 break;
             case R.id.nav_appointments:
                 fragmentClass = AppointmentsFragment.class;
+                args.putString("appointments",appoint);
                 break;
             case R.id.nav_reviews:
                 fragmentClass = DonationsFragment.class;
@@ -236,6 +241,7 @@ public class MainActivityOrg extends AppCompatActivity
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
+        fragment.setArguments(args);
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         // Highlight the selected item has been done by NavigationView
@@ -340,5 +346,21 @@ public class MainActivityOrg extends AppCompatActivity
     @Override
     public void onSettingsFragmentInteraction(Uri iri) {
 
+    }
+    private String getInfoFromDatabase(String email) {
+        CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
+        int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+        CREDENTIALS = new String[numUsers];
+        for (int i = 0; i < numUsers; i++)
+            CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
+
+        for (String credential : CREDENTIALS) {
+            String[] pieces = credential.split(":");
+            if (pieces[0].equals(email)) {
+                // Account exists, return true if the password matches.
+                return pieces[2];
+            }
+        }
+        return null;
     }
 }

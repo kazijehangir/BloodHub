@@ -100,7 +100,7 @@
             android:layout_height="140dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/req_info"
+            android:src="@drawable/reqlast"
             android:layout_marginRight="27dp"
             android:layout_marginEnd="27dp"
             android:layout_alignParentTop="true"
