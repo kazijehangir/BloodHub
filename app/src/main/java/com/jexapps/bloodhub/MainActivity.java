@@ -27,6 +27,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity
     private SharedPreferences CREDENTIAL_FILE;
     private static String[] CREDENTIALS;
     FloatingActionButton fab_plus, fab_request, fab_appointment;
+    Button button_request, button_appointment;
     Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
     boolean isOpen = false;
     private String appoint;
@@ -89,19 +91,28 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         fab_plus = (FloatingActionButton)findViewById(R.id.fab2);
         fab_request = (FloatingActionButton)findViewById(R.id.fab1);
+        button_request = (Button)findViewById(R.id.add_blood_request);
         fab_appointment = (FloatingActionButton)findViewById(R.id.fab);
+        button_appointment = (Button)findViewById(R.id.add_appointment);
         FabOpen = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
         FabClose = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
         FabRClockwise=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
         FabRanticlockwise = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_backward);
-
+//        button_request.setVisibility(View.GONE);
+//        button_appointment.setVisibility(View.GONE);
         fab_plus.setOnClickListener(new View.OnClickListener(){
            @Override
             public void onClick(View v) {
                if(isOpen) {
                    fab_request.startAnimation(FabClose);
+//                   button_appointment.startAnimation(FabClose);
                    fab_appointment.startAnimation(FabClose);
+//                   button_request.startAnimation(FabClose);
+                   button_request.setVisibility(View.GONE);
+                   button_appointment.setVisibility(View.GONE);
                    fab_plus.startAnimation(FabRanticlockwise);
+                   button_request.setClickable(false);
+                   button_appointment.setClickable(false);
                    fab_request.setClickable(false);
                    fab_appointment.setClickable(false);
                    isOpen = false;
@@ -110,8 +121,14 @@ public class MainActivity extends AppCompatActivity
                else
                {
                    fab_request.startAnimation(FabOpen);
+//                   button_request.startAnimation(FabOpen);
+//                   button_appointment.startAnimation(FabOpen);
                    fab_appointment.startAnimation(FabOpen);
                    fab_plus.startAnimation(FabRClockwise);
+                   button_appointment.setVisibility(View.VISIBLE);
+                   button_request.setVisibility(View.VISIBLE);
+                   button_appointment.setClickable(true);
+                   button_request.setClickable(true);
                    fab_request.setClickable(true);
                    fab_appointment.setClickable(true);
                    isOpen = true;
@@ -129,7 +146,27 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+        button_request.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(MainActivity.this, EmergencyRequestActivity.class);
+                intent.putExtra("mEmail", mEmail);
+                startActivity(intent);
+            }
+        });
         fab_appointment.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(MainActivity.this, AddAppointmentActivity.class);
+                intent.putExtra("mEmail", mEmail);
+                startActivity(intent);
+            }
+        });
+        button_appointment.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
