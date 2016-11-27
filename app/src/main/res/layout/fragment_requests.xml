@@ -10,15 +10,13 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        >
+        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
-            android:layout_marginTop="20dp"
             android:text="Total Requests: 1"
             android:textStyle="bold"
             android:textSize="25sp" />
@@ -47,9 +45,10 @@
                 android:id="@+id/image1"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"
                 android:src="@drawable/skmch"
-                />
+                android:layout_toLeftOf="@+id/name"
+                android:layout_toStartOf="@+id/name"
+                android:layout_alignBottom="@+id/location" />
 
             <TextView
                 android:id="@+id/name"
@@ -58,7 +57,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
                 android:text="Name: Hasan Rizwan"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="5dp"
                 android:textSize="20sp" />
 
             <TextView
