@@ -47,7 +47,7 @@
     <Button
         android:id="@+id/add_patient"
         android:layout_width="wrap_content"
-        android:text="Add Patient"
+        android:text="Add Blood Request"
         android:textStyle="bold"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
@@ -67,7 +67,7 @@
         android:id="@+id/add_blood_request"
         android:layout_width="wrap_content"
         app:elevation="12dp"
-        android:text="Add Blood Request"
+        android:text="Add Patient"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="10dp"
