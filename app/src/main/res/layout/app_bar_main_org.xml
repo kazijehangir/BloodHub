@@ -55,7 +55,7 @@
         app:backgroundTint="@color/fab1"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
-        app:srcCompat="@drawable/ic_event_white_24dp" />
+        app:srcCompat="@drawable/ic_add_location_white_24dp" />
     <!--<TextView-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
