@@ -214,6 +214,10 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         Class fragmentClass;
         Bundle args = new Bundle();
+        if (menuItem.getItemId() == R.id.signout) {
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
                 fragmentClass = HomeFragment.class;

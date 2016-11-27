@@ -128,7 +128,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:drawableRight="@android:drawable/ic_menu_my_calendar"
+            android:drawableRight="@drawable/ic_event_note_black_24dp"
             android:focusable="false" />
 
     </RelativeLayout>
