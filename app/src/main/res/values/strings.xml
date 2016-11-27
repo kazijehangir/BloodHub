@@ -74,7 +74,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="action_appointment">Submit</string>
-    <string name="popup_appointment">Your appointment has been set.</string>
+    <string name="popup_appointment">Your appointment has been set. </string>
+    <string name="set">SET</string>
     <string-array name="organizations_array">
         <item>Fatmid</item>
         <item>Shaukat Khanum</item>

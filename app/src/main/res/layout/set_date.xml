@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <DatePicker
+        android:layout_width="match_parent"
+        android:layout_height="404dp"
+        android:id="@+id/datePicker"
+        android:headerBackground="@color/fab1" />
+
+    <Button
+        android:id="@+id/set_date"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/set"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textColor="@android:color/background_light"
+        android:background="@color/fab1"
+        android:textStyle="normal|bold" />
+</LinearLayout>
