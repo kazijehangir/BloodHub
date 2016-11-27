@@ -32,12 +32,13 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         card_view:cardCornerRadius="1dp"
-        card_view:contentPadding="5dp">
+        card_view:contentPadding="5dp"
+        card_view:cardBackgroundColor="#FFFFFF"
+        >
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             >
 
             <ImageView
