@@ -31,13 +31,17 @@ import android.content.Context;
 import android.app.Activity;
 import android.widget.Button;
 import android.view.animation.AnimationUtils;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
+import java.util.Date;
 import java.util.Locale;
 
 
 public class AddAppointmentActivity extends AppCompatActivity {
     Dialog dialog;
-
+    private int date, month, year, hour, minute;
+    private String time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,55 @@ public class AddAppointmentActivity extends AppCompatActivity {
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
         }
         setContentView(R.layout.activity_add_appointment);
+
+        final EditText set = (EditText) findViewById(R.id.editText);
+        set.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View view){
+                dialog = new Dialog(AddAppointmentActivity.this);
+                dialog.setTitle("Set Date and Time");
+                dialog.setContentView(R.layout.set_date);
+                dialog.show();
+                final Button setDate = (Button) dialog.findViewById(R.id.set_date);
+                final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePicker);
+                setDate.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        date = datePicker.getDayOfMonth();
+                        month = datePicker.getMonth();
+                        year = datePicker.getYear();
+                        set.setText(date+"-"+month+"-"+year);
+                        dialog.cancel();
+                    }
+                });
+            }
+        });
+
+        final EditText set1 = (EditText) findViewById(R.id.editText2);
+        set1.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View view){
+                dialog = new Dialog(AddAppointmentActivity.this);
+                dialog.setTitle("Set Date and Time");
+                dialog.setContentView(R.layout.set_time);
+                dialog.show();
+                final Button setTime = (Button) dialog.findViewById(R.id.set_time);
+                final TimePicker timePicker = (TimePicker) dialog.findViewById(R.id.timePicker);
+                setTime.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        hour = timePicker.getCurrentHour();
+                        minute = timePicker.getCurrentMinute();
+                        set1.setText(hour+":"+minute);
+                        dialog.cancel();
+                    }
+                });
+            }
+        });
         Button submit = (Button) findViewById(R.id.submit_button1);
         submit.setOnClickListener(new View.OnClickListener()
         {
@@ -60,7 +113,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
             public void onClick (View view){
                 dialog = new Dialog(AddAppointmentActivity.this);
                 dialog.setTitle("Submit Request");
-                dialog.setContentView(R.layout.popup_submit);
+                dialog.setContentView(R.layout.popup_appointment_submit);
                 dialog.show();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 final Button request = (Button) dialog.findViewById(R.id.button_ok);
