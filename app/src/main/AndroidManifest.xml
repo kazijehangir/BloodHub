@@ -93,7 +93,8 @@
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
         </activity>
-        <activity android:name=".AddPatientActivity"></activity>
+        <activity android:name=".AddPatientActivity" />
+        <activity android:name=".AddRequestOrgActivity"></activity>
     </application>
 
 </manifest>
