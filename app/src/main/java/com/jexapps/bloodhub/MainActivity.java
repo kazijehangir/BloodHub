@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity
     boolean isOpen = false;
     private String appoint;
     private boolean request;
+    private String mEmail = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity
-        final String mEmail;
         request = false;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -263,6 +263,7 @@ public class MainActivity extends AppCompatActivity
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
                 fragmentClass = HomeFragment.class;
+                args.putString("mEmail",mEmail);
                 break;
             case R.id.nav_requests:
                 fragmentClass = RequestsFragment.class;

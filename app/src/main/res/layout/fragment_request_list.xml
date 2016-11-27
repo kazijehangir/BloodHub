@@ -5,7 +5,6 @@
     android:paddingTop="@dimen/home_tabs_top_padding"
     tools:context="com.jexapps.bloodhub.RequestListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <!-- A RecyclerView with some commonly used attributes -->
     <android.support.v7.widget.RecyclerView

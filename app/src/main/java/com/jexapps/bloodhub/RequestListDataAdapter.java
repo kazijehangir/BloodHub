@@ -1,15 +1,18 @@
 package com.jexapps.bloodhub;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.jexapps.bloodhub.R.drawable.boy;
 
@@ -21,12 +24,13 @@ import static com.jexapps.bloodhub.R.drawable.boy;
 
 public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListDataAdapter.ViewHolder> {
     private String[] mDataset;
-    private  Context mContext;
+    private final Context mContext;
+    private static String mEmail;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public TextView mName, mLocation, mNeeds, mWhen, mDiagnosis, mTransport;
         public ImageView mImage, mTransportImage;
@@ -40,13 +44,33 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
             mImage = (ImageView) itemView.findViewById(R.id.request_picture);
             mTransportImage = (ImageView) itemView.findViewById(R.id.transport_image);
             mTransport = (TextView) itemView.findViewById(R.id.transport_text);
+            itemView.findViewById(R.id.card_view).setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(v.getContext(), RequestDetail.class);
+            TextView mName = (TextView) itemView.findViewById(R.id.name_text);
+            intent.putExtra("name", mName.getText());
+            TextView mNeeds = (TextView) itemView.findViewById(R.id.needs_text);
+            intent.putExtra("needs", mNeeds.getText());
+            TextView mLocation = (TextView) itemView.findViewById(R.id.location_text);
+            intent.putExtra("location", mLocation.getText());
+            TextView mWhen = (TextView) itemView.findViewById(R.id.when_text);
+            intent.putExtra("when", mWhen.getText());
+            TextView mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
+            intent.putExtra("diagnosis", mDiagnosis.getText());
+            TextView mTransport = (TextView) itemView.findViewById(R.id.transport_text);
+            intent.putExtra("transport", mTransport.getText());
+            intent.putExtra("mEmail", mEmail);
+            v.getContext().startActivity(intent);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RequestListDataAdapter(String[] myDataset, Context context) {
+    public RequestListDataAdapter(String[] myDataset, Context context, String email) {
         mDataset = myDataset;
         mContext = context;
+        mEmail = email;
     }
 
     // Create new views (invoked by the layout manager)
@@ -73,7 +97,6 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
             holder.mWhen.setTextColor(0xFFFF0000);
         }
         holder.mDiagnosis.setText(strings[4]);
-//        TODO: FIX THESE IMAGE ASSIGNMENTS
         if (strings[5].equals("Male")) {
             holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
         } else if (strings[5].equals("Female")) {

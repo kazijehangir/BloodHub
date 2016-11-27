@@ -23,8 +23,7 @@ import android.view.ViewGroup;
 public class RequestListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
     private static final String[] dummyDataset = new String[] {
             "Jamshed:2 bags of O-:National Hospital:URGENT:Surgery:Male:Yes",
             "Aliya:1 bag of A+:Red Crescent:Today:Thalassemia:Female:No",
@@ -32,8 +31,8 @@ public class RequestListFragment extends Fragment {
             "Saniya:1 bags of B+:Aadil Hospital:Today:Accident:Female:Yes"
     };
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
+    private String mEmail;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -49,16 +48,14 @@ public class RequestListFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param email Parameter 1.
      * @return A new instance of fragment RequestListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RequestListFragment newInstance(String param1, String param2) {
+    public static RequestListFragment newInstance(String email) {
         RequestListFragment fragment = new RequestListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("mEmail", email);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,8 +64,7 @@ public class RequestListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mEmail = getArguments().getString("mEmail");
         }
 
     }
@@ -92,7 +88,7 @@ public class RequestListFragment extends Fragment {
 
 
         // specify an adapter (see also next example)
-        mAdapter = new RequestListDataAdapter(dummyDataset, getContext());
+        mAdapter = new RequestListDataAdapter(dummyDataset, getContext(), mEmail);
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
