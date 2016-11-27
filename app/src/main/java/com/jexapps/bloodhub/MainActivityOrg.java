@@ -196,6 +196,10 @@ public class MainActivityOrg extends AppCompatActivity
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
+        if (menuItem.getItemId() == R.id.signout) {
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
                 fragmentClass = HomeFragment.class;
