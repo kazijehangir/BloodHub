@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fab_plus, fab_request, fab_appointment;
     Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
     boolean isOpen = false;
+    private String appoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +67,14 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                mEmail= null;
+                mEmail = null;
             } else {
-                mEmail= extras.getString("mEmail");
+                mEmail = extras.getString("mEmail");
+            }
+            if(getIntent().hasExtra("appointments")) {
+               appoint = extras.getString("appointments");
+            } else {
+                appoint = null;
             }
         } else {
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
@@ -207,6 +213,7 @@ public class MainActivity extends AppCompatActivity
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
+        Bundle args = new Bundle();
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
                 fragmentClass = HomeFragment.class;
@@ -216,6 +223,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_appointments:
                 fragmentClass = AppointmentsFragment.class;
+                args.putString("appointments",appoint);
                 break;
             case R.id.nav_donations:
                 fragmentClass = DonationsFragment.class;
@@ -246,6 +254,7 @@ public class MainActivity extends AppCompatActivity
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
+        fragment.setArguments(args);
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         // Highlight the selected item has been done by NavigationView

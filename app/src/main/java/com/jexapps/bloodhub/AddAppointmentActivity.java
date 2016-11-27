@@ -10,6 +10,7 @@ import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View.OnClickListener;
@@ -31,6 +32,9 @@ import android.content.Context;
 import android.app.Activity;
 import android.widget.Button;
 import android.view.animation.AnimationUtils;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -42,6 +46,8 @@ public class AddAppointmentActivity extends AppCompatActivity {
     Dialog dialog;
     private int date, month, year, hour, minute;
     private String time;
+    private RadioButton radioButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +88,9 @@ public class AddAppointmentActivity extends AppCompatActivity {
                 });
             }
         });
-
+        final Spinner spinner = (Spinner) findViewById(R.id.spin1);
         final EditText set1 = (EditText) findViewById(R.id.editText2);
+        final RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radio);
         set1.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -123,6 +130,9 @@ public class AddAppointmentActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intent = new Intent(AddAppointmentActivity.this,MainActivity.class);
                         intent.putExtra("mEmail", mEmail);
+                        int selected_id = radioGroup.getCheckedRadioButtonId();
+                        radioButton = (RadioButton) findViewById(selected_id);
+                        intent.putExtra("appointments",spinner.getSelectedItem().toString()+";"+set.getText().toString()+", "+set1.getText().toString()+";"+radioButton.getText().toString());
                         startActivity(intent);
                     }
                 });
