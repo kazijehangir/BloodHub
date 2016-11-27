@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#cc0000</color>
     <color name="backgroundColor">#f2f2f2</color>
     <color name="colorAccent">#1a1a1a</color>
+    <color name="white">#ffffff</color>
     <color name="fab1">#700404</color>
     <color name="fab2">#380b0b</color>
 </resources>
