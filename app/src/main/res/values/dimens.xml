@@ -12,4 +12,6 @@
     <dimen name="home_tabs_top_padding">56dp</dimen>
     <dimen name="padding_eight">8dp</dimen>
 
+    <dimen name="cardview_top_padding">8dp</dimen>
+
 </resources>
