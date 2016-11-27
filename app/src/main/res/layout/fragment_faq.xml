@@ -2,19 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="15dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginLeft="15dp"
-    tools:context="com.jexapps.bloodhub.FaqFragment">
+    android:background="@color/fab1"
+    tools:context="com.jexapps.bloodhub.FaqFragment"
+    android:divider="#383232">
 
     <!-- TODO: Update blank fragment layout -->
     <!--TODO: implement collapsible views-->
 
     <ExpandableListView
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/expandableListView"
-        android:divider="#cb6767"
+        android:divider="#383232"
         android:dividerHeight="10dp"
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
         >
