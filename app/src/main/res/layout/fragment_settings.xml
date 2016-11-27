@@ -6,21 +6,12 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ListView
-        android:layout_width="wrap_content"
+    <Switch
+        android:text="Notifications: "
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Allow requests from all users"
-        android:layout_marginTop="46dp"
-        android:textSize="30sp"
-        android:background="#e6cbcb"
-        android:textColor="@color/fab1"
-        />
-
+        android:id="@+id/switch2"
+        android:layout_weight="0.55"
+        android:textSize="22sp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content" />
 </LinearLayout>
