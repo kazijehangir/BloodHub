@@ -10,7 +10,7 @@
         android:layout_gravity="center"
         card_view:cardCornerRadius="1dp"
         card_view:contentPadding="5dp"
-        android:layout_marginTop="@dimen/home_tabs_top_padding">
+        android:layout_marginTop="10dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -43,16 +43,16 @@
                 android:text="Donating 1 pint of blood can save upto 4 lives!"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
-        </RelativeLayout>
+            </RelativeLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:cardCornerRadius="1dp"
-        app:contentPadding="5dp"
-        android:layout_marginTop="10dp">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="1dp"
+            app:contentPadding="5dp"
+            android:layout_marginTop="10dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -98,62 +98,6 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_menu_friend"
                 android:id="@+id/imageView2"
-                android:layout_gravity="bottom|end"
-                android:layout_marginRight="16dp"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:cardCornerRadius="1dp"
-        app:contentPadding="5dp"
-        android:layout_marginTop="10dp">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/cardView">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                app:srcCompat="@drawable/girl"
-                android:id="@+id/imageViewSaniya" />
-
-            <TextView
-                android:text="Sameena"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textSize="20sp"
-                android:layout_marginLeft="50dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/textSaniya" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textSaniya"
-                android:textSize="10dp"
-                android:layout_marginLeft="50dp"
-                android:text="26 Nov at 11:00p.m."/>
-            <TextView
-                android:text="My father needed blood for his surgery. I was quickly able to get blood through... [Read More]"
-                android:layout_below="@+id/textSaniya"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView7" />
-
-            <ImageView
-                android:layout_marginTop="70dp"
-                android:layout_marginLeft="335dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_menu_friend"
-                android:id="@+id/imageView6"
                 android:layout_gravity="bottom|end"
                 android:layout_marginRight="16dp"/>
         </RelativeLayout>
