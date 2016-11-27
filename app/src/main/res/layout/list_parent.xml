@@ -18,7 +18,7 @@
         android:paddingTop="10dp"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#701e1e"
+        android:textColor="@color/fab2"
         android:textStyle="bold"
         />
 
