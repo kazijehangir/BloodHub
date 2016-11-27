@@ -80,7 +80,8 @@
         android:src="@drawable/don_info"
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_alignStart="@+id/textView2"
+        />
 
     <TextView
         android:layout_width="wrap_content"
