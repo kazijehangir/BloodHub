@@ -6,13 +6,21 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Allow requests from all"
-        android:layout_marginLeft="16dp"
+        android:id="@+id/listView"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Allow requests from all users"
         android:layout_marginTop="46dp"
-        android:textSize="20sp"
+        android:textSize="30sp"
+        android:background="#e6cbcb"
+        android:textColor="@color/fab1"
         />
 
 </LinearLayout>
