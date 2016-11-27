@@ -43,7 +43,6 @@
         android:id="@+id/image1"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginEnd="0dp"
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@+id/name"
         android:layout_toStartOf="@+id/name"
@@ -72,5 +71,49 @@
         android:text="Name: Aimen Gaba"
         android:textSize="20sp" />
 
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/don_info"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Donation Info"
+        android:layout_below="@+id/imageButton1"
+        android:layout_alignRight="@+id/edit_pro"
+        android:layout_alignEnd="@+id/edit_pro"
+        android:textSize="18sp"
+        android:textColor="@color/fab1"
+        android:id="@+id/textView2" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/req_info"
+        android:layout_above="@+id/textView2"
+        android:layout_alignRight="@+id/con_num"
+        android:layout_alignEnd="@+id/con_num" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Requests Info"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignRight="@+id/name"
+        android:layout_alignEnd="@+id/name"
+        android:textColor="@color/fab1"
+        android:textSize="18sp"
+        />
 
 </RelativeLayout>
