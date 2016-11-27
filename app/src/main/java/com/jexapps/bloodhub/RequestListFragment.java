@@ -26,10 +26,10 @@ public class RequestListFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String[] dummyDataset = new String[] {
-            "Jamshed:2 bags of O-:National Hospital:URGENT:Surgery",
-            "Aliya:1 bag of A+:Red Crescent:Today:Thalassemia",
-            "Hamid:1 bag of AB-:Shaukat Khanum:Next Week:Cancer",
-            "Saniya:1 bags of B+:Aadil Hospital:Today:Accident"
+            "Jamshed:2 bags of O-:National Hospital:URGENT:Surgery:Male:Yes",
+            "Aliya:1 bag of A+:Red Crescent:Today:Thalassemia:Female:No",
+            "Hamid:1 bag of AB-:Shaukat Khanum:Next Week:Cancer:Male:No",
+            "Saniya:1 bags of B+:Aadil Hospital:Today:Accident:Female:Yes"
     };
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -92,7 +92,7 @@ public class RequestListFragment extends Fragment {
 
 
         // specify an adapter (see also next example)
-        mAdapter = new RequestListDataAdapter(dummyDataset);
+        mAdapter = new RequestListDataAdapter(dummyDataset, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
