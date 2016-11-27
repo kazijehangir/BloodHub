@@ -64,6 +64,21 @@
         <item>8</item>
     </string-array>
 
+    <string-array name="num_days">
+        <item>8</item>
+        <item>16</item>
+        <item>24</item>
+        <item>32</item>
+        <item>40</item>
+        <item>48</item>
+        <item>56</item>
+        <item>64</item>
+        <item>72</item>
+        <item>80</item>
+        <item>88</item>
+        <item>96</item>
+    </string-array>
+
     <!-- Strings related to Emergency Request -->
     <string name="faq1">Eligible to donate</string>
     <string name="faq2">Compatible blood types</string>
