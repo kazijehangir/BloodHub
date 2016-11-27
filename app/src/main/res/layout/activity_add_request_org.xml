@@ -240,7 +240,7 @@
                  android:id="@+id/spin3"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:entries="@array/days_num"
+                 android:entries="@array/num_days"
                  android:layout_below="@id/after"
                  android:layout_marginTop="10dp"
                  >
