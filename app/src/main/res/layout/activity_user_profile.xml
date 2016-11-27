@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit Profile"
-        android:layout_below="@+id/con_num"
+        android:layout_alignTop="@+id/con_num"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -131,12 +131,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Health Info"
-        android:layout_below="@+id/imageButton3"
         android:layout_alignRight="@+id/image1"
         android:layout_alignEnd="@+id/image1"
         android:textSize="18sp"
         android:textColor="@color/fab1"
-        android:id="@+id/textView5" />
+        android:id="@+id/textView5"
+        android:layout_below="@+id/imageButton3" />
 
     <ImageButton
         android:id="@+id/imageButton4"
