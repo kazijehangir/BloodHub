@@ -80,6 +80,7 @@ public class AddRequestActivity extends AppCompatActivity{
                     public void onClick(View view) {
                         Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
                         intent.putExtra("mEmail", mEmail);
+                        intent.putExtra("request", true);
                         startActivity(intent);
                     }
                 });

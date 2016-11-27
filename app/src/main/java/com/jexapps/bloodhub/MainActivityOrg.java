@@ -229,6 +229,7 @@ public class MainActivityOrg extends AppCompatActivity
                 break;
             case R.id.nav_Settings:
                 fragmentClass = SettingsFragment.class;
+                args.putBoolean("request",true);
                 break;
             default:
                 fragmentClass = HomeFragment.class;

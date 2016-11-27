@@ -72,14 +72,22 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
         final Activity activity = getActivity();
+        final Boolean appoint = getArguments().getBoolean("request");
+
         Switch aSwitch = (Switch) rootView.findViewById(R.id.switch2);
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-                    Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.boy).setContentTitle("Ahmed needs 1 bag of A+ blood").setContentText("Click to view his request").getNotification();
-                    mNotifyMgr.notify(0,notif);
+                    if (appoint) {
+                        NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.boy).setContentTitle("Ahmed responded to your request").setContentText("Click to view his profile").getNotification();
+                        mNotifyMgr.notify(0, notif);
+                    } else {
+                        NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.boy).setContentTitle("Ahmed needs 1 bag of A+ blood").setContentText("Click to view his request").getNotification();
+                        mNotifyMgr.notify(0, notif);
+                    }
                 }
             }
         });

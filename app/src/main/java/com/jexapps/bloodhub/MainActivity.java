@@ -61,11 +61,13 @@ public class MainActivity extends AppCompatActivity
     Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
     boolean isOpen = false;
     private String appoint;
+    private boolean request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity
         final String mEmail;
+        request = false;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -77,6 +79,9 @@ public class MainActivity extends AppCompatActivity
                appoint = extras.getString("appointments");
             } else {
                 appoint = null;
+            }
+            if(getIntent().hasExtra("request")) {
+                request = extras.getBoolean("request");
             }
         } else {
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
@@ -283,6 +288,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_Settings:
                 fragmentClass = SettingsFragment.class;
+                args.putBoolean("request",request);
                 break;
             default:
                 fragmentClass = HomeFragment.class;
