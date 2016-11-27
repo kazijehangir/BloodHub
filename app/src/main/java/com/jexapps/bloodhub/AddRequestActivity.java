@@ -37,6 +37,7 @@ public class AddRequestActivity extends AppCompatActivity{
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
         }
         setTitle("ADD REQUEST");
+
         final EditText set = (EditText) findViewById(R.id.editText);
         set.setOnClickListener(new View.OnClickListener()
         {
