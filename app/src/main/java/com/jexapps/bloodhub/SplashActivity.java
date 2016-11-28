@@ -12,12 +12,12 @@ public class SplashActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            // stall for .5 seconds
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-
-        }
+//        try {
+//            // stall for .5 seconds
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//
+//        }
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
