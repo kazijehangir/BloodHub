@@ -7,7 +7,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/ic_launcher1"/>
+            android:src="@drawable/bloodhub"/>
     </item>
 
 </layer-list>

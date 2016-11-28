@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="256dp"
         app:srcCompat="@drawable/boy"
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewRequestDetail"
         />
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"

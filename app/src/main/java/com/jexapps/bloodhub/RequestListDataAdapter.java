@@ -2,7 +2,9 @@ package com.jexapps.bloodhub;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +51,14 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(v.getContext(), RequestDetail.class);
+
+            ImageView imageView = (ImageView) itemView.findViewById(R.id.request_picture);
+            imageView.buildDrawingCache();
+            Bitmap image = imageView.getDrawingCache();
+            Bundle extras = new Bundle();
+            extras.putParcelable("imagebitmap", image);
+            intent.putExtras(extras);
+
             TextView mName = (TextView) itemView.findViewById(R.id.name_text);
             intent.putExtra("name", mName.getText());
             TextView mNeeds = (TextView) itemView.findViewById(R.id.needs_text);
