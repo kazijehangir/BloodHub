@@ -133,6 +133,16 @@ public class MainActivityOrg extends AppCompatActivity
                 startActivity(intent);
             }
         });
+        fab_appointment.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(MainActivityOrg.this, AddRequestOrgActivity.class);
+                intent.putExtra("mEmail", mEmail);
+                startActivity(intent);
+            }
+        });
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -47,7 +47,14 @@
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
         </activity>
-        <activity android:name=".AddRequestActivity" />
+        <activity android:name=".AddRequestActivity"
+            android:parentActivityName=".MainActivity">
+
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.jexapps.bloodhub.MainActivity" />
+        </activity>
         <activity
             android:name=".IndividualRegistrationActivity"
             android:parentActivityName=".LoginActivity">
