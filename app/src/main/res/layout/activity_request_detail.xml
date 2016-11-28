@@ -162,6 +162,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:id="@+id/request_detail_donate_button"
-        style="@style/Widget.AppCompat.Button" />
+        style="@style/Widget.AppCompat.Button"
+        android:background="@color/fab1"
+        android:textColor="@android:color/background_light" />
 
 </LinearLayout>

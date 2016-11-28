@@ -171,6 +171,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:background="@color/fab1"
-        />
+        android:id="@+id/submit_button" />
 
 </LinearLayout>
