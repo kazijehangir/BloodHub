@@ -14,7 +14,7 @@ public class DonateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.popup_donate);
+        setContentView(R.layout.activity_donate);
         setTitle("DONATE BLOOD");
         Button submit = (Button) findViewById(R.id.submit_button);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -22,7 +22,7 @@ public class DonateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 dialog = new Dialog(DonateActivity.this);
                 dialog.setTitle("Donate Blood");
-                dialog.setContentView(R.layout.popup_submit);
+                dialog.setContentView(R.layout.popup_donate);
                 dialog.show();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
