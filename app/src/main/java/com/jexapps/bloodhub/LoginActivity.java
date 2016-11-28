@@ -54,7 +54,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * TODO: remove after connecting to a real authentication system.
      */
     private static String[] CREDENTIALS = new String[]{
-            "foo@example.com:hello:FooBar:O+:ind", "bar@example.com:world:BarFoo:B+:ind", "a@a.a:aaaaa:AaAa:A+:ind"
+            "foo@example.com:hello:Foo Bar:O+:ind", "bar@example.com:world:Bar Foo:B+:ind",
+            "a@a.a:aaaaa:Aa Aa:A+:ind","o@o.o:ooooo:Oo Oo:0303112312:LUMS SSE:org"
+
     };
 //  TODO: add preferences file for every data to be stored
     private static final String CREDENTIALS_FILE_NAME = "credentials";
@@ -438,7 +440,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         status = pieces[pieces.length-1];
                     }
                 }
-                Intent intent = null;
+                Intent intent;
                 if (status.equals("org"))
                     intent = new Intent(LoginActivity.this, MainActivityOrg.class);
                 else

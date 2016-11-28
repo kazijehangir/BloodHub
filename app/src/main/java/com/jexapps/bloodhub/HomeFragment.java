@@ -28,6 +28,7 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String mEmail;
 
     private OnFragmentInteractionListener mListener;
 
@@ -59,6 +60,7 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            mEmail = getArguments().getString("mEmail");
         }
     }
 

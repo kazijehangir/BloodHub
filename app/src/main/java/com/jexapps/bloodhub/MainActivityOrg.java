@@ -27,6 +27,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ public class MainActivityOrg extends AppCompatActivity
     private DrawerLayout mDrawer;
     private static final String CREDENTIALS_FILE_NAME = "credentials";
     private SharedPreferences CREDENTIAL_FILE;
+    Button button_request, button_patient;
     private static String[] CREDENTIALS;
     FloatingActionButton fab_plus, fab_request, fab_appointment;
     Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
@@ -86,6 +88,8 @@ public class MainActivityOrg extends AppCompatActivity
         fab_plus = (FloatingActionButton)findViewById(R.id.fab2);
         fab_request = (FloatingActionButton)findViewById(R.id.fab1);
         fab_appointment = (FloatingActionButton)findViewById(R.id.fab);
+        button_request = (Button) findViewById(R.id.add_blood_request);
+        button_patient = (Button) findViewById(R.id.add_patient);
         FabOpen = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_open);
         FabClose = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
         FabRClockwise=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
@@ -97,6 +101,8 @@ public class MainActivityOrg extends AppCompatActivity
                 if(isOpen) {
                     fab_request.startAnimation(FabClose);
                     fab_appointment.startAnimation(FabClose);
+                    button_request.setVisibility(View.GONE);
+                    button_patient.setVisibility(View.GONE);
                     fab_plus.startAnimation(FabRanticlockwise);
                     fab_request.setClickable(false);
                     fab_appointment.setClickable(false);
@@ -108,6 +114,8 @@ public class MainActivityOrg extends AppCompatActivity
                     fab_request.startAnimation(FabOpen);
                     fab_appointment.startAnimation(FabOpen);
                     fab_plus.startAnimation(FabRClockwise);
+                    button_request.setVisibility(View.VISIBLE);
+                    button_patient.setVisibility(View.VISIBLE);
                     fab_request.setClickable(true);
                     fab_appointment.setClickable(true);
                     isOpen = true;

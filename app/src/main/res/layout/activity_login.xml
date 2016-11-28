@@ -71,11 +71,11 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:textColor="@android:color/background_light"
-                    android:textColorLink="@android:color/background_light"
-                    android:textColorHint="@android:color/background_light"
-                    android:textColorHighlight="@android:color/background_light"
-                    android:textCursorDrawable="@android:color/background_light" />
+                    android:textColor="@color/white"
+                    android:textColorLink="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textColorHighlight="@color/white"
+                    android:textCursorDrawable="@color/white" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -95,10 +95,10 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textColor="@android:color/background_light"
-                    android:textColorHighlight="@android:color/background_light"
-                    android:textColorHint="@android:color/background_light"
-                    android:textColorLink="@android:color/background_light" />
+                    android:textColor="@color/white"
+                    android:textColorHighlight="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textColorLink="@color/white" />
 
             </android.support.design.widget.TextInputLayout>
 

@@ -15,6 +15,7 @@
     <string name="action_emergency_request">Emergency Request</string>
     <string name="search_hint">Search...</string>
     <string name="popup_submit">Your request has been sent to all compatible donors.</string>
+    <string name="popup_request_detail_submit">The patient has been sent your details. Thank you for donating!</string>
     <string name="popup_patient">This patient has been added in your databse.</string>
 
     <string name="action_sign_in_short">Sign in</string>
