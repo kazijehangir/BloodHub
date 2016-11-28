@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="256dp"
         app:srcCompat="@drawable/boy"
-        android:id="@+id/imageViewRequestDetail"
+        android:id="@+id/imageView"
         />
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -162,8 +162,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:id="@+id/request_detail_donate_button"
-        style="@style/Widget.AppCompat.Button"
-        android:background="@color/fab1"
-        android:textColor="@android:color/background_light" />
+        style="@style/Widget.AppCompat.Button" />
 
 </LinearLayout>

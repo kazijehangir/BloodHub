@@ -2,14 +2,12 @@ package com.jexapps.bloodhub;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class RequestDetail extends AppCompatActivity {
@@ -37,9 +35,6 @@ public class RequestDetail extends AppCompatActivity {
             } else {
 //                Toast.makeText(this, "getting strings from extras",
 //                        Toast.LENGTH_SHORT).show();
-                Bitmap bmp = extras.getParcelable("imagebitmap");
-                ImageView imageView = (ImageView) findViewById(R.id.imageViewRequestDetail);
-                imageView.setImageBitmap(bmp);
                 name = extras.getString("name");
                 needs = extras.getString("needs");
                 location = extras.getString("location");
