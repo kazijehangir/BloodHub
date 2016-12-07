@@ -16,17 +16,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:hint="@string/prompt_name"
-            android:inputType="textPersonName"
-            android:maxLines="1"
-            android:singleLine="true" />
-
     </android.support.design.widget.TextInputLayout>
+
+    <AutoCompleteTextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:hint="@string/prompt_name"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:singleLine="true" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -90,19 +90,34 @@
             android:id="@+id/contact_num"
             android:hint="Contact no" />
     </android.support.design.widget.TextInputLayout>
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/loc"
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_loc"
-            android:maxLines="2"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+        <TextView
+            android:id="@+id/loc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Where do you need blood?"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             />
 
-    </android.support.design.widget.TextInputLayout>
+        <Spinner
+            android:id="@+id/spin2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/organizations_array"
+            android:layout_marginStart="230dp"
+            android:layout_alignTop="@+id/loc">
+
+        </Spinner>
+        </RelativeLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
