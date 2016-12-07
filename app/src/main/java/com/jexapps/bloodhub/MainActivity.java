@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
         }
 //        TODO: comment this toast out when done debugging
-        Toast.makeText(this, "Logged in " + mEmail + " successfully.",
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Logged in " + mEmail + " successfully.",
+//                Toast.LENGTH_SHORT).show();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

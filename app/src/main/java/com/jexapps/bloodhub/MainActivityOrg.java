@@ -37,17 +37,14 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 public class MainActivityOrg extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        RequestsFragment.OnFragmentInteractionListener,
-        DonationsFragment.OnFragmentInteractionListener,
-        AppointmentsFragment.OnFragmentInteractionListener,
+        RequestsOrgFragment.OnFragmentInteractionListener,
+        ReviewsFragment.OnFragmentInteractionListener,
+        AppointmentsOrgFragment.OnFragmentInteractionListener,
         FaqFragment.OnFragmentInteractionListener,
-        HomeFragment.OnFragmentInteractionListener,
-        InviteFriendFragment.OnFragmentInteractionListener,
-        OrganizationsFragment.OnFragmentInteractionListener,
+        HomeOrgFragment.OnFragmentInteractionListener,
+        OtherOrganizationsFragment.OnFragmentInteractionListener,
         ReportFragment.OnFragmentInteractionListener,
-        NewsListFragment.OnFragmentInteractionListener,
-        RequestListFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnFragmentInteractionListener{
+        SettingsOrgFragment.OnFragmentInteractionListener{
     //TODO: add separate layout for organizations
 //    TODO: Understand inflating views. probably is fix to update email and photo
 //    inflating views is creating view and view-groups from an xml file/resource
@@ -77,8 +74,8 @@ public class MainActivityOrg extends AppCompatActivity
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
         }
 //        TODO: comment this toast out when done debugging
-        Toast.makeText(this, "Logged in " + mEmail + " successfully.",
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Logged in " + mEmail + " successfully.",
+//                Toast.LENGTH_SHORT).show();
         String credential = getInfoFromDatabase(mEmail);
         appoint = credential+";28-12-16, 12:00;No";
         super.onCreate(savedInstanceState);
@@ -143,15 +140,7 @@ public class MainActivityOrg extends AppCompatActivity
                 startActivity(intent);
             }
         });
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(MainActivity.this, AddRequestActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -167,7 +156,7 @@ public class MainActivityOrg extends AppCompatActivity
         navigationView.setCheckedItem(R.id.nav_home);
         // Insert the home fragment by replacing any existing fragment
         try {
-            Fragment fragment = HomeFragment.class.newInstance();
+            Fragment fragment = HomeOrgFragment.class.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
         } catch (Exception e) {
@@ -219,25 +208,26 @@ public class MainActivityOrg extends AppCompatActivity
         Class fragmentClass;
         Bundle args = new Bundle();
         if (menuItem.getItemId() == R.id.signout) {
-            Intent intent = new Intent(this,LoginActivity.class);
-            startActivity(intent);
+            finish();
+//            Intent intent = new Intent(this,LoginActivity.class);
+//            startActivity(intent);
         }
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
-                fragmentClass = HomeFragment.class;
+                fragmentClass = HomeOrgFragment.class;
                 break;
             case R.id.nav_requests:
-                fragmentClass = RequestsFragment.class;
+                fragmentClass = RequestsOrgFragment.class;
                 break;
             case R.id.nav_appointments:
-                fragmentClass = AppointmentsFragment.class;
+                fragmentClass = AppointmentsOrgFragment.class;
                 args.putString("appointments",appoint);
                 break;
             case R.id.nav_reviews:
-                fragmentClass = DonationsFragment.class;
+                fragmentClass = ReviewsFragment.class;
                 break;
             case R.id.nav_organizations:
-                fragmentClass = OrganizationsFragment.class;
+                fragmentClass = OtherOrganizationsFragment.class;
                 break;
             case R.id.nav_faq:
                 fragmentClass = FaqFragment.class;
@@ -246,11 +236,11 @@ public class MainActivityOrg extends AppCompatActivity
                 fragmentClass = ReportFragment.class;
                 break;
             case R.id.nav_Settings:
-                fragmentClass = SettingsFragment.class;
+                fragmentClass = SettingsOrgFragment.class;
                 args.putBoolean("request",true);
                 break;
             default:
-                fragmentClass = HomeFragment.class;
+                fragmentClass = HomeOrgFragment.class;
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -323,11 +313,11 @@ public class MainActivityOrg extends AppCompatActivity
     }
     //    TODO: Understand what OnFragmentInteractionListener is supposed to do
     @Override
-    public void onAppointmentsFragmentInteraction(Uri uri) {
+    public void onAppointmentsOrgFragmentInteraction(Uri uri) {
 
     }
     @Override
-    public void onDonationsFragmentInteraction(Uri uri) {
+    public void onReviewsFragmentInteraction(Uri uri) {
 
     }
     @Override
@@ -335,15 +325,11 @@ public class MainActivityOrg extends AppCompatActivity
 
     }
     @Override
-    public void onHomeFragmentInteraction(Uri uri) {
+    public void onHomeOrgFragmentInteraction(Uri uri) {
 
     }
     @Override
-    public void onInviteFriendFragmentInteraction(Uri uri) {
-
-    }
-    @Override
-    public void onOrganizationsFragmentInteraction(Uri uri) {
+    public void onOtherOrganizationsFragmentInteraction(Uri uri) {
 
     }
     @Override
@@ -351,19 +337,13 @@ public class MainActivityOrg extends AppCompatActivity
 
     }
     @Override
-    public void onRequestsFragmentInteraction(Uri uri) {
+    public void onRequestsOrgFragmentInteraction(Uri uri) {
 
     }
-    @Override
-    public void onNewsListFragmentInteraction(Uri iri) {
 
-    }
-    @Override
-    public void onRequestListFragmentInteraction(Uri iri) {
 
-    }
     @Override
-    public void onSettingsFragmentInteraction(Uri iri) {
+    public void onSettingsOrgFragmentInteraction(Uri iri) {
 
     }
     private String getInfoFromDatabase(String email) {
