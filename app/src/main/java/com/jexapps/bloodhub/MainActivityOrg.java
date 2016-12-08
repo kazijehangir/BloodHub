@@ -42,6 +42,8 @@ public class MainActivityOrg extends AppCompatActivity
         AppointmentsOrgFragment.OnFragmentInteractionListener,
         FaqFragment.OnFragmentInteractionListener,
         HomeOrgFragment.OnFragmentInteractionListener,
+        OrgPatientListFragment.OnFragmentInteractionListener,
+        OrgDonorListFragment.OnFragmentInteractionListener,
         OtherOrganizationsFragment.OnFragmentInteractionListener,
         ReportFragment.OnFragmentInteractionListener,
         SettingsOrgFragment.OnFragmentInteractionListener{
@@ -340,6 +342,15 @@ public class MainActivityOrg extends AppCompatActivity
     public void onRequestsOrgFragmentInteraction(Uri uri) {
 
     }
+    @Override
+    public void onOrgPatientListFragmentInteraction(Uri uri) {
+
+    }
+    @Override
+    public void onOrgDonorListFragmentInteraction(Uri uri) {
+
+    }
+
 
 
     @Override

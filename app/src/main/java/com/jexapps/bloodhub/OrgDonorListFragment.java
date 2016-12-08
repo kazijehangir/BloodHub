@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +12,16 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HomeOrgFragment.OnFragmentInteractionListener} interface
+ * {@link OrgDonorListFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HomeOrgFragment#newInstance} factory method to
+ * Use the {@link OrgDonorListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeOrgFragment extends Fragment {
+public class OrgDonorListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private FragmentTabHost mTabHost;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -31,7 +29,7 @@ public class HomeOrgFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public HomeOrgFragment() {
+    public OrgDonorListFragment() {
         // Required empty public constructor
     }
 
@@ -41,11 +39,11 @@ public class HomeOrgFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeOrgFragment.
+     * @return A new instance of fragment OrgDonorListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomeOrgFragment newInstance(String param1, String param2) {
-        HomeOrgFragment fragment = new HomeOrgFragment();
+    public static OrgDonorListFragment newInstance(String param1, String param2) {
+        OrgDonorListFragment fragment = new OrgDonorListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,24 +63,14 @@ public class HomeOrgFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home_org,container, false);
-
-
-        mTabHost = (FragmentTabHost)rootView.findViewById(android.R.id.tabhost);
-        mTabHost.setup(getActivity(), getChildFragmentManager(), R.id.tabcontent);
-
-        mTabHost.addTab(mTabHost.newTabSpec("fragment_patient_list").setIndicator("Patients"),
-                OrgPatientListFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("fragment_donor_list").setIndicator("Donors"),
-                OrgDonorListFragment.class, null);
-
-        return rootView;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_org_donor_list, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onHomeOrgFragmentInteraction(uri);
+            mListener.onOrgDonorListFragmentInteraction(uri);
         }
     }
 
@@ -115,6 +103,6 @@ public class HomeOrgFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onHomeOrgFragmentInteraction(Uri uri);
+        void onOrgDonorListFragmentInteraction(Uri uri);
     }
 }
