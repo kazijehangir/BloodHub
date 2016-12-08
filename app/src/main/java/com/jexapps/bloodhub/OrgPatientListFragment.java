@@ -24,11 +24,12 @@ public class OrgPatientListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
+//    "NAME:BGROUP:DIAGNOSIS:LASTREQUEST:STATUS:GENDER:TRANSPORT"
     private static final String[] dummyDataset = new String[] {
-            "Jamshed:2 bags of O-:National Hospital:URGENT:Surgery:Male:Yes",
-            "Aliya:1 bag of A+:Red Crescent:Today:Thalassemia:Female:No",
-            "Hamid:1 bag of AB-:Shaukat Khanum:Next Week:Cancer:Male:No",
-            "Saniya:1 bags of B+:Aadil Hospital:Today:Accident:Female:Yes"
+        "Jamshed:O-:Surgery:3rd December 2016:Admitted:Male:Yes",
+        "Aliya:A+:Thalassemia:13th October 2016:Visiting:Female:No",
+        "Hamid:AB-:Accident:5th November 2016:Admitted:Male:No",
+        "Saniya:B+:Cancer:10th September 2016:Visiting:Female:Yes"
     };
     private String mEmail;
 

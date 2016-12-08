@@ -86,17 +86,17 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/needs_label"
+                    android:id="@+id/bgroup_label"
                     android:layout_weight="1"
                     android:layout_gravity="left"
-                    android:text="Needs:"/>
+                    android:text="Blood Group:"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/needs_text"
+                    android:id="@+id/bgroup_text"
                     android:layout_weight="0"
                     android:layout_gravity="right"
-                    android:text="2 bags of O-"
+                    android:text="O-"
                     android:textStyle="normal|bold" />
             </android.support.v7.widget.LinearLayoutCompat>
             <android.support.v7.widget.LinearLayoutCompat
@@ -130,17 +130,17 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/when_label"
+                    android:id="@+id/last_donated_label"
                     android:layout_weight="1"
                     android:layout_gravity="left"
-                    android:text="When:"/>
+                    android:text="Last Donated:"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/when_text"
+                    android:id="@+id/last_donated_text"
                     android:layout_weight="0"
                     android:layout_gravity="right"
-                    android:text="URGENT"
+                    android:text="14 weeks earler"
                     android:textStyle="normal|bold" />
             </android.support.v7.widget.LinearLayoutCompat>
             <android.support.v7.widget.LinearLayoutCompat
@@ -152,17 +152,17 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/diagnosis_label"
+                    android:id="@+id/donor_origin_label"
                     android:layout_weight="1"
                     android:layout_gravity="left"
-                    android:text="Diagnosis:"/>
+                    android:text="Donor Origin:"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/diagnosis_text"
+                    android:id="@+id/donor_origin_text"
                     android:layout_weight="0"
                     android:layout_gravity="right"
-                    android:text="Surgery"
+                    android:text="Visiting Patient"
                     android:fontFamily="sans-serif"
                     tools:layout_gravity="right"
                     android:textStyle="normal|bold" />

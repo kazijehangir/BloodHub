@@ -86,17 +86,17 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/needs_label"
+                    android:id="@+id/ngroup_label"
                     android:layout_weight="1"
                     android:layout_gravity="left"
-                    android:text="Needs:"/>
+                    android:text="Blood Group:"/>
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/needs_text"
+                    android:id="@+id/bgroup_text"
                     android:layout_weight="0"
                     android:layout_gravity="right"
-                    android:text="2 bags of O-"
+                    android:text="O +"
                     android:textStyle="normal|bold" />
             </android.support.v7.widget.LinearLayoutCompat>
             <android.support.v7.widget.LinearLayoutCompat
@@ -105,50 +105,6 @@
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/cardview_top_padding"
                 android:id="@+id/location_horizontal">
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/location_label"
-                    android:layout_weight="1"
-                    android:layout_gravity="left"
-                    android:text="Location:"/>
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/location_text"
-                    android:layout_weight="0"
-                    android:layout_gravity="right"
-                    android:text="National Hospital"
-                    android:textStyle="normal|bold" />
-            </android.support.v7.widget.LinearLayoutCompat>
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/cardview_top_padding"
-                android:id="@+id/when_horizontal">
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/when_label"
-                    android:layout_weight="1"
-                    android:layout_gravity="left"
-                    android:text="When:"/>
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/when_text"
-                    android:layout_weight="0"
-                    android:layout_gravity="right"
-                    android:text="URGENT"
-                    android:textStyle="normal|bold" />
-            </android.support.v7.widget.LinearLayoutCompat>
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/cardview_top_padding"
-                android:id="@+id/diagnosis_horizontal">
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -163,6 +119,50 @@
                     android:layout_weight="0"
                     android:layout_gravity="right"
                     android:text="Surgery"
+                    android:textStyle="normal|bold" />
+            </android.support.v7.widget.LinearLayoutCompat>
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/cardview_top_padding"
+                android:id="@+id/when_horizontal">
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/last_request_label"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:text="Last Request:"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/last_request_text"
+                    android:layout_weight="0"
+                    android:layout_gravity="right"
+                    android:text="3rd December 2016"
+                    android:textStyle="normal|bold" />
+            </android.support.v7.widget.LinearLayoutCompat>
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/cardview_top_padding"
+                android:id="@+id/diagnosis_horizontal">
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/patient_status_label"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:text="Patient Status:"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/patient_status_text"
+                    android:layout_weight="0"
+                    android:layout_gravity="right"
+                    android:text="Admitted"
                     android:fontFamily="sans-serif"
                     tools:layout_gravity="right"
                     android:textStyle="normal|bold" />
