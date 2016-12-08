@@ -26,8 +26,8 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
-        public TextView mName, mLocation, mBgroup, mLastDonated, mOrigin, mTransport;
-        public ImageView mImage, mTransportImage;
+        public TextView mName, mLocation, mBgroup, mLastDonated, mOrigin;
+        public ImageView mImage;
         public ViewHolder(View itemView) {
             super(itemView);
             mName = (TextView) itemView.findViewById(R.id.name_text);
@@ -36,8 +36,6 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
             mLastDonated = (TextView) itemView.findViewById(R.id.last_donated_text);
             mOrigin = (TextView) itemView.findViewById(R.id.donor_origin_text);
             mImage = (ImageView) itemView.findViewById(R.id.request_picture);
-            mTransportImage = (ImageView) itemView.findViewById(R.id.transport_image);
-            mTransport = (TextView) itemView.findViewById(R.id.transport_text);
             itemView.findViewById(R.id.card_view).setOnClickListener(this);
         }
         @Override
@@ -53,8 +51,6 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
             intent.putExtra("lastDonated", mLastDonated.getText());
             TextView mOrigin = (TextView) itemView.findViewById(R.id.donor_origin_text);
             intent.putExtra("origin", mOrigin.getText());
-            TextView mTransport = (TextView) itemView.findViewById(R.id.transport_text);
-            intent.putExtra("transport", mTransport.getText());
             intent.putExtra("mEmail", mEmail);
             v.getContext().startActivity(intent);
         }
@@ -93,14 +89,6 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
         } else if (strings[5].equals("Female")) {
             holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
         }
-        if (strings[6].equals("Yes")) {
-            holder.mTransport.setText("Available");
-            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_car));
-        } else if (strings[6].equals("No")) {
-            holder.mTransport.setText("Not Available");
-            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_no_car));
-        }
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

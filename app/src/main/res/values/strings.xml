@@ -18,6 +18,7 @@
     <string name="popup_request_detail_submit">The patient has been sent your details. Thank you for voluteering to donate!</string>
     <string name="popup_patient">This patient has been added to your database.</string>
     <string name="popup_donate">Farhan has been notified. He will contact you shortly.</string>
+    <string name="popup_donor">This donor has been added to your database</string>
 
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>

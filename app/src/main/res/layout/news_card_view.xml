@@ -86,7 +86,7 @@
                 android:textSize="10dp" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/last"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView5"

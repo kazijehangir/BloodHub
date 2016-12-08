@@ -19,15 +19,15 @@ import android.widget.TextView;
 public class OrgPatientListDataAdapter extends RecyclerView.Adapter<OrgPatientListDataAdapter.ViewHolder> {
     private String[] mDataset;
     private final Context mContext;
-    private static String mEmail;
+    private static String mEmail, gender;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
-        public TextView mName, mLastRequest, mBgroup, mStatus, mDiagnosis, mTransport;
-        public ImageView mImage, mTransportImage;
+        public TextView mName, mLastRequest, mBgroup, mStatus, mDiagnosis;
+        public ImageView mImage;
         public ViewHolder(View itemView) {
             super(itemView);
             mName = (TextView) itemView.findViewById(R.id.name_text);
@@ -36,25 +36,22 @@ public class OrgPatientListDataAdapter extends RecyclerView.Adapter<OrgPatientLi
             mStatus = (TextView) itemView.findViewById(R.id.patient_status_text);
             mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
             mImage = (ImageView) itemView.findViewById(R.id.request_picture);
-            mTransportImage = (ImageView) itemView.findViewById(R.id.transport_image);
-            mTransport = (TextView) itemView.findViewById(R.id.transport_text);
             itemView.findViewById(R.id.card_view).setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), OrgPatientDetail.class);
+            Intent intent = new Intent(v.getContext(), AddRequestOrgActivity.class);
             TextView mName = (TextView) itemView.findViewById(R.id.name_text);
             intent.putExtra("name", mName.getText());
             TextView mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
-            intent.putExtra("diagosis", mDiagnosis.getText());
+            intent.putExtra("diagnosis", mDiagnosis.getText());
             TextView mLastRequest = (TextView) itemView.findViewById(R.id.last_request_text);
             intent.putExtra("lastRequest", mLastRequest.getText());
             TextView mBgroup = (TextView) itemView.findViewById(R.id.bgroup_text);
             intent.putExtra("bgroup", mBgroup.getText());
-            TextView mStatus = (TextView) itemView.findViewById(R.id.patient_status_label);
+            TextView mStatus = (TextView) itemView.findViewById(R.id.patient_status_text);
             intent.putExtra("status", mStatus.getText());
-            TextView mTransport = (TextView) itemView.findViewById(R.id.transport_text);
-            intent.putExtra("transport", mTransport.getText());
+            intent.putExtra("gender", "Male");
             intent.putExtra("mEmail", mEmail);
             v.getContext().startActivity(intent);
         }
@@ -93,14 +90,6 @@ public class OrgPatientListDataAdapter extends RecyclerView.Adapter<OrgPatientLi
         } else if (strings[5].equals("Female")) {
             holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
         }
-        if (strings[6].equals("Yes")) {
-            holder.mTransport.setText("Available");
-            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_car));
-        } else if (strings[6].equals("No")) {
-            holder.mTransport.setText("Not Available");
-            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_no_car));
-        }
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -26,6 +26,7 @@ public class AddPatientActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_patient);
+        setTitle("Add Patient");
         Button addPatient = (Button) findViewById(R.id.add_patient);
         addPatient.setOnClickListener(new View.OnClickListener() {
             @Override
