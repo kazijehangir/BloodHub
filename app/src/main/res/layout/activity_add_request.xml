@@ -20,7 +20,7 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:hint="@string/prompt_name"
             android:inputType="textPersonName"
             android:maxLines="1"
@@ -58,7 +58,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="15dp">
         <TextView
             android:id="@+id/quantity"
             android:layout_width="wrap_content"
@@ -100,6 +100,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_loc"
             android:maxLines="2"
+            android:layout_marginTop="15dp"
             />
 
     </android.support.design.widget.TextInputLayout>
@@ -107,7 +108,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="15dp">
 
         <TextView
             android:id="@+id/set_date"
@@ -133,27 +134,38 @@
 
     </RelativeLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        >
 
-        <EditText
-            android:id="@+id/reason"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:hint="@string/prompt_reason"
-            android:maxLines="2"
-            />
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Diagnosis:"
+        android:textSize="18sp"
+        />
 
-    </android.support.design.widget.TextInputLayout>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/diagnosis"
+        android:layout_toRightOf="@+id/textView7"
+        android:layout_marginLeft="20dp"
+        >
+
+    </Spinner>
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/submit_button"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="@string/action_submit_request"
         android:textAlignment="center"
