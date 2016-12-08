@@ -10,7 +10,7 @@
     app:cardElevation="2dp">
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="172dp"
+        android:layout_height="158dp"
         android:orientation="horizontal"
         android:id="@+id/root_horizontal">
         <android.support.v7.widget.LinearLayoutCompat
@@ -25,29 +25,6 @@
                 android:layout_weight="1"
                 android:id="@+id/request_picture"
                 android:src="@drawable/boy" />
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:orientation="horizontal"
-                android:id="@+id/transport_horizontal">
-                <ImageView
-                    android:layout_width="42dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/transport_image"
-                    app:srcCompat="@drawable/ic_car"
-                    android:layout_weight="0"
-                    android:layout_gravity="left"/>
-                <!--TODO: replace the transport icon-->
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/transport_text"
-                    android:text="Available"
-                    android:layout_gravity="center|right"
-                    android:layout_weight="0"
-                    />
-
-            </android.support.v7.widget.LinearLayoutCompat>
         </android.support.v7.widget.LinearLayoutCompat>
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"

@@ -26,10 +26,10 @@ public class OrgDonorListFragment extends Fragment {
 
 //    "NAME:BGROUP:LOCATION:LASTDONATED:ORIGIN:GENDER:TRANSPORT"
     private static final String[] dummyDataset = new String[] {
-            "Jamshed:O-:DHA Phase 5:3 Weeks:Patient Attendant:Male:Yes",
-            "Aliya:A+:Main Boulevard:1 Week:Blood Drive:Female:No",
-            "Hamid:AB-:Gulberg:17 Weeks:Walk In:Male:No",
-            "Saniya:B+:LUMS:5 Weeks:Blood Drive:Female:Yes"
+            "Jamshed:O-:DHA Phase 5:3 Weeks:Patient Attendant:Male",
+            "Aliya:A+:Main Boulevard:1 Week:Blood Drive:Female",
+            "Hamid:AB-:Gulberg:17 Weeks:Walk In:Male",
+            "Saniya:B+:LUMS:5 Weeks:Blood Drive:Female"
     };
     private String mEmail;
 

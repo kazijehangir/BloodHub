@@ -26,10 +26,10 @@ public class OrgPatientListFragment extends Fragment {
 
 //    "NAME:BGROUP:DIAGNOSIS:LASTREQUEST:STATUS:GENDER:TRANSPORT"
     private static final String[] dummyDataset = new String[] {
-        "Jamshed:O-:Surgery:3rd December 2016:Admitted:Male:Yes",
-        "Aliya:A+:Thalassemia:13th October 2016:Visiting:Female:No",
-        "Hamid:AB-:Accident:5th November 2016:Admitted:Male:No",
-        "Saniya:B+:Cancer:10th September 2016:Visiting:Female:Yes"
+        "Jamshed:O-:Surgery:3 Dec, 16:Admitted:Male",
+        "Aliya:A+:Thalassemia:13 Oct, 16:Visiting:Female",
+        "Hamid:AB-:Accident:5 Nov, 16:Admitted:Male",
+        "Saniya:B+:Cancer:10 Sept, 16:Visiting:Female"
     };
     private String mEmail;
 

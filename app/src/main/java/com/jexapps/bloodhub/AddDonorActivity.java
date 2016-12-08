@@ -17,7 +17,7 @@ import android.widget.EditText;
 
 public class AddDonorActivity extends AppCompatActivity{
     Dialog dialog;
-    private int date, month, year;
+    int date, month, year;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final String mEmail;
@@ -33,29 +33,7 @@ public class AddDonorActivity extends AppCompatActivity{
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_donor);
-        Button addPatient = (Button) findViewById(R.id.add_patient);
-        addPatient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog = new Dialog(AddDonorActivity.this);
-                dialog.setTitle("Add Donor");
-                dialog.setContentView(R.layout.popup_donor);
-                dialog.show();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                final Button request = (Button) dialog.findViewById(R.id.button_ok);
-                request.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(AddDonorActivity.this,MainActivityOrg.class);
-                        intent.putExtra("mEmail", mEmail);
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
-
+        setTitle("Add Donor");
         final EditText set = (EditText) findViewById(R.id.editText);
         set.setOnClickListener(new View.OnClickListener()
         {
@@ -76,6 +54,28 @@ public class AddDonorActivity extends AppCompatActivity{
                         year = datePicker.getYear();
                         set.setText(date+"-"+month+"-"+year);
                         dialog.cancel();
+                    }
+                });
+            }
+        });
+        Button addPatient = (Button) findViewById(R.id.add_patient);
+        addPatient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog = new Dialog(AddDonorActivity.this);
+                dialog.setTitle("Add Donor");
+                dialog.setContentView(R.layout.popup_donor);
+                dialog.show();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                final Button request = (Button) dialog.findViewById(R.id.button_ok);
+                request.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(AddDonorActivity.this,MainActivityOrg.class);
+                        intent.putExtra("mEmail", mEmail);
+                        startActivity(intent);
                     }
                 });
             }
