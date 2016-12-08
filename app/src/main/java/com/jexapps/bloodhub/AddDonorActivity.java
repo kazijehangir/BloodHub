@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
 /**
  * Created by mahnoor on 08/12/2016.
@@ -15,6 +17,7 @@ import android.widget.Button;
 
 public class AddDonorActivity extends AppCompatActivity{
     Dialog dialog;
+    private int date, month, year;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final String mEmail;
@@ -48,6 +51,31 @@ public class AddDonorActivity extends AppCompatActivity{
                         Intent intent = new Intent(AddDonorActivity.this,MainActivityOrg.class);
                         intent.putExtra("mEmail", mEmail);
                         startActivity(intent);
+                    }
+                });
+            }
+        });
+
+        final EditText set = (EditText) findViewById(R.id.editText);
+        set.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View view){
+                dialog = new Dialog(AddDonorActivity.this);
+                dialog.setTitle("Set Date and Time");
+                dialog.setContentView(R.layout.set_date);
+                dialog.show();
+                final Button setDate = (Button) dialog.findViewById(R.id.set_date);
+                final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePicker);
+                setDate.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        date = datePicker.getDayOfMonth();
+                        month = datePicker.getMonth();
+                        year = datePicker.getYear();
+                        set.setText(date+"-"+month+"-"+year);
+                        dialog.cancel();
                     }
                 });
             }
