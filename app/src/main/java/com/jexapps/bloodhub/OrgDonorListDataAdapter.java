@@ -26,15 +26,15 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
-        public TextView mName, mLocation, mNeeds, mWhen, mDiagnosis, mTransport;
+        public TextView mName, mLocation, mBgroup, mLastDonated, mOrigin, mTransport;
         public ImageView mImage, mTransportImage;
         public ViewHolder(View itemView) {
             super(itemView);
             mName = (TextView) itemView.findViewById(R.id.name_text);
             mLocation = (TextView) itemView.findViewById(R.id.location_text);
-            mNeeds = (TextView) itemView.findViewById(R.id.needs_text);
-            mWhen = (TextView) itemView.findViewById(R.id.when_text);
-            mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
+            mBgroup = (TextView) itemView.findViewById(R.id.bgroup_text);
+            mLastDonated = (TextView) itemView.findViewById(R.id.last_donated_text);
+            mOrigin = (TextView) itemView.findViewById(R.id.donor_origin_text);
             mImage = (ImageView) itemView.findViewById(R.id.request_picture);
             mTransportImage = (ImageView) itemView.findViewById(R.id.transport_image);
             mTransport = (TextView) itemView.findViewById(R.id.transport_text);
@@ -45,14 +45,14 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
             Intent intent = new Intent(v.getContext(), OrgDonorDetail.class);
             TextView mName = (TextView) itemView.findViewById(R.id.name_text);
             intent.putExtra("name", mName.getText());
-            TextView mNeeds = (TextView) itemView.findViewById(R.id.needs_text);
-            intent.putExtra("needs", mNeeds.getText());
+            TextView mBgroup = (TextView) itemView.findViewById(R.id.bgroup_text);
+            intent.putExtra("bgroup", mBgroup.getText());
             TextView mLocation = (TextView) itemView.findViewById(R.id.location_text);
             intent.putExtra("location", mLocation.getText());
-            TextView mWhen = (TextView) itemView.findViewById(R.id.when_text);
-            intent.putExtra("when", mWhen.getText());
-            TextView mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
-            intent.putExtra("diagnosis", mDiagnosis.getText());
+            TextView mLastDonated = (TextView) itemView.findViewById(R.id.last_donated_text);
+            intent.putExtra("lastDonated", mLastDonated.getText());
+            TextView mOrigin = (TextView) itemView.findViewById(R.id.donor_origin_text);
+            intent.putExtra("origin", mOrigin.getText());
             TextView mTransport = (TextView) itemView.findViewById(R.id.transport_text);
             intent.putExtra("transport", mTransport.getText());
             intent.putExtra("mEmail", mEmail);
@@ -84,13 +84,10 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
         // - replace the contents of the view with that element
         String[] strings = mDataset[position].split(":");
         holder.mName.setText(strings[0]);
-        holder.mNeeds.setText(strings[1]);
+        holder.mBgroup.setText(strings[1]);
         holder.mLocation.setText(strings[2]);
-        holder.mWhen.setText(strings[3]);
-        if (strings[3].equals("URGENT")) {
-            holder.mWhen.setTextColor(0xFFFF0000);
-        }
-        holder.mDiagnosis.setText(strings[4]);
+        holder.mLastDonated.setText(strings[3]);
+        holder.mOrigin.setText(strings[4]);
         if (strings[5].equals("Male")) {
             holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
         } else if (strings[5].equals("Female")) {
