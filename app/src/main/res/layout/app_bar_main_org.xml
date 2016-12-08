@@ -47,7 +47,7 @@
     <Button
         android:id="@+id/add_patient"
         android:layout_width="wrap_content"
-        android:text="Add Blood Request"
+        android:text="Add Donor"
         android:textStyle="bold"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"

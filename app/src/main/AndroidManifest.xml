@@ -143,6 +143,15 @@
                 android:value="com.jexapps.bloodhub.MainActivityOrg" />
         </activity>
         <activity
+            android:name=".AddDonorActivity"
+            android:parentActivityName=".MainActivityOrg">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivityOrg" />
+        </activity>
+        <activity
             android:name=".AddRequestOrgActivity"
             android:parentActivityName=".MainActivityOrg">
 

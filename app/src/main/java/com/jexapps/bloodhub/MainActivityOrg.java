@@ -137,7 +137,7 @@ public class MainActivityOrg extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(MainActivityOrg.this, AddRequestOrgActivity.class);
+                Intent intent = new Intent(MainActivityOrg.this, AddDonorActivity.class);
                 intent.putExtra("mEmail", mEmail);
                 startActivity(intent);
             }
