@@ -151,16 +151,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmergencyRequestButton = (Button) findViewById(R.id.emergency_request_button);
-        mEmergencyRequestButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {emergencyRequest();
-            }
-        });
+
+//        mEmergencyRequestButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View view) {emergencyRequest();
+//            }
+//        });
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        mEmergencyRequestView = findViewById(R.id.emergency_request_button);
     }
     private void registerIndividual() {
 //        TODO: Implement individual registration activity
