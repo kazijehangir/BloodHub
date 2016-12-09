@@ -18,6 +18,7 @@ public class OrgPatientDetail extends AppCompatActivity {
         String name, needs, location, when, diagnosis, transport;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_org_patient_detail);
+        setTitle("Add request");
         if (savedInstanceState == null) {
 //            Toast.makeText(this, "savedInstance == null",
 //                    Toast.LENGTH_SHORT).show();
