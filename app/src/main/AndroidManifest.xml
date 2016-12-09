@@ -161,6 +161,7 @@
                 android:value="com.jexapps.bloodhub.MainActivityOrg" />
         </activity>
         <activity android:name=".OrgDonorDetail" />
+        <activity android:name=".RequestDetail" />
         <activity android:name=".OrgPatientDetail"></activity>
     </application>
 
