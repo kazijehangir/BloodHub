@@ -160,8 +160,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivityOrg" />
         </activity>
-        <activity android:name=".OrgDonorDetail" />
-        <activity android:name=".OrgPatientDetail"></activity>
+        <activity android:name=".OrgDonorDetail"
+            android:parentActivityName=".MainActivityOrg">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivityOrg" />
+        </activity>
+        <activity android:name=".RequestDetail"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivity" />
+        </activity>
+        <activity android:name=".OrgPatientDetail"
+            android:parentActivityName=".MainActivityOrg">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivityOrg" />
+        </activity>
     </application>
 
 </manifest>

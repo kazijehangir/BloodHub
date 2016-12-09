@@ -18,6 +18,7 @@ public class RequestDetail extends AppCompatActivity {
         String name, needs, location, when, diagnosis, transport;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_detail);
+        setTitle("Donate blood");
         if (savedInstanceState == null) {
 //            Toast.makeText(this, "savedInstance == null",
 //                    Toast.LENGTH_SHORT).show();
