@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         ReportFragment.OnFragmentInteractionListener,
         NewsListFragment.OnFragmentInteractionListener,
         RequestListFragment.OnFragmentInteractionListener,
+        RequestMapFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener{
     //TODO: add separate layout for organizations
 //    TODO: Understand inflating views. probably is fix to update email and photo
@@ -268,6 +269,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_requests:
                 fragmentClass = RequestsFragment.class;
                 break;
+            case R.id.nav_request_map:
+                fragmentClass = RequestMapFragment.class;
+                break;
             case R.id.nav_appointments:
                 fragmentClass = AppointmentsFragment.class;
                 args.putString("appointments",appoint);
@@ -406,6 +410,10 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public void onSettingsFragmentInteraction(Uri iri) {
+
+    }
+    @Override
+    public void onRequestMapFragmentInteraction(Uri iri) {
 
     }
 }

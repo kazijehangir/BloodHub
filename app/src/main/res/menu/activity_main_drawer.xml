@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_home_white_24dp"
             android:title="@string/nav_home" />
         <item
+            android:id="@+id/nav_request_map"
+            android:icon="@drawable/ic_accessible_white_24dp"
+            android:title="Requests Map" />
+        <item
             android:id="@+id/nav_requests"
             android:icon="@drawable/ic_accessible_white_24dp"
             android:title="@string/nav_requests" />

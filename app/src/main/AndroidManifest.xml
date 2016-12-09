@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -182,6 +183,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivityOrg" />
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBh2o87EIYdiBL8r3xBATHZblI7lxSKaG4"/>
+
     </application>
 
 </manifest>
