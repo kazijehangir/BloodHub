@@ -298,14 +298,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
 //            animate emergency request button as well
-            mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mEmergencyRequestView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+//            mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
+//            mEmergencyRequestView.animate().setDuration(shortAnimTime).alpha(
+//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
+//                }
+//            });
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
