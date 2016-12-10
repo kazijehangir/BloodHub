@@ -10,8 +10,8 @@
     <string name="termsTitle">TERMS AND CONDITIONS</string>
     <string name="action_register">Register</string>
     <string name="action_sign_in">Sign in</string>
-    <string name="action_register_individual">Register as Individual</string>
-    <string name="action_register_organization">Register as Organization</string>
+    <string name="action_register_individual">Register as an Individual</string>
+    <string name="action_register_organization">Register as an Organization</string>
     <string name="action_emergency_request">To Request Blood Now!</string>
     <string name="search_hint">Search...</string>
     <string name="popup_submit">Your request has been sent to all compatible donors.</string>

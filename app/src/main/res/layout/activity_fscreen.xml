@@ -38,7 +38,6 @@
         android:text="OR"
         android:textColor="@color/fab1"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -50,14 +49,14 @@
         android:layout_height="wrap_content"
         android:text="Continue using BloodHub"
         android:textSize="20sp"
-        android:textColor="@color/white"
-        android:background="@color/fab1"
+        android:textColor="@color/fab1"
+        android:background="@drawable/mybutton_1"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:layout_below="@+id/text2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        />
+        style="@style/Widget.AppCompat.Button.Borderless" />
 
     <ImageView
         android:id="@+id/image1"
