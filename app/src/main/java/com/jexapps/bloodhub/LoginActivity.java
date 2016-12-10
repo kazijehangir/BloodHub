@@ -19,6 +19,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -173,12 +174,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 OrganizationRegistrationActivity.class);
         startActivity(intent);
     }
-    private void emergencyRequest() {
-//        TODO: Implement emergency request
-        Intent intent = new Intent(LoginActivity.this,
-                EmergencyRequestActivity.class);
-        startActivity(intent);
-    }
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -298,14 +293,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
 //            animate emergency request button as well
-            mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
+            /*mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
             mEmergencyRequestView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
-            });
+            });*/
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
@@ -329,7 +324,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
+            //mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
