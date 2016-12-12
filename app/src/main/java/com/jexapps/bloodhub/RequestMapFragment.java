@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -34,7 +35,7 @@ public class RequestMapFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -82,7 +83,7 @@ public class RequestMapFragment extends Fragment {
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 
-        mMapView.onResume(); // needed to get the map to display immediately
+        mMapView.onResume(); // needed to get the map to display immediately`
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -97,17 +98,31 @@ public class RequestMapFragment extends Fragment {
 
                 // For showing a move to my location button
 //                googleMap.setMyLocationEnabled(true);
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                if (ContextCompat.checkSelfPermission(getContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 {
                     googleMap.setMyLocationEnabled(true);
                 }
                 else
                 {
                     // Show rationale and request permission.
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
                 }
                 // For dropping a marker at a point on the Map
+                LatLng NH = new LatLng(31.458251, 74.277245);
+                googleMap.addMarker(new MarkerOptions().position(NH).title("Jamshed").snippet("2 bags of O-"));
+
+                LatLng SK = new LatLng(31.449024, 74.272015);
+                googleMap.addMarker(new MarkerOptions().position(SK).title("Hamid").snippet("1 bag of AB-"));
+                LatLng RC = new LatLng(31.558520, 74.324131);
+                googleMap.addMarker(new MarkerOptions().position(RC).title("Aliya").snippet("1 bag of O+"));
+                LatLng AH = new LatLng(31.502391, 74.415261);
+                googleMap.addMarker(new MarkerOptions().position(AH).title("Saniya").snippet("1 bag of B+"));
                 LatLng lahore = new LatLng(31.55, 74.35);
-                googleMap.addMarker(new MarkerOptions().position(lahore).title("Marker Title").snippet("Marker Description"));
+//                googleMap.addMarker(new MarkerOptions().position(lahore).title("Marker Title").snippet("Marker Description"));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(lahore).zoom(12).build();
