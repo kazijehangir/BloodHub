@@ -52,7 +52,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(EmergencyRequestActivity.this,LoginActivity.class);
+                        Intent intent = new Intent(EmergencyRequestActivity.this,SplashActivity.class);
                         intent.putExtra("mEmail", mEmail);
                         startActivity(intent);
                     }
