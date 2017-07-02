@@ -2,16 +2,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jexapps.bloodhub.SettingsFragment">
+    tools:context="com.jexapps.bloodhub.SettingsFragment"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Switch
-        android:text="Notifications: "
-        android:layout_height="wrap_content"
-        android:id="@+id/switch2"
-        android:layout_weight="0.55"
-        android:textSize="22sp"
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="invite"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="account"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold" />
+    </RelativeLayout>
+
 </LinearLayout>
