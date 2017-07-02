@@ -1,10 +1,14 @@
 package com.jexapps.bloodhub;
 
+import android.app.MediaRouteButton;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,10 +22,17 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
@@ -32,6 +43,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     private static final String CREDENTIALS_FILE_NAME = "credentials";
     private SharedPreferences CREDENTIAL_FILE;
     private static String[] CREDENTIALS;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +52,8 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+// ...
+        mAuth = FirebaseAuth.getInstance();
 //        Load credentials file so that we can update it.
         CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
         if (CREDENTIAL_FILE == null) {
@@ -57,6 +71,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 registerNewUser();
+
             }
         });
     }
@@ -89,11 +104,13 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         CheckBox mTermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
         AutoCompleteTextView username = (AutoCompleteTextView) findViewById(R.id.name);
         Spinner bloodGroup = (Spinner) findViewById(R.id.spin);
-
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         SharedPreferences.Editor credentials_edit = CREDENTIAL_FILE.edit();
 
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String email = mEmailView.getText().toString().trim();
+        String password = mPasswordView.getText().toString().trim();
+        Toast.makeText(this, email+" " +password,
+                Toast.LENGTH_SHORT).show();
         String uname = username.getText().toString();
         String bgroup = bloodGroup.getSelectedItem().toString();
         if (!mTermsAgree.isChecked()) {
@@ -108,7 +125,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                     Toast.makeText(this, "Email address and Password cannot contain ':'",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    if (password.length() < 4) {
+                    if (password.length() < 6) {
                         Toast.makeText(this, "Password is too short, minimum length is 4.",
                                 Toast.LENGTH_SHORT).show();
                     } else {
@@ -116,20 +133,47 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                             Toast.makeText(this, "Not a valid email address",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-//                    add credentials to file
-                            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-                            credentials_edit.putString("user_" + numUsers, email + ":" + password
-                                                        + ":" + uname + ":" + bgroup + ":" + "ind");
-                            credentials_edit.putInt("numUsers", numUsers + 1);
-                            credentials_edit.commit();
+//                    register user with firebase
+                            progressBar.setVisibility(View.VISIBLE);
+                            mAuth.createUserWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            Context context = getApplicationContext();
+                                            progressBar.setVisibility(View.GONE);
+                                            if (task.isSuccessful()) {
+                                                // Sign in success, update UI with the signed-in user's information
+//                                                Log.d(TAG, "createUserWithEmail:success");
+
+                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                Toast.makeText(context, "Registration Successful!",
+                                                        Toast.LENGTH_SHORT).show();
+//                    take user to main screen
+                                                progressBar.setVisibility(View.GONE);
+                                                Intent intent = new Intent(context, MainActivity.class);
+                                                intent.putExtra("mEmail", user.getEmail());
+                                                startActivity(intent);
+//                                              updateUI(user);
+                                            } else {
+                                                // If sign in f
+                                                //
+                                                // .ails, display a message to the user.
+//                                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+
+                                                Toast.makeText(context, "Error creating user",
+                                                        Toast.LENGTH_SHORT).show();
+//                                                updateUI(null);
+                                            }
+                                        }
+                                    });
+//                            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+//                            credentials_edit.putString("user_" + numUsers, email + ":" + password
+//                                                        + ":" + uname + ":" + bgroup + ":" + "ind");
+//                            credentials_edit.putInt("numUsers", numUsers + 1);
+//                            credentials_edit.commit();
 //                    add user's name to name file
 //                    registration successful, show success popup
-                            Toast.makeText(this, "Registration Successful!",
-                                    Toast.LENGTH_SHORT).show();
-//                    take user to main screen
-                            Intent intent = new Intent(this, MainActivity.class);
-                            intent.putExtra("mEmail", email);
-                            startActivity(intent);
+
                         }
                     }
                 }

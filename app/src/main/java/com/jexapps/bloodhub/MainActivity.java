@@ -8,7 +8,9 @@ import android.content.SharedPreferences;
 import android.database.DatabaseErrorHandler;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.os.Bundle;
@@ -33,6 +35,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 public class MainActivity extends AppCompatActivity
@@ -64,11 +68,15 @@ public class MainActivity extends AppCompatActivity
     private String appoint;
     private boolean request;
     private String mEmail = null;
-
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity
         request = false;
+        mAuth = FirebaseAuth.getInstance();
+
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -85,7 +93,7 @@ public class MainActivity extends AppCompatActivity
                 request = extras.getBoolean("request");
             }
         } else {
-            mEmail= (String) savedInstanceState.getSerializable("mEmail");
+            mEmail = (String) savedInstanceState.getSerializable("mEmail");
         }
 //        TODO: comment this toast out when done debugging
 //        Toast.makeText(this, "Logged in " + mEmail + " successfully.",

@@ -3,6 +3,7 @@ package com.jexapps.bloodhub;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -39,12 +40,21 @@ import android.content.Intent;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
+
+
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+    private FirebaseAuth mAuth;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -80,7 +90,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         //Store login data in shared preferences file if they dont exist
         //else load the stored data
-
+        mAuth = FirebaseAuth.getInstance();
         SharedPreferences CREDENTIALS_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
         if (CREDENTIALS_FILE == null) {
             Toast.makeText(this, "Could Not Load Credentials File",
@@ -266,8 +276,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            final Context context = getApplicationContext();
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            showProgress(false);
+                            if(task.isSuccessful()){
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                Intent intent;
+                                intent = new Intent(LoginActivity.this, MainActivityOrg.class);
+                                intent.putExtra("mEmail", user.getEmail());
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(context, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+//            mAuthTask = new UserLoginTask(email, password);
+//            mAuthTask.execute((Void) null);
         }
     }
 
@@ -278,7 +306,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() >= 4;
+        return password.length() >= 6;
     }
 
     /**
