@@ -1,7 +1,9 @@
 package com.jexapps.bloodhub;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,13 +14,29 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ValueEventListener;
 
 public class OrganizationRegistrationActivity extends AppCompatActivity {
     private static final String CREDENTIALS_FILE_NAME = "credentials";
     private SharedPreferences CREDENTIAL_FILE;
     private static String[] CREDENTIALS;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +44,7 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_organization_registration);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        mAuth = FirebaseAuth.getInstance();
 //        Load credentials file so that we can update it.
         CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
         if (CREDENTIAL_FILE == null) {
@@ -70,7 +88,10 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
         return false;
 
     }
-
+    private void writeNewUser(String userId, String name, String email){
+        User user = new User(name, email, "organization");
+        mDatabase.child("users").child(userId).setValue(user);
+    }
     private void registerNewOrg() {
 //        TODO: just adding email and password now. Need to add other details
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -79,7 +100,7 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
         AutoCompleteTextView username = (AutoCompleteTextView) findViewById(R.id.name);
         EditText contactNum = (EditText) findViewById(R.id.contact);
         EditText address = (EditText) findViewById(R.id.add);
-
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         SharedPreferences.Editor credentials_edit = CREDENTIAL_FILE.edit();
 
         String email = mEmailView.getText().toString();
@@ -108,19 +129,53 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                         } else {
 //                    add credentials to file
-                            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-                            credentials_edit.putString("user_" + numUsers, email + ":" + password
-                                    + ":" + uname + ":" + num + ":" + add + ":" + "org");
-                            credentials_edit.putInt("numUsers", numUsers + 1);
-                            credentials_edit.commit();
-//                    add user's name to name file
-//                    registration successful, show success popup
-                            Toast.makeText(this, "Registration Successful!",
-                                    Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.VISIBLE);
+                            mAuth.createUserWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            Context context = getApplicationContext();
+                                            progressBar.setVisibility(View.GONE);
+                                            if (task.isSuccessful()) {
+                                                // Sign in success, update UI with the signed-in user's information
+//                                                Log.d(TAG, "createUserWithEmail:success");
+
+                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                Toast.makeText(context, "Registration Successful!",
+                                                        Toast.LENGTH_SHORT).show();
 //                    take user to main screen
-                            Intent intent = new Intent(this, MainActivityOrg.class);
-                            intent.putExtra("mEmail", email);
-                            startActivity(intent);
+                                                writeNewUser(user.getUid(), user.getDisplayName(), user.getEmail());
+                                                progressBar.setVisibility(View.GONE);
+
+                                                Intent intent = new Intent(context, MainActivityOrg.class);
+                                                intent.putExtra("mEmail", user.getEmail());
+                                                startActivity(intent);
+//                                              updateUI(user);
+                                            } else {
+                                                // If sign in f
+                                                //
+                                                // .ails, display a message to the user.
+//                                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+
+                                                Toast.makeText(context, "Error creating user",
+                                                        Toast.LENGTH_SHORT).show();
+//                                                updateUI(null);
+                                            }
+                                        }
+                                    });
+//                            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
+//                            credentials_edit.putString("user_" + numUsers, email + ":" + password
+//                                    + ":" + uname + ":" + num + ":" + add + ":" + "org");
+//                            credentials_edit.putInt("numUsers", numUsers + 1);
+//                            credentials_edit.commit();
+////                    add user's name to name file
+////                    registration successful, show success popup
+//                            Toast.makeText(this, "Registration Successful!",
+//                                    Toast.LENGTH_SHORT).show();
+//                    take user to main screen
+//                            Intent intent = new Intent(this, MainActivityOrg.class);
+//                            intent.putExtra("mEmail", email);
+//                            startActivity(intent);
                         }
                     }
                 }

@@ -45,6 +45,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -90,8 +94,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         //Store login data in shared preferences file if they dont exist
         //else load the stored data
+
         mAuth = FirebaseAuth.getInstance();
         SharedPreferences CREDENTIALS_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
+
         if (CREDENTIALS_FILE == null) {
             Toast.makeText(this, "Could Not Load Credentials File",
                     Toast.LENGTH_SHORT).show();
@@ -234,6 +240,36 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+    private void setView(String userId, final String email) {
+        final String uid = userId;
+        final Context context = getApplicationContext();
+        FirebaseDatabase.getInstance().getReference().child("users").child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        String account_type = user.account_type;
+                        Toast.makeText(context, account_type,
+                                Toast.LENGTH_SHORT).show();
+                        if(account_type.equals("individual")) {
+                            Intent intent;
+                            intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("mEmail", email);
+                            startActivity(intent);
+                        } else if(account_type.equals("organization")) {
+                            Intent intent;
+                            intent = new Intent(LoginActivity.this, MainActivityOrg.class);
+                            intent.putExtra("mEmail", email);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+        return;
+    }
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -284,10 +320,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             showProgress(false);
                             if(task.isSuccessful()){
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                Intent intent;
-                                intent = new Intent(LoginActivity.this, MainActivityOrg.class);
-                                intent.putExtra("mEmail", user.getEmail());
-                                startActivity(intent);
+                                setView(user.getUid(), user.getEmail());
+
                             } else {
                                 Toast.makeText(context, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();

@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity
     private String mEmail = null;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 //        get email from login activity

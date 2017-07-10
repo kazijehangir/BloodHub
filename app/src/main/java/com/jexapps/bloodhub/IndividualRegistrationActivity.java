@@ -33,17 +33,26 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ValueEventListener;
+//import com.google.firebase.quickstart.database.models.Post;
+//import com.google.firebase.quickstart.database.models.User;
 import java.util.Arrays;
 
 import static java.lang.Boolean.TRUE;
-
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
     private static final String CREDENTIALS_FILE_NAME = "credentials";
     private SharedPreferences CREDENTIAL_FILE;
     private static String[] CREDENTIALS;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +106,10 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         return false;
 
     }
+    private void writeNewUser(String userId, String name, String email){
+        User user = new User(name, email, "individual");
+        mDatabase.child("users").child(userId).setValue(user);
+    }
     private void registerNewUser() {
 //        TODO: just adding email and password now. Need to add other details
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -126,7 +139,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 } else {
                     if (password.length() < 6) {
-                        Toast.makeText(this, "Password is too short, minimum length is 4.",
+                        Toast.makeText(this, "Password is too short, minimum length is 6.",
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         if (!email.contains("@")) {
@@ -149,7 +162,9 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                                                 Toast.makeText(context, "Registration Successful!",
                                                         Toast.LENGTH_SHORT).show();
 //                    take user to main screen
+                                                writeNewUser(user.getUid(), user.getDisplayName(), user.getEmail());
                                                 progressBar.setVisibility(View.GONE);
+
                                                 Intent intent = new Intent(context, MainActivity.class);
                                                 intent.putExtra("mEmail", user.getEmail());
                                                 startActivity(intent);
