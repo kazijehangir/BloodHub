@@ -77,25 +77,25 @@ public class SettingsFragment extends Fragment {
         final Activity activity = getActivity();
         final Boolean appoint = getArguments().getBoolean("request");
 
-        Switch aSwitch = (Switch) rootView.findViewById(R.id.switch2);
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    if (appoint) {
-                        NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.ic_stat_name).setContentTitle("Ahmed responded to your request").setContentText("Click to view his profile").getNotification();
-                        mNotifyMgr.notify(0, notif);
-                    } else {
-                        Intent intent = new Intent(activity,DonateActivity.class);
-                        PendingIntent pendingIntent = PendingIntent.getActivity(activity,(int) System.currentTimeMillis(),intent,0);
-                        NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.ic_stat_name).setContentTitle("Farhan needs 1 bag of O+ blood").setContentText("Click to view his request").setContentIntent(pendingIntent).getNotification();
-                        mNotifyMgr.notify(0, notif);
-                        }
-                }
-            }
-        });
+//        Switch aSwitch = (Switch) rootView.findViewById(R.id.switch2);
+//        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if (b) {
+//                    if (appoint) {
+//                        NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+//                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.ic_stat_name).setContentTitle("Ahmed responded to your request").setContentText("Click to view his profile").getNotification();
+//                        mNotifyMgr.notify(0, notif);
+//                    } else {
+//                        Intent intent = new Intent(activity,DonateActivity.class);
+//                        PendingIntent pendingIntent = PendingIntent.getActivity(activity,(int) System.currentTimeMillis(),intent,0);
+//                        NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
+//                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.ic_stat_name).setContentTitle("Farhan needs 1 bag of O+ blood").setContentText("Click to view his request").setContentIntent(pendingIntent).getNotification();
+//                        mNotifyMgr.notify(0, notif);
+//                        }
+//                }
+//            }
+//        });
         return rootView;
     }
 
