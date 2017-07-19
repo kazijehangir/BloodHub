@@ -34,6 +34,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,6 +48,12 @@ import java.util.Arrays;
 import static java.lang.Boolean.TRUE;
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
+    AutoCompleteTextView username, mEmailView;
+    EditText mPasswordView;
+    CheckBox mTermsAgree;
+    ProgressBar progressBar;
+    Spinner bloodGroup;
+    String email, password, uname, bgroup;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -59,6 +66,14 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
+
+        username = (AutoCompleteTextView) findViewById(R.id.name);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mPasswordView = (EditText) findViewById(R.id.password);
+        mTermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        bloodGroup = (Spinner) findViewById(R.id.spin);
+
         // Set OnClick Listeners for buttons
         Button mRegisterButton = (Button) findViewById(R.id.register_individual_button);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
@@ -82,22 +97,15 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     }
 
     private void writeNewUser(String userId, String email){
-        AutoCompleteTextView username = (AutoCompleteTextView) findViewById(R.id.name);
-        Spinner bloodGroup = (Spinner) findViewById(R.id.spin);
-        String uname = username.getText().toString();
-        String bgroup = bloodGroup.getSelectedItem().toString();
         User user = new User(uname, email, bgroup);
         mDatabase.child("users").child(userId).setValue(user);
     }
     private void registerNewUser() {
 //        TODO: check if username, email, password is added or not
-        AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        EditText mPasswordView = (EditText) findViewById(R.id.password);
-        CheckBox mTermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-        String email = mEmailView.getText().toString().trim();
-        String password = mPasswordView.getText().toString().trim();
+        email = mEmailView.getText().toString().trim();
+        password = mPasswordView.getText().toString().trim();
+        uname = username.getText().toString();
+        bgroup = bloodGroup.getSelectedItem().toString();
         if (!email.contains("@")) {
             Toast.makeText(this, "Not a valid email address",
                     Toast.LENGTH_SHORT).show();

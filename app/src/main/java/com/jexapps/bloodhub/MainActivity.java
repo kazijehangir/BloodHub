@@ -37,6 +37,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 public class MainActivity extends AppCompatActivity
@@ -53,22 +57,20 @@ public class MainActivity extends AppCompatActivity
         RequestListFragment.OnFragmentInteractionListener,
         RequestMapFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener{
-    //TODO: add separate layout for organizations
 //    TODO: Understand inflating views. probably is fix to update email and photo
 //    inflating views is creating view and view-groups from an xml file/resource
 //    not sure if that helps.
     private DrawerLayout mDrawer;
-    private static final String CREDENTIALS_FILE_NAME = "credentials";
-    private SharedPreferences CREDENTIAL_FILE;
-    private static String[] CREDENTIALS;
     FloatingActionButton fab_plus, fab_request, fab_appointment;
     Button button_request, button_appointment;
     Animation FabOpen, FabClose, FabRClockwise, FabRanticlockwise;
+    TextView mNav_name;
     boolean isOpen = false;
     private String appoint;
     private boolean request;
     private String mEmail = null;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
@@ -76,15 +78,11 @@ public class MainActivity extends AppCompatActivity
 //        get email from login activity
         request = false;
         mAuth = FirebaseAuth.getInstance();
-
+        user = mAuth.getCurrentUser();
+        mEmail = user.getEmail();
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                mEmail = null;
-            } else {
-                mEmail = extras.getString("mEmail");
-            }
             if(getIntent().hasExtra("appointments")) {
                appoint = extras.getString("appointments");
             } else {
@@ -93,8 +91,6 @@ public class MainActivity extends AppCompatActivity
             if(getIntent().hasExtra("request")) {
                 request = extras.getBoolean("request");
             }
-        } else {
-            mEmail = (String) savedInstanceState.getSerializable("mEmail");
         }
 //        TODO: comment this toast out when done debugging
 //        Toast.makeText(this, "Logged in " + mEmail + " successfully.",
@@ -225,13 +221,13 @@ public class MainActivity extends AppCompatActivity
 //      Name and email Address should be displayed on nav-bar
         View header = navigationView.getHeaderView(0);
         TextView mNav_email = (TextView) header.findViewById(R.id.nav_header_email);
-        TextView mNav_name = (TextView) header.findViewById(R.id.nav_header_name);
+        mNav_name = (TextView) header.findViewById(R.id.nav_header_name);
         ImageView mNav_image = (ImageView) header.findViewById(R.id.nav_header_image);
 
         mNav_email.setText(mEmail);
 
 //        TODO: Get name and image from database and display here
-        mNav_name.setText(getNameFromDatabase(mEmail));
+        getNameFromDatabase();
 //        mNav_image.setImageDrawable();
 //        TODO: Implement swipe views for home page
         LinearLayout lheader = (LinearLayout) header.findViewById(R.id.header);
@@ -245,22 +241,22 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    private String getNameFromDatabase(String email) {
-        CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
-        int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-        CREDENTIALS = new String[numUsers];
-        for (int i = 0; i < numUsers; i++)
-            CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
-
-        for (String credential : CREDENTIALS) {
-            String[] pieces = credential.split(":");
-            if (pieces[0].equals(email)) {
-                // Account exists, return true if the password matches.
-                return pieces[2];
-            }
-        }
-        return null;
+    private void getNameFromDatabase() {
+        final Context context = getApplicationContext();
+        FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User usr = dataSnapshot.getValue(User.class);
+                        mNav_name.setText(usr.username);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+        return;
     }
+
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;

@@ -52,32 +52,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
-/**
- * A login screen that offers login via email/password.
- */
-
-
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
     private FirebaseAuth mAuth;
-
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static String[] CREDENTIALS = new String[]{
-            "foo@example.com:hello:Foo Bar:O+:ind", "bar@example.com:world:Bar Foo:B+:ind",
-            "a@a.a:aaaaa:Aa Aa:A+:ind","o@o.o:ooooo:Oo Oo:0303112312:LUMS SSE:org"
-
-    };
-//  TODO: add preferences file for every data to be stored
-    private static final String CREDENTIALS_FILE_NAME = "credentials";
-
-
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -88,44 +68,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private View mEmergencyRequestView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Store login data in shared preferences file if they dont exist
-        //else load the stored data
-
         mAuth = FirebaseAuth.getInstance();
-        SharedPreferences CREDENTIALS_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
-
-        if (CREDENTIALS_FILE == null) {
-            Toast.makeText(this, "Could Not Load Credentials File",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            int numUsers = CREDENTIALS_FILE.getInt("numUsers", 0);
-//           Toast.makeText(this, "Loaded Credentials file, numusers = " + numUsers,
-//                    Toast.LENGTH_SHORT).show();
-//            if users exist in file, load array from that.
-            if (numUsers > 0) {
-                CREDENTIALS = new String[numUsers];
-                for (int i = 0; i < numUsers; i++)
-                    CREDENTIALS[i] = CREDENTIALS_FILE.getString("user_" + i, null);
-            } else {
-//                else save dummy credentials
-                SharedPreferences.Editor credentials_edit = CREDENTIALS_FILE.edit();
-                credentials_edit.putInt("numUsers", CREDENTIALS.length);
-                for(int i=0;i<CREDENTIALS.length; i++)
-                    credentials_edit.putString("user_" + i, CREDENTIALS[i]);
-                credentials_edit.commit();
-            }
-        }
-//       Test to see which users are there
-//        for (String credential : CREDENTIALS) {
-//            Toast.makeText(this, "User => " + credential,
-//                    Toast.LENGTH_SHORT).show();
-//        }
-
-
 //       set layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -168,24 +114,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-
-//        mEmergencyRequestButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {emergencyRequest();
-//            }
-//        });
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
     private void registerIndividual() {
-//        TODO: Implement individual registration activity
         Intent intent = new Intent(LoginActivity.this,
                 IndividualRegistrationActivity.class);
         startActivity(intent);
     }
     private void registerOrganization() {
-//        TODO: Implement organization registration activity
         Intent intent = new Intent(LoginActivity.this,
                 OrganizationRegistrationActivity.class);
         startActivity(intent);
@@ -234,7 +171,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -249,8 +185,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User user = dataSnapshot.getValue(User.class);
                         String account_type = user.account_type;
-                        Toast.makeText(context, account_type,
-                                Toast.LENGTH_SHORT).show();
+                        showProgress(false);
                         if(account_type.equals("individual")) {
                             Intent intent;
                             intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -317,12 +252,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            showProgress(false);
                             if(task.isSuccessful()){
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 setView(user.getUid(), user.getEmail());
 
                             } else {
+                                showProgress(false);
                                 Toast.makeText(context, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                             }
@@ -334,12 +269,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.matches("(.+)(@)(.+)(\\.)(.+)");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() >= 6;
     }
 
@@ -354,15 +287,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-//            animate emergency request button as well
-            /*mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mEmergencyRequestView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });*/
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
@@ -386,7 +310,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            //mEmergencyRequestView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 
@@ -468,48 +391,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (InterruptedException e) {
                 return false;
             }
-
-            for (String credential : CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-
             return false; //TODO: change back to true after registration is implemented
                           //need to return true so that the home screen
                           //is loaded after the registration is done.
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                String status = "";
-                for (String credential : CREDENTIALS) {
-                    String[] pieces = credential.split(":");
-                    if (pieces[0].equals(mEmail)) {
-                        // Account exists, return true if the password matches.
-                        status = pieces[pieces.length-1];
-                    }
-                }
-                Intent intent;
-                if (status.equals("org"))
-                    intent = new Intent(LoginActivity.this, MainActivityOrg.class);
-                else
-                    intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("mEmail", mEmail);
-                startActivity(intent);
-//                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
         }
 
         @Override
