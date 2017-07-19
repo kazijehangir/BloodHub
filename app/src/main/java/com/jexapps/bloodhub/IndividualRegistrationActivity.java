@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,12 +47,8 @@ import java.util.Arrays;
 import static java.lang.Boolean.TRUE;
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
-    private static final String CREDENTIALS_FILE_NAME = "credentials";
-    private SharedPreferences CREDENTIAL_FILE;
-    private static String[] CREDENTIALS;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,19 +58,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-// ...
         mAuth = FirebaseAuth.getInstance();
-//        Load credentials file so that we can update it.
-        CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);
-        if (CREDENTIAL_FILE == null) {
-            Toast.makeText(this, "Could Not Load Credentials File",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-            CREDENTIALS = new String[numUsers];
-            for (int i = 0; i < numUsers; i++)
-                CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
-        }
         // Set OnClick Listeners for buttons
         Button mRegisterButton = (Button) findViewById(R.id.register_individual_button);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
@@ -95,116 +80,71 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private Boolean emailAlreadyExists(String email) {
-        for (String credential : CREDENTIALS) {
-//            Toast.makeText(this, "User => " + credential,
-//                    Toast.LENGTH_SHORT).show();
-            if (credential.split(":")[0].equals(email)) {
-                return true;
-            }
-        }
-        return false;
 
-    }
-    private void writeNewUser(String userId, String name, String email){
-        User user = new User(name, email, "individual");
+    private void writeNewUser(String userId, String email){
+        AutoCompleteTextView username = (AutoCompleteTextView) findViewById(R.id.name);
+        Spinner bloodGroup = (Spinner) findViewById(R.id.spin);
+        String uname = username.getText().toString();
+        String bgroup = bloodGroup.getSelectedItem().toString();
+        User user = new User(uname, email, bgroup);
         mDatabase.child("users").child(userId).setValue(user);
     }
     private void registerNewUser() {
-//        TODO: just adding email and password now. Need to add other details
+//        TODO: check if username, email, password is added or not
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         EditText mPasswordView = (EditText) findViewById(R.id.password);
         CheckBox mTermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
-        AutoCompleteTextView username = (AutoCompleteTextView) findViewById(R.id.name);
-        Spinner bloodGroup = (Spinner) findViewById(R.id.spin);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        SharedPreferences.Editor credentials_edit = CREDENTIAL_FILE.edit();
 
         String email = mEmailView.getText().toString().trim();
         String password = mPasswordView.getText().toString().trim();
-        Toast.makeText(this, email+" " +password,
-                Toast.LENGTH_SHORT).show();
-        String uname = username.getText().toString();
-        String bgroup = bloodGroup.getSelectedItem().toString();
-        if (!mTermsAgree.isChecked()) {
-            Toast.makeText(this, "You need to agree to the terms & conditions to sign up.",
+        if (!email.contains("@")) {
+            Toast.makeText(this, "Not a valid email address",
                     Toast.LENGTH_SHORT).show();
         } else {
-            if (emailAlreadyExists(email)) {
-                Toast.makeText(this, "User with this Email address already exists.",
+            if (password.length() < 6) {
+                Toast.makeText(this, "Password is too short, minimum length is 6.",
                         Toast.LENGTH_SHORT).show();
             } else {
                 if (email.contains(":") || password.contains(":")) {
                     Toast.makeText(this, "Email address and Password cannot contain ':'",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    if (password.length() < 6) {
-                        Toast.makeText(this, "Password is too short, minimum length is 6.",
+                    if (!mTermsAgree.isChecked()) {
+                        Toast.makeText(this, "You need to agree to the terms & conditions to sign up.",
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        if (!email.contains("@")) {
-                            Toast.makeText(this, "Not a valid email address",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
 //                    register user with firebase
-                            progressBar.setVisibility(View.VISIBLE);
-                            mAuth.createUserWithEmailAndPassword(email, password)
-                                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            Context context = getApplicationContext();
-                                            progressBar.setVisibility(View.GONE);
-                                            if (task.isSuccessful()) {
-                                                // Sign in success, update UI with the signed-in user's information
-//                                                Log.d(TAG, "createUserWithEmail:success");
+                        progressBar.setVisibility(View.VISIBLE);
+                        mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                Context context = getApplicationContext();
+                                progressBar.setVisibility(View.GONE);
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    Toast.makeText(context, "Registration Successful!",
+                                            Toast.LENGTH_SHORT).show();
+                                    // take user to main screen
+                                    writeNewUser(user.getUid(), user.getEmail());
 
-                                                FirebaseUser user = mAuth.getCurrentUser();
-                                                Toast.makeText(context, "Registration Successful!",
-                                                        Toast.LENGTH_SHORT).show();
-//                    take user to main screen
-                                                writeNewUser(user.getUid(), user.getDisplayName(), user.getEmail());
-                                                progressBar.setVisibility(View.GONE);
-
-                                                Intent intent = new Intent(context, MainActivity.class);
-                                                intent.putExtra("mEmail", user.getEmail());
-                                                startActivity(intent);
-//                                              updateUI(user);
-                                            } else {
-                                                // If sign in f
-                                                //
-                                                // .ails, display a message to the user.
-//                                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
-
-                                                Toast.makeText(context, "Error creating user",
-                                                        Toast.LENGTH_SHORT).show();
-//                                                updateUI(null);
-                                            }
-                                        }
-                                    });
-//                            int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-//                            credentials_edit.putString("user_" + numUsers, email + ":" + password
-//                                                        + ":" + uname + ":" + bgroup + ":" + "ind");
-//                            credentials_edit.putInt("numUsers", numUsers + 1);
-//                            credentials_edit.commit();
-//                    add user's name to name file
-//                    registration successful, show success popup
-
-                        }
+                                    Intent intent = new Intent(context, MainActivity.class);
+                                    intent.putExtra("mEmail", user.getEmail());
+                                    startActivity(intent);
+                                } else {
+                                    if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                        Toast.makeText(context, "User with this email already exists.", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(context, "Error creating user",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                }
+                            });
                     }
                 }
             }
         }
-//        TESTS: comment out later
-//        int numUsers = CREDENTIAL_FILE.getInt("numUsers", 0);
-//        String[] CREDENTIALS = new String[numUsers];
-//        for (int i = 0; i < numUsers; i++) {
-//            CREDENTIALS[i] = CREDENTIAL_FILE.getString("user_" + i, null);
-//        }
-//        //        Test to see which users are there
-//        for (String credential : CREDENTIALS) {
-//            Toast.makeText(this, "User => " + credential,
-//            Toast.LENGTH_SHORT).show();
-//        }
-//        END OF TESTS
     }
 }
