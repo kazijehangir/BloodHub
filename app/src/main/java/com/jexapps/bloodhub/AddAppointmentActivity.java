@@ -63,7 +63,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
         }
         setContentView(R.layout.activity_add_appointment);
-
+        setTitle("Add Appointment");
         final EditText set = (EditText) findViewById(R.id.editText);
         set.setOnClickListener(new View.OnClickListener()
         {

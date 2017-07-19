@@ -2,6 +2,7 @@ package com.jexapps.bloodhub;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,30 +14,35 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class AddRequestActivity extends AppCompatActivity{
     Dialog dialog;
     private int date, month, year;
+    AutoCompleteTextView name;
+    Spinner bloodgroup, quantity, diagnosis;
+    EditText number, location, when;
+    String pname, bgroup, quan, diag, pdate, num, loc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request);
-        final String mEmail;
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                mEmail= null;
-            } else {
-                mEmail= extras.getString("mEmail");
-            }
-        } else {
-            mEmail= (String) savedInstanceState.getSerializable("mEmail");
-        }
-        setTitle("ADD REQUEST");
+        setTitle("Add Request");
+
+        name = (AutoCompleteTextView) findViewById(R.id.name);
+        bloodgroup = (Spinner) findViewById(R.id.spin);
+        quantity = (Spinner) findViewById(R.id.spin1);
+        number = (EditText) findViewById(R.id.contact_num);
+        location = (EditText) findViewById(R.id.loc);
+        when = (EditText) findViewById(R.id.editText);
+        diagnosis = (Spinner) findViewById(R.id.diagnosis);
 
         final EditText set = (EditText) findViewById(R.id.editText);
         set.setOnClickListener(new View.OnClickListener()
@@ -67,23 +73,30 @@ public class AddRequestActivity extends AppCompatActivity{
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = new Dialog(AddRequestActivity.this);
-                dialog.setTitle("Submit Request");
-                dialog.setContentView(R.layout.popup_submit);
-                dialog.show();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                final Button request = (Button) dialog.findViewById(R.id.button_ok);
-                request.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
-                        intent.putExtra("mEmail", mEmail);
-                        intent.putExtra("request", true);
-                        startActivity(intent);
-                    }
-                });
+                final Context context = getApplicationContext();
+                pname = name.getText().toString();
+                bgroup = bloodgroup.getSelectedItem().toString();
+                quan = quantity.getSelectedItem().toString();
+                diag = diagnosis.getSelectedItem().toString();
+                pdate = when.getText().toString();
+                num = number.getText().toString();
+                loc = location.getText().toString();
+                Toast.makeText(context, pname+' '+bgroup+' '+quan+' '+diag+' '+pdate+' '+num+' '+loc,Toast.LENGTH_LONG).show();
+//                dialog = new Dialog(AddRequestActivity.this);
+//                dialog.setTitle("Submit Request");
+//                dialog.setContentView(R.layout.popup_submit);
+//                dialog.show();
+//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//
+//                final Button request = (Button) dialog.findViewById(R.id.button_ok);
+//                request.setOnClickListener(new View.OnClickListener(){
+//
+//                    @Override
+//                    public void onClick(View view) {
+//                        Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
+//                        startActivity(intent);
+//                    }
+//                });
             }
         });
     }
