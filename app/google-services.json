@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "862937152253",
+    "firebase_url": "https://first-project-b3a9f.firebaseio.com",
+    "project_id": "first-project-b3a9f",
+    "storage_bucket": "first-project-b3a9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862937152253:android:f736eebe5a0a2c81",
+        "android_client_info": {
+          "package_name": "com.jexapps.bloodhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862937152253-ovr924up6bmvsclqlvtnvali11ga3pvl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jexapps.bloodhub",
+            "certificate_hash": "0126a8980b127d0b3fd84fe625ab91397e28fa32"
+          }
+        },
+        {
+          "client_id": "862937152253-go2ka6q8dkfe5tct9v5dp4j729m0tp9k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jexapps.bloodhub",
+            "certificate_hash": "3c096676469435d32d8ddb46fd8d06886056038e"
+          }
+        },
+        {
+          "client_id": "862937152253-dlsh0c5tpnrdgktseascaqrk03ioltg6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-w6fqWoJP2i1zBG-RpVlPnM62ZKoS-iw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862937152253-dlsh0c5tpnrdgktseascaqrk03ioltg6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
