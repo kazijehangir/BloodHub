@@ -40,6 +40,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.jexapps.bloodhub.m_Model.User;
 
 public class MainActivityOrg extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
