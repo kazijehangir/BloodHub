@@ -7,9 +7,20 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.jexapps.bloodhub.m_Model.BloodRequest;
+import com.jexapps.bloodhub.m_UI.RequestListDataAdapter;
+
+import java.util.ArrayList;
 
 
 /**
@@ -21,18 +32,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class RequestListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    private static final String[] dummyDataset = new String[] {
-            "Jamshed:2 bags of O-:National Hospital:URGENT:Surgery:Male:Yes",
-            "Aliya:1 bag of A+:Red Crescent:Today:Thalassemia:Female:No",
-            "Hamid:1 bag of AB-:Shaukat Khanum:Next Week:Cancer:Male:No",
-            "Saniya:1 bags of B+:Aadil Hospital:Today:Accident:Female:Yes"
-    };
-    // TODO: Rename and change types of parameters
-
     private String mEmail;
+    DatabaseReference db;
+    ArrayList<BloodRequest> requests;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -88,10 +90,40 @@ public class RequestListFragment extends Fragment {
 
 
         // specify an adapter (see also next example)
-        mAdapter = new RequestListDataAdapter(dummyDataset, getContext(), mEmail);
+        db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
+        mAdapter = new RequestListDataAdapter(fetchData(), getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
+    }
+
+    //Getting data from database
+    public ArrayList<BloodRequest> fetchData() {
+        requests = new ArrayList<BloodRequest>();
+        db.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                BloodRequest request = dataSnapshot.getValue(BloodRequest.class);
+                requests.add(request);
+                mAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                BloodRequest request = dataSnapshot.getValue(BloodRequest.class);
+                requests.add(request);
+                mAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        return requests;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

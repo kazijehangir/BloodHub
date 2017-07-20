@@ -1,9 +1,7 @@
-package com.jexapps.bloodhub;
+package com.jexapps.bloodhub.m_UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
-import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.jexapps.bloodhub.R;
+import com.jexapps.bloodhub.RequestDetail;
+import com.jexapps.bloodhub.m_Model.BloodRequest;
 
-import static com.jexapps.bloodhub.R.drawable.boy;
+import java.util.ArrayList;
 
 /**
  * Created by Jehangir Kazi on 23/11/16.
@@ -23,9 +24,8 @@ import static com.jexapps.bloodhub.R.drawable.boy;
  */
 
 public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListDataAdapter.ViewHolder> {
-    private String[] mDataset;
-    private final Context mContext;
-    private static String mEmail;
+    private Context mContext;
+    private ArrayList<BloodRequest> requests;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -61,22 +61,19 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
             intent.putExtra("diagnosis", mDiagnosis.getText());
             TextView mTransport = (TextView) itemView.findViewById(R.id.transport_text);
             intent.putExtra("transport", mTransport.getText());
-            intent.putExtra("mEmail", mEmail);
             v.getContext().startActivity(intent);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RequestListDataAdapter(String[] myDataset, Context context, String email) {
-        mDataset = myDataset;
+    public RequestListDataAdapter(ArrayList<BloodRequest> req, Context context) {
+        requests = req;
         mContext = context;
-        mEmail = email;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public RequestListDataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public RequestListDataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.request_card_view, parent, false);
@@ -86,36 +83,36 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        String[] strings = mDataset[position].split(":");
-        holder.mName.setText(strings[0]);
-        holder.mNeeds.setText(strings[1]);
-        holder.mLocation.setText(strings[2]);
-        holder.mWhen.setText(strings[3]);
-        if (strings[3].equals("URGENT")) {
-            holder.mWhen.setTextColor(0xFFFF0000);
-        }
-        holder.mDiagnosis.setText(strings[4]);
-        if (strings[5].equals("Male")) {
-            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
-        } else if (strings[5].equals("Female")) {
-            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
-        }
-        if (strings[6].equals("Yes")) {
-            holder.mTransport.setText("Available");
-            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_car));
-        } else if (strings[6].equals("No")) {
-            holder.mTransport.setText("Not Available");
-            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_no_car));
-        }
-
+        BloodRequest request = (BloodRequest) requests.get(position);
+        holder.mName.setText(request.name);
+        holder.mNeeds.setText(request.quantity+" bags of "+request.blood_group);
+        holder.mLocation.setText(request.location);
+        holder.mWhen.setText(request.date);
+//        if (strings[3].equals("URGENT")) {
+//            holder.mWhen.setTextColor(0xFFFF0000);
+//        }
+        holder.mDiagnosis.setText(request.diagnosis);
+        holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
+        holder.mTransport.setText("Available");
+        holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_car));
+//        if (strings[5].equals("Male")) {
+//            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
+//        } else if (strings[5].equals("Female")) {
+//            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
+//        }
+//        if (strings[6].equals("Yes")) {
+//            holder.mTransport.setText("Available");
+//            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_car));
+//        } else if (strings[6].equals("No")) {
+//            holder.mTransport.setText("Not Available");
+//            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_no_car));
+//        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return requests.size();
     }
 }
 

@@ -7,23 +7,18 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jexapps.bloodhub.m_Helper.RequestHelper;
@@ -39,9 +34,7 @@ public class AddRequestActivity extends AppCompatActivity{
     String pname, bgroup, quan, diag, pdate, num, loc, mEmail;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     DatabaseReference db;
-    RequestHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +42,7 @@ public class AddRequestActivity extends AppCompatActivity{
         user = mAuth.getCurrentUser();
         mEmail = user.getEmail();
         //INITIALIZE FIREBASE DB
-        db = FirebaseDatabase.getInstance().getReference();
-        helper = new RequestHelper(db);
+        db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request);
@@ -103,7 +95,8 @@ public class AddRequestActivity extends AppCompatActivity{
                 loc = location.getText().toString();
 
                 BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, diag, pdate);
-                if (helper.save(request)) {
+                try {
+                    db.push().setValue(request);
                     dialog = new Dialog(AddRequestActivity.this);
                     dialog.setTitle("Submit Request");
                     dialog.setContentView(R.layout.popup_submit);
@@ -119,7 +112,7 @@ public class AddRequestActivity extends AppCompatActivity{
                             startActivity(intent);
                         }
                     });
-                } else {
+                } catch (DatabaseException e) {
                     Toast.makeText(context,"Error occurred",Toast.LENGTH_SHORT).show();
                 }
             }
