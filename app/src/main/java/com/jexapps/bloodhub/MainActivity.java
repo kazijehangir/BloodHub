@@ -24,7 +24,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.jexapps.bloodhub.m_Model.User;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -250,10 +249,12 @@ public class MainActivity extends AppCompatActivity
 
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
+        mAuth = FirebaseAuth.getInstance();
         Fragment fragment = null;
         Class fragmentClass;
         Bundle args = new Bundle();
         if (menuItem.getItemId() == R.id.signout) {
+            mAuth.signOut();
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
         }

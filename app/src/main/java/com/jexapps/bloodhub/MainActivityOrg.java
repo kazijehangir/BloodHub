@@ -1,22 +1,13 @@
 package com.jexapps.bloodhub;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
-import android.app.SearchManager;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.DatabaseErrorHandler;
-import android.graphics.Color;
 import android.net.Uri;
-import android.support.v7.widget.SearchView;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.MotionEvent;
 import android.view.View;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -31,7 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+import com.jexapps.bloodhub.m_Model.User;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,8 +30,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.jexapps.bloodhub.m_Model.User;
 
 public class MainActivityOrg extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -207,7 +196,10 @@ public class MainActivityOrg extends AppCompatActivity
         Fragment fragment = null;
         Class fragmentClass;
         Bundle args = new Bundle();
+        mAuth = FirebaseAuth.getInstance();
         if (menuItem.getItemId() == R.id.signout) {
+
+            mAuth.signOut();
             finish();
 //            Intent intent = new Intent(this,LoginActivity.class);
 //            startActivity(intent);
