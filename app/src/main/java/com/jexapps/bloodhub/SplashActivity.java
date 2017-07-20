@@ -15,26 +15,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity
 {
-//    private FirebaseAuth mAuth;
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//            Intent intent = new Intent(SplashActivity.this,MainActivity.class);
-//            startActivity(intent);
-//        }
-//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        try {
-//            // stall for .5 seconds
-//            Thread.sleep(500);
-//        } catch (InterruptedException e) {
-//
-//        }
-
         setContentView(R.layout.activity_fscreen);
 
         Button button = (Button) findViewById(R.id.button1);

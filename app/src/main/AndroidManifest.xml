@@ -53,7 +53,9 @@
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
         </activity>
-        <activity android:name=".AddRequestActivity" />
+        <activity
+            android:name=".AddRequestActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".IndividualRegistrationActivity"
             android:parentActivityName=".LoginActivity">

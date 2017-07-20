@@ -1,92 +1,26 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.jexapps.bloodhub.RequestsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
-
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/num_requests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
             android:text="Total Requests: 1"
             android:textStyle="bold"
             android:textSize="25sp" />
-
     </RelativeLayout>
-
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cardView"
-        android:layout_width="352dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        card_view:cardCornerRadius="1dp"
-        card_view:contentPadding="5dp"
-        card_view:cardBackgroundColor="#FFFFFF"
-        >
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="230dp"
-                android:id="@+id/image1"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/skmch"
-                android:layout_toLeftOf="@+id/name"
-                android:layout_toStartOf="@+id/name"
-                android:layout_alignBottom="@+id/location" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
-                android:text="Name: Hasan Rizwan"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/time"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/name"
-                android:layout_alignLeft="@+id/name"
-                android:layout_marginTop="10dp"
-                android:text="When: 2 months ago"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/location"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/time"
-                android:layout_alignLeft="@+id/name"
-                android:layout_marginTop="10dp"
-                android:text="Location: Shaukat Khanum"
-                android:textSize="20sp" />
-
-
-        </RelativeLayout>
-
-
-    </android.support.v7.widget.CardView>
-
-
-</LinearLayout>
+    <!-- A RecyclerView with some commonly used attributes -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/request_list_recycler_view"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="452dp"
+        android:layout_marginTop="60dp"/>
+</FrameLayout>

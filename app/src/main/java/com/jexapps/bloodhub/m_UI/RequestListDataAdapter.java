@@ -86,9 +86,9 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         holder.mNeeds.setText(request.quantity+" bags of "+request.blood_group);
         holder.mLocation.setText(request.location);
         holder.mWhen.setText(request.date);
-//        if (strings[3].equals("URGENT")) {
-//            holder.mWhen.setTextColor(0xFFFF0000);
-//        }
+        if (request.date.equals("URGENT")) {
+            holder.mWhen.setTextColor(0xFFFF0000);
+        }
         holder.mDiagnosis.setText(request.diagnosis);
         holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
         holder.mTransport.setText("Available");

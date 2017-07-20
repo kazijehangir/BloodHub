@@ -4,67 +4,78 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.m_Model.BloodRequest;
+import com.jexapps.bloodhub.m_UI.MyRequestDataAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RequestsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RequestsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class RequestsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    DatabaseReference db;
+    ArrayList<BloodRequest> requests;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private RecyclerView mRecyclerView;
+    private TextView numRequests;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     private OnFragmentInteractionListener mListener;
 
     public RequestsFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RequestsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RequestsFragment newInstance(String param1, String param2) {
-        RequestsFragment fragment = new RequestsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_requests, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_requests, container, false);
+        numRequests = (TextView) rootView.findViewById(R.id.num_requests);
+        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.request_list_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
+        db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
+        mAdapter = new MyRequestDataAdapter(fetchData());
+        mRecyclerView.setAdapter(mAdapter);
+        return rootView;
+    }
+
+    //Getting data from database
+    public ArrayList<BloodRequest> fetchData() {
+        requests = new ArrayList<BloodRequest>();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        db.orderByChild("userid").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    BloodRequest request = child.getValue(BloodRequest.class);
+                    requests.add(request);
+                }
+                numRequests.setText("Total Requests: "+requests.size());
+                mAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        return requests;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

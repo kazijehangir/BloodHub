@@ -11,27 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 import com.jexapps.bloodhub.m_UI.RequestListDataAdapter;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RequestListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RequestListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RequestListFragment extends Fragment {
-    private String mEmail;
     DatabaseReference db;
     ArrayList<BloodRequest> requests;
 
@@ -45,50 +35,16 @@ public class RequestListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param email Parameter 1.
-     * @return A new instance of fragment RequestListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RequestListFragment newInstance(String email) {
-        RequestListFragment fragment = new RequestListFragment();
-        Bundle args = new Bundle();
-        args.putString("mEmail", email);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mEmail = getArguments().getString("mEmail");
-        }
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_request_list, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.request_list_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
-
-
-        // specify an adapter (see also next example)
         db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
         mAdapter = new RequestListDataAdapter(fetchData(), getContext());
         mRecyclerView.setAdapter(mAdapter);
@@ -99,24 +55,14 @@ public class RequestListFragment extends Fragment {
     //Getting data from database
     public ArrayList<BloodRequest> fetchData() {
         requests = new ArrayList<BloodRequest>();
-        db.addChildEventListener(new ChildEventListener() {
+        db.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                BloodRequest request = dataSnapshot.getValue(BloodRequest.class);
-                requests.add(request);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    BloodRequest request = child.getValue(BloodRequest.class);
+                    requests.add(request);
+                }
                 mAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                BloodRequest request = dataSnapshot.getValue(BloodRequest.class);
-                requests.add(request);
-                mAdapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
