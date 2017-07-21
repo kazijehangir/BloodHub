@@ -117,6 +117,17 @@
                 android:textColor="@color/fab1"
                 android:background="@drawable/mybutton1_bg" />
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/forgotpassword"
+                android:text="Forgot your password?"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:textColor="black"
+                android:textSize="15sp"
+                />
+
+            <TextView
                 android:text="@string/action_register_individual"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
