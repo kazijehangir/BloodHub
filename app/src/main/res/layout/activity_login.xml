@@ -123,7 +123,7 @@
                 android:text="Forgot your password?"
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
-                android:textColor="black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 />
 
