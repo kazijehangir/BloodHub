@@ -176,6 +176,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void setView(String userId, final String email) {
         final String uid = userId;
         final Context context = getApplicationContext();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase.getInstance().getReference().child("users").child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -183,7 +184,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         User user = dataSnapshot.getValue(User.class);
                         String account_type = user.account_type;
                         showProgress(false);
+
                         if(account_type.equals("individual")) {
+
                             Intent intent;
                             intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("mEmail", email);
@@ -251,7 +254,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                setView(user.getUid(), user.getEmail());
+                                if(user.isEmailVerified()){
+                                    setView(user.getUid(), user.getEmail());
+                                } else {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Please verify email address", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    showProgress(false);
+                                    FirebaseAuth.getInstance().signOut();
+                                }
+
 
                             } else {
                                 showProgress(false);

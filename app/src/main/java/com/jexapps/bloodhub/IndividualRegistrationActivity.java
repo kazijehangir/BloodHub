@@ -35,6 +35,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     Spinner bloodGroup;
     String email, password, uname, bgroup;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -46,6 +47,20 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if(user != null){
+//                    Toast toast = Toast.makeText(getApplicationContext(), "Sending email", Toast.LENGTH_SHORT);
+//                    toast.show();
+//                    sendVerificationEmail();
+//                } else {
+//                    Toast toast = Toast.makeText(getApplicationContext(), "Not sending email", Toast.LENGTH_SHORT);
+//                    toast.show();
+//                }
+//            }
+//        };
 
         username = (AutoCompleteTextView) findViewById(R.id.name);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -75,7 +90,27 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    private void sendVerificationEmail() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(IndividualRegistrationActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                        else {
+                            overridePendingTransition(0, 0);
+                            finish();
+                            overridePendingTransition(0, 0 );
+                            startActivity(getIntent());
+                        }
+                    }
+                });
+    }
     private void writeNewUser(String userId, String email){
         User user = new User(uname, email, bgroup);
         mDatabase.child("users").child(userId).setValue(user);
@@ -115,10 +150,11 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                                     Toast.makeText(context, "Registration Successful!",
                                             Toast.LENGTH_SHORT).show();
                                     // take user to main screen
+                                    sendVerificationEmail();
                                     writeNewUser(user.getUid(), user.getEmail());
 
-                                    Intent intent = new Intent(context, MainActivity.class);
-                                    intent.putExtra("mEmail", user.getEmail());
+                                    Intent intent = new Intent(context, LoginActivity.class);
+//                                    intent.putExtra("mEmail", user.getEmail());
                                     startActivity(intent);
                                 } else {
                                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {

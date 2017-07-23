@@ -54,16 +54,6 @@ public class SplashActivity extends AppCompatActivity
                 });
         return;
     }
-    private void updateUI(FirebaseUser user){
-        Context context = getApplicationContext();
-        if(user != null){
-            Toast toast = Toast.makeText(context, "user", Toast.LENGTH_SHORT);
-            toast.show();
-        } else {
-            Toast toast = Toast.makeText(context, "No user", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
     @Override
     public void onStart() {
         super.onStart();
@@ -108,23 +98,33 @@ public class SplashActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        mAuth = FirebaseAuth.getInstance();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        Context context = getApplicationContext();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-//        Button button = (Button) findViewById(R.id.button1);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(SplashActivity.this,
-//                        EmergencyRequestActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        Button button1 = (Button) findViewById(R.id.button2);
-//        button1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+
+        if(currentUser != null){
+            setView(currentUser.getUid(), currentUser.getEmail());
+        } else {
+            setContentView(R.layout.activity_fscreen);
+            Button button = (Button) findViewById(R.id.button1);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(SplashActivity.this,
+                            EmergencyRequestActivity.class);
+                    startActivity(intent);
+                }
+            });
+            Button button1 = (Button) findViewById(R.id.button2);
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 }

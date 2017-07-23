@@ -68,6 +68,30 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
         User user = new User(uname, email, num, add);
         mDatabase.child("users").child(userId).setValue(user);
     }
+    private void sendVerificationEmail() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.sendEmailVerification()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            writeNewUser(user.getUid(), user.getEmail());
+
+                            startActivity(new Intent(OrganizationRegistrationActivity.this, LoginActivity.class));
+
+                            finish();
+                        }
+                        else {
+                            overridePendingTransition(0, 0);
+                            finish();
+                            overridePendingTransition(0, 0 );
+                            startActivity(getIntent());
+                        }
+                    }
+                });
+    }
     private void registerNewOrg() {
 //        TODO: check if username, email, number, address is added or not
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -102,14 +126,11 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Toast.makeText(context, "Registration Successful!",
-                                            Toast.LENGTH_SHORT).show();
+                                    sendVerificationEmail();
 //                    take user to main screen
-                                    writeNewUser(user.getUid(), user.getEmail());
                                     progressBar.setVisibility(View.GONE);
 
-                                    Intent intent = new Intent(context, MainActivityOrg.class);
-                                    intent.putExtra("mEmail", user.getEmail());
+                                    Intent intent = new Intent(context, LoginActivity.class);
                                     startActivity(intent);
                                 } else {
                                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
