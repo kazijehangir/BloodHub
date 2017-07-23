@@ -23,7 +23,6 @@ import com.jexapps.bloodhub.m_Model.Patient;
 
 public class AddPatientActivity extends AppCompatActivity {
     Dialog dialog;
-    private int date, month, year;
     AutoCompleteTextView name;
     Spinner bloodgroup, diagnosis;
     EditText number, age;

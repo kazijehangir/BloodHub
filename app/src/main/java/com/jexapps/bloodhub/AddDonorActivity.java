@@ -108,11 +108,11 @@ public class AddDonorActivity extends AppCompatActivity{
                     db.push().setValue(donor);
                     dialog = new Dialog(AddDonorActivity.this);
                     dialog.setTitle("Submit Request");
-                    dialog.setContentView(R.layout.popup_submit);
+                    dialog.setContentView(R.layout.popup_donor);
                     dialog.show();
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                    final Button submit = (Button) dialog.findViewById(R.id.button_ok);
+                    final Button submit = (Button) dialog.findViewById(R.id.add_donor);
                     submit.setOnClickListener(new View.OnClickListener(){
 
                         @Override
