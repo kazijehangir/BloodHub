@@ -4,16 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.jexapps.bloodhub.R;
 import com.jexapps.bloodhub.RequestDetail;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Jehangir Kazi on 23/11/16.
@@ -85,8 +90,10 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         holder.mName.setText(request.name);
         holder.mNeeds.setText(request.quantity+" bags of "+request.blood_group);
         holder.mLocation.setText(request.location);
-        holder.mWhen.setText(request.date);
-        if (request.date.equals("URGENT")) {
+        String date = DateFormat.getDateInstance().format(new Date(request.date));
+        holder.mWhen.setText(date);
+        if (date.equals(DateFormat.getDateInstance().format(new Date()))) {
+            holder.mWhen.setText("URGENT");
             holder.mWhen.setTextColor(0xFFFF0000);
         }
         holder.mDiagnosis.setText(request.diagnosis);
@@ -98,13 +105,13 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
 //        } else if (strings[5].equals("Female")) {
 //            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
 //        }
-//        if (strings[6].equals("Yes")) {
-//            holder.mTransport.setText("Available");
-//            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_car));
-//        } else if (strings[6].equals("No")) {
-//            holder.mTransport.setText("Not Available");
-//            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_no_car));
-//        }
+        if (request.transport) {
+            holder.mTransport.setText("Available");
+            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_car));
+        } else {
+            holder.mTransport.setText("Not Available");
+            holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_no_car));
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
