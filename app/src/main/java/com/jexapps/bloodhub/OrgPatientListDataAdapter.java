@@ -81,7 +81,7 @@ public class OrgPatientListDataAdapter extends RecyclerView.Adapter<OrgPatientLi
         holder.mBgroup.setText(strings[1]);
         holder.mDiagnosis.setText(strings[2]);
         holder.mLastRequest.setText(strings[3]);
-        holder.mStatus.setText(strings[4]);
+        //holder.mStatus.setText(strings[4]);
         if (strings[5].equals("Male")) {
             holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
         } else if (strings[5].equals("Female")) {

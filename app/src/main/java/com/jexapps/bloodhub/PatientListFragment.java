@@ -1,9 +1,9 @@
 package com.jexapps.bloodhub;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,25 +16,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.m_Model.BloodRequest;
 import com.jexapps.bloodhub.m_Model.Patient;
 import com.jexapps.bloodhub.m_UI.PatientListDataAdapter;
+import com.jexapps.bloodhub.m_UI.RequestListDataAdapter;
 
 import java.util.ArrayList;
-
-/**
- * Created by aimengaba on 23/07/2017.
- */
-
+import java.util.Calendar;
+import java.util.Date;
 
 public class PatientListFragment extends Fragment {
     DatabaseReference db;
     ArrayList<Patient> patients;
+    ArrayList<String> keys;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private PatientListFragment.OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     public PatientListFragment() {
         // Required empty public constructor
@@ -43,6 +43,8 @@ public class PatientListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        db = FirebaseDatabase.getInstance().getReference().child("patients");
+        fetchData();
         View rootView = inflater.inflate(R.layout.fragment_org_patient_list, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.org_patient_list_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -50,22 +52,23 @@ public class PatientListFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
-        db = FirebaseDatabase.getInstance().getReference().child("patients");
-        mAdapter = new PatientListDataAdapter(fetchData(), getContext());
+        mAdapter = new PatientListDataAdapter(patients, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
 
     //Getting data from database
-    public ArrayList<Patient> fetchData() {
+    public void fetchData() {
         patients = new ArrayList<Patient>();
+        keys = new ArrayList<String>();
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    Patient pat = child.getValue(Patient.class);
-                    patients.add(pat);
+                    Patient patient = child.getValue(Patient.class);
+                    patients.add(patient);
+                    keys.add(child.getKey());
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -73,7 +76,7 @@ public class PatientListFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return patients;
+        return;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -86,8 +89,8 @@ public class PatientListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof RequestListFragment.OnFragmentInteractionListener) {
-            mListener = (PatientListFragment.OnFragmentInteractionListener) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -114,5 +117,4 @@ public class PatientListFragment extends Fragment {
         // TODO: Update argument type and name
         void onPatientListFragmentInteraction(Uri uri);
     }
-
 }

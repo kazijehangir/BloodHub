@@ -75,7 +75,7 @@ public class AddPatientActivity extends AppCompatActivity {
 
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(AddPatientActivity.this,MainActivity.class);
+                            Intent intent = new Intent(AddPatientActivity.this,MainActivityOrg.class);
                             startActivity(intent);
                         }
                     });
