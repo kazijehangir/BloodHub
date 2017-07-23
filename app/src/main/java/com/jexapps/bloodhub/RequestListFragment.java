@@ -20,6 +20,8 @@ import com.jexapps.bloodhub.m_Model.BloodRequest;
 import com.jexapps.bloodhub.m_UI.RequestListDataAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class RequestListFragment extends Fragment {
     DatabaseReference db;
@@ -55,7 +57,14 @@ public class RequestListFragment extends Fragment {
     //Getting data from database
     public ArrayList<BloodRequest> fetchData() {
         requests = new ArrayList<BloodRequest>();
-        db.addValueEventListener(new ValueEventListener() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date startDate = cal.getTime();
+//        Date endDate = new Date();
+        db.orderByChild("date").startAt(startDate.getTime()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {

@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -23,6 +24,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class AddRequestActivity extends AppCompatActivity{
     Dialog dialog;
@@ -30,7 +35,8 @@ public class AddRequestActivity extends AppCompatActivity{
     AutoCompleteTextView name;
     Spinner bloodgroup, quantity, diagnosis;
     EditText number, location, when;
-    String pname, bgroup, quan, diag, pdate, num, loc, mEmail;
+    String pname, bgroup, quan, diag, num, loc, mEmail;
+    Date pdate;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     DatabaseReference db;
@@ -73,7 +79,11 @@ public class AddRequestActivity extends AppCompatActivity{
                         date = datePicker.getDayOfMonth();
                         month = datePicker.getMonth();
                         year = datePicker.getYear();
-                        set.setText(date+"-"+month+"-"+year);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, month, date);
+                        pdate = calendar.getTime();
+                        String date = DateFormat.getDateInstance().format(pdate);
+                        set.setText(date);
                         dialog.cancel();
                     }
                 });
@@ -89,11 +99,10 @@ public class AddRequestActivity extends AppCompatActivity{
                 bgroup = bloodgroup.getSelectedItem().toString();
                 quan = quantity.getSelectedItem().toString();
                 diag = diagnosis.getSelectedItem().toString();
-                pdate = when.getText().toString();
                 num = number.getText().toString();
                 loc = location.getText().toString();
 
-                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, diag, pdate);
+                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, diag, pdate.getTime(), true);
                 try {
                     db.push().setValue(request);
                     dialog = new Dialog(AddRequestActivity.this);

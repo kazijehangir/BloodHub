@@ -12,7 +12,9 @@ import com.jexapps.bloodhub.R;
 import com.jexapps.bloodhub.RequestDetail;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdapter.ViewHolder> {
     private ArrayList<BloodRequest> requests;
@@ -51,7 +53,7 @@ public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdap
         BloodRequest request = (BloodRequest) requests.get(position);
         holder.mName.setText(request.name);
         holder.mLocation.setText(request.location);
-        holder.mWhen.setText(request.date);
+        holder.mWhen.setText(DateFormat.getDateInstance().format(new Date(request.date)));
     }
 
     // Return the size of your dataset (invoked by the layout manager)

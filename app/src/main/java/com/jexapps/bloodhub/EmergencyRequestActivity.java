@@ -28,13 +28,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class EmergencyRequestActivity extends AppCompatActivity {
 // TODO: try to get location automatically
     Dialog dialog;
     AutoCompleteTextView name;
     Spinner bloodgroup, quantity, diagnosis, location;
     EditText number;
-    String pname, bgroup, quan, diag, num, loc, mEmail;
+    String pname, bgroup, quan, diag, num, loc, date, mEmail;
     DatabaseReference db;
 
     @Override
@@ -63,7 +66,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
                 diag = diagnosis.getSelectedItem().toString();
                 num = number.getText().toString();
                 loc = location.getSelectedItem().toString();
-                BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, diag, "URGENT");
+                BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, diag, new Date().getTime(), true);
                 try {
                     db.push().setValue(request);
                     dialog = new Dialog(EmergencyRequestActivity.this);
