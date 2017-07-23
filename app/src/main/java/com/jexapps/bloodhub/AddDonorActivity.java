@@ -2,10 +2,12 @@ package com.jexapps.bloodhub;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -39,6 +41,8 @@ public class AddDonorActivity extends AppCompatActivity{
     String dName, dBloodgroup, dAge, dNumber, dAddress, ddonorOrigin, dLastDonated;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    CharSequence options[] = new CharSequence[] {"Never", "Set date"};
+
     Date pdate;
     DatabaseReference db;
     String mEmail;
@@ -67,27 +71,41 @@ public class AddDonorActivity extends AppCompatActivity{
         {
             @Override
             public void onClick (View view){
-                dialog = new Dialog(AddDonorActivity.this);
-                dialog.setTitle("Set Date and Time");
-                dialog.setContentView(R.layout.set_date);
-                dialog.show();
-                final Button setDate = (Button) dialog.findViewById(R.id.set_date);
-                final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePicker);
-                setDate.setOnClickListener(new View.OnClickListener(){
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddDonorActivity.this);
+                builder.setTitle("Last donated");
+                builder.setItems(options, new DialogInterface.OnClickListener(){
                     @Override
-                    public void onClick(View view) {
-                        date = datePicker.getDayOfMonth();
-                        month = datePicker.getMonth();
-                        year = datePicker.getYear();
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(year, month, date);
-                        pdate = calendar.getTime();
-                        String date = DateFormat.getDateInstance().format(pdate);
-                        set.setText(date);
-                        dialog.cancel();
+                    public void onClick(DialogInterface dialog, int which){
+                        if(options[which] == "Set date"){
+                            final Dialog dialog1;
+                            dialog1 = new Dialog(AddDonorActivity.this);
+                            dialog1.setTitle("Set Date and Time");
+                            dialog1.setContentView(R.layout.set_date);
+                            dialog1.show();
+                            final Button setDate = (Button) dialog1.findViewById(R.id.set_date);
+                            final DatePicker datePicker = (DatePicker) dialog1.findViewById(R.id.datePicker);
+                            setDate.setOnClickListener(new View.OnClickListener(){
+
+                                @Override
+                                public void onClick(View view) {
+                                    date = datePicker.getDayOfMonth();
+                                    month = datePicker.getMonth();
+                                    year = datePicker.getYear();
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.set(year, month, date);
+                                    pdate = calendar.getTime();
+                                    String date = DateFormat.getDateInstance().format(pdate);
+                                    set.setText(date);
+                                    dialog1.cancel();
+                                }
+                            });
+                        } else {
+                            set.setText("Never");
+                        }
                     }
                 });
+                builder.show();
+
             }
         });
         Button addDonor = (Button) findViewById(R.id.add_donor);
