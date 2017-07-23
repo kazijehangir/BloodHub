@@ -2,14 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="16dp"
     android:orientation="vertical"
     tools:context="com.jexapps.bloodhub.DonationsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/num_donations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -18,220 +16,36 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cardView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        card_view:cardCornerRadius="1dp"
-        card_view:contentPadding="5dp">
-
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txt1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Recent Donation: 2 hours ago"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txt2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/txt1"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/txt1"
-                android:layout_marginTop="10dp"
-                android:text="Time till next dontion: 56 Days"
-                android:textSize="25sp" />
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-    <ScrollView
-        android:id="@+id/donationsList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Recent Donation: 2 hours ago"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/txt2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/cardView2"
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                card_view:cardCornerRadius="1dp"
-                card_view:contentPadding="5dp">
+            android:layout_alignLeft="@+id/txt1"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/txt1"
+            android:layout_marginTop="10dp"
+            android:text="Time till next donation: 56 Days"
+            android:textSize="20sp" />
+    </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    >
-
-                    <ImageView
-                        android:id="@+id/image1"
-                        android:layout_width="150dp"
-                        android:layout_height="170dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/girl" />
-
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="16dp"
-                        android:layout_toEndOf="@+id/image1"
-                        android:layout_toRightOf="@+id/image1"
-                        android:text="Name: Aliya Butt"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/name"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/name"
-                        android:layout_marginTop="10dp"
-                        android:text="When: 2 hours ago"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/location"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/name"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/time"
-                        android:layout_marginTop="10dp"
-                        android:text="Where: Red Crescent"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/diagnosis"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/name"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/location"
-                        android:layout_marginTop="10dp"
-                        android:text="Reason: Thallasymia"
-                        android:textSize="20sp" />
-
-                    <!--<ProgressBar-->
-                    <!--android:id="@+id/progressBar"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentBottom="true"-->
-                    <!--android:layout_below="@+id/image1"-->
-                    <!--android:layout_centerHorizontal="true" />-->
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Donated" />
-
-                </RelativeLayout>
-
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/cardView3"
-                android:layout_width="match_parent"
-                android:layout_height="210dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                card_view:cardCornerRadius="1dp"
-                card_view:contentPadding="5dp">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    >
-
-                    <ImageView
-                        android:id="@+id/image3"
-                        android:layout_width="150dp"
-                        android:layout_height="170dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/boy" />
-
-                    <TextView
-                        android:id="@+id/name3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="16dp"
-                        android:layout_toEndOf="@+id/image3"
-                        android:layout_toRightOf="@+id/image3"
-                        android:text="Name: Farhan Shahid"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/time3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/name3"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/name3"
-                        android:layout_marginTop="10dp"
-                        android:text="When: 6 months ago"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/location3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/name3"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/time3"
-                        android:layout_marginTop="10dp"
-                        android:text="Where: Fatmid Foundation"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/diagnosis3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/name3"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/location3"
-                        android:layout_marginTop="10dp"
-                        android:text="Reason: Surgery "
-                        android:textSize="20sp" />
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Received" />
-
-                </RelativeLayout>
-
-
-            </android.support.v7.widget.CardView>
-
-
-        </LinearLayout>
-    </ScrollView>
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/donation_list_recycler_view"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="452dp"
+        android:layout_marginTop="10dp"/>
 </LinearLayout>

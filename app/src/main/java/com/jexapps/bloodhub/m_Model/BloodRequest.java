@@ -1,8 +1,6 @@
 package com.jexapps.bloodhub.m_Model;
 
-        import com.google.firebase.database.IgnoreExtraProperties;
-
-import java.util.Date;
+import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class BloodRequest {
