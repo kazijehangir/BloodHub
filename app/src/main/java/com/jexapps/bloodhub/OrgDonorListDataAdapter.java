@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jexapps.bloodhub.m_Model.BloodRequest;
 import com.jexapps.bloodhub.m_Model.Donor;
 
 import java.util.ArrayList;
