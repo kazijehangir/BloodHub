@@ -11,6 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.m_Model.Patient;
+import com.jexapps.bloodhub.m_UI.PatientListDataAdapter;
+
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,22 +31,15 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class OrgPatientListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-//    "NAME:BGROUP:DIAGNOSIS:LASTREQUEST:STATUS:GENDER:TRANSPORT"
-    private static final String[] dummyDataset = new String[] {
-        "Jamshed:O-:Surgery:3 Dec, 16:Admitted:Male",
-        "Aliya:A+:Thalassemia:13 Oct, 16:Visiting:Female",
-        "Hamid:AB-:Accident:5 Nov, 16:Admitted:Male",
-        "Saniya:B+:Cancer:10 Sept, 16:Visiting:Female"
-    };
-    private String mEmail;
+    DatabaseReference db;
+    ArrayList<Patient> patients;
+    ArrayList<String> keys;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private OnFragmentInteractionListener mListener;
+
+    private OrgPatientListFragment.OnFragmentInteractionListener mListener;
 
     public OrgPatientListFragment() {
         // Required empty public constructor
@@ -61,16 +64,14 @@ public class OrgPatientListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mEmail = getArguments().getString("mEmail");
-        }
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        db = FirebaseDatabase.getInstance().getReference().child("patients");
+        fetchData();
         View rootView = inflater.inflate(R.layout.fragment_org_patient_list, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.org_patient_list_recycler_view);
 
@@ -86,10 +87,30 @@ public class OrgPatientListFragment extends Fragment {
 
 
         // specify an adapter (see also next example)
-        mAdapter = new OrgPatientListDataAdapter(dummyDataset, getContext(), mEmail);
+        mAdapter = new PatientListDataAdapter(patients, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
+    }
+
+    public void fetchData() {
+        patients = new ArrayList<Patient>();
+        keys = new ArrayList<String>();
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    Patient patient = child.getValue(Patient.class);
+                    patients.add(patient);
+                    keys.add(child.getKey());
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        return;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
