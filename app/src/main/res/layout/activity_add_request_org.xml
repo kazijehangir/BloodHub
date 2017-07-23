@@ -49,14 +49,25 @@
                     android:layout_marginTop="7dp"
                     android:layout_toEndOf="@+id/image1"
                     android:layout_toRightOf="@+id/image1"
-                    android:text="Status: Admitted"
+                    android:text="Age: 5"
+                    android:textSize="20sp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cnum"
+                    android:text="Contact No"
+                    android:layout_below="@+id/age"
+                    android:layout_marginTop="7dp"
+                    android:layout_toEndOf="@+id/image1"
+                    android:layout_toRightOf="@+id/image1"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/blood_g"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/age"
+                    android:layout_below="@+id/cnum"
                     android:layout_marginTop="7dp"
                     android:layout_toEndOf="@+id/image1"
                     android:layout_toRightOf="@+id/image1"
