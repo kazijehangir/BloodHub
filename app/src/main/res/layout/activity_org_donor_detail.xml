@@ -45,14 +45,65 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="@dimen/cardview_top_padding"
+        android:id="@+id/age_horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/age_label"
+            android:layout_weight="1"
+            android:layout_gravity="left"
+            android:text="Age:"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/age"
+            android:layout_weight="0"
+            android:layout_gravity="right"
+            android:text="30"
+            android:fontFamily="sans-serif"
+            tools:layout_gravity="right"
+            android:textStyle="normal|bold" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/cardview_top_padding"
+        android:id="@+id/transport_horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/request_detail_transport_label"
+            android:layout_weight="1"
+            android:layout_gravity="left"
+            android:text="Number:"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/request_detail_transport"
+            android:layout_weight="0"
+            android:layout_gravity="right"
+            android:text="+923341234567"
+            android:fontFamily="sans-serif"
+            tools:layout_gravity="right"
+            android:textStyle="normal|bold" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/cardview_top_padding"
         android:id="@+id/needs_horizontal">
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/request_detail_needs_label"
+            android:id="@+id/bloodGroup"
             android:layout_weight="1"
             android:layout_gravity="left"
-            android:text="Needs:"/>
+            android:text="Blood group:"/>
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,14 +147,14 @@
             android:id="@+id/request_detail_when_label"
             android:layout_weight="1"
             android:layout_gravity="left"
-            android:text="When:"/>
+            android:text="Donor origin:"/>
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/request_detail_when"
             android:layout_weight="0"
             android:layout_gravity="right"
-            android:text="URGENT"
+            android:text="Blood drive"
             android:textStyle="normal|bold" />
     </android.support.v7.widget.LinearLayoutCompat>
     <android.support.v7.widget.LinearLayoutCompat
@@ -118,46 +169,22 @@
             android:id="@+id/request_detail_diagnosis_label"
             android:layout_weight="1"
             android:layout_gravity="left"
-            android:text="Diagnosis:"/>
+            android:text="Last donated:"/>
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/request_detail_diagnosis"
             android:layout_weight="0"
             android:layout_gravity="right"
-            android:text="Surgery"
+            android:text="2 weeks ago"
             android:fontFamily="sans-serif"
             tools:layout_gravity="right"
             android:textStyle="normal|bold" />
     </android.support.v7.widget.LinearLayoutCompat>
-    <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/cardview_top_padding"
-        android:id="@+id/transport_horizontal">
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/request_detail_transport_label"
-            android:layout_weight="1"
-            android:layout_gravity="left"
-            android:text="Transport:"/>
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/request_detail_transport"
-            android:layout_weight="0"
-            android:layout_gravity="right"
-            android:text="Available"
-            android:fontFamily="sans-serif"
-            tools:layout_gravity="right"
-            android:textStyle="normal|bold" />
 
-    </android.support.v7.widget.LinearLayoutCompat>
 
     <Button
-        android:text="Donate"
+        android:text="Contact to request blood"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"

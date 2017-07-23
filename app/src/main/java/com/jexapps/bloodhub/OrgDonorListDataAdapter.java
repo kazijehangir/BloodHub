@@ -10,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jexapps.bloodhub.m_Model.BloodRequest;
+import com.jexapps.bloodhub.m_Model.Donor;
+
+import java.util.ArrayList;
+
 /**
  * Created by Jehangir Kazi on 23/11/16.
  * This file is supposed to be used as an adapter with the RequestListFragment.java
@@ -17,8 +22,9 @@ import android.widget.TextView;
  */
 
 public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDataAdapter.ViewHolder> {
-    private String[] mDataset;
+//    private String[] mDataset;
     private final Context mContext;
+    private ArrayList<Donor> donors;
     private static String mEmail;
 
     // Provide a reference to the views for each data item
@@ -57,10 +63,9 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public OrgDonorListDataAdapter(String[] myDataset, Context context, String email) {
-        mDataset = myDataset;
+    public OrgDonorListDataAdapter(ArrayList<Donor> don, Context context) {
+        donors = don;
         mContext = context;
-        mEmail = email;
     }
 
     // Create new views (invoked by the layout manager)
@@ -78,23 +83,20 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        String[] strings = mDataset[position].split(":");
-        holder.mName.setText(strings[0]);
-        holder.mBgroup.setText(strings[1]);
-        holder.mLocation.setText(strings[2]);
-        holder.mLastDonated.setText(strings[3]);
-        holder.mOrigin.setText(strings[4]);
-        if (strings[5].equals("Male")) {
-            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
-        } else if (strings[5].equals("Female")) {
-            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
-        }
+        Donor donor = (Donor) donors.get(position);
+//        String[] strings = mDataset[position].split(":");
+        holder.mName.setText(donor.name);
+        holder.mBgroup.setText(donor.blood_group);
+        holder.mLocation.setText(donor.location);
+        holder.mLastDonated.setText(donor.lastDonated);
+        holder.mOrigin.setText(donor.donorOrigin);
+        holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return donors.size();
     }
 }
 

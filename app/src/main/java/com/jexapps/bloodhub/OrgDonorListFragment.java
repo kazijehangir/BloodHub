@@ -11,6 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.m_Model.BloodRequest;
+import com.jexapps.bloodhub.m_Model.Donor;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,14 +35,15 @@ import android.view.ViewGroup;
 public class OrgDonorListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
+    DatabaseReference db;
+    ArrayList<Donor> donors;
 //    "NAME:BGROUP:LOCATION:LASTDONATED:ORIGIN:GENDER:TRANSPORT"
-    private static final String[] dummyDataset = new String[] {
-            "Jamshed:O-:DHA Phase 5:3 Weeks:Patient Attendant:Male",
-            "Aliya:A+:Main Boulevard:1 Week:Blood Drive:Female",
-            "Hamid:AB-:Gulberg:17 Weeks:Walk In:Male",
-            "Saniya:B+:LUMS:5 Weeks:Blood Drive:Female"
-    };
+//    private static final String[] dummyDataset = new String[] {
+//            "Jamshed:O-:DHA Phase 5:3 Weeks:Patient Attendant:Male",
+//            "Aliya:A+:Main Boulevard:1 Week:Blood Drive:Female",
+//            "Hamid:AB-:Gulberg:17 Weeks:Walk In:Male",
+//            "Saniya:B+:LUMS:5 Weeks:Blood Drive:Female"
+//    };
     private String mEmail;
 
     private RecyclerView mRecyclerView;
@@ -84,14 +97,30 @@ public class OrgDonorListFragment extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
 
-
+        db = FirebaseDatabase.getInstance().getReference().child("donors");
         // specify an adapter (see also next example)
-        mAdapter = new OrgDonorListDataAdapter(dummyDataset, getContext(), mEmail);
+        mAdapter = new OrgDonorListDataAdapter(fetchData(), getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
-
+    public ArrayList<Donor> fetchData() {
+        donors = new ArrayList<Donor>();
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    Donor donor = child.getValue(Donor.class);
+                    donors.add(donor);
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        return donors;
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
