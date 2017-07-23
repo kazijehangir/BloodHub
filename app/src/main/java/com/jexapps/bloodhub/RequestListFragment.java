@@ -26,6 +26,7 @@ import java.util.Date;
 public class RequestListFragment extends Fragment {
     DatabaseReference db;
     ArrayList<BloodRequest> requests;
+    ArrayList<String> keys;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -40,6 +41,8 @@ public class RequestListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
+        fetchData();
         View rootView = inflater.inflate(R.layout.fragment_request_list, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.request_list_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -47,16 +50,16 @@ public class RequestListFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
-        db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
-        mAdapter = new RequestListDataAdapter(fetchData(), getContext());
+        mAdapter = new RequestListDataAdapter(requests, keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
 
     //Getting data from database
-    public ArrayList<BloodRequest> fetchData() {
+    public void fetchData() {
         requests = new ArrayList<BloodRequest>();
+        keys = new ArrayList<String>();
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
@@ -70,6 +73,7 @@ public class RequestListFragment extends Fragment {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     BloodRequest request = child.getValue(BloodRequest.class);
                     requests.add(request);
+                    keys.add(child.getKey());
                 }
                 mAdapter.notifyDataSetChanged();
             }
@@ -77,7 +81,7 @@ public class RequestListFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return requests;
+        return;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -3,6 +3,7 @@ package com.jexapps.bloodhub.m_UI;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import java.util.Date;
 public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListDataAdapter.ViewHolder> {
     private Context mContext;
     private ArrayList<BloodRequest> requests;
+    private ArrayList<String> keys;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -37,8 +39,10 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         // each data item is just a string in this case
         public TextView mName, mLocation, mNeeds, mWhen, mDiagnosis, mTransport;
         public ImageView mImage, mTransportImage;
+        protected CardView cv;
         public ViewHolder(View itemView) {
             super(itemView);
+            cv = (CardView) itemView.findViewById(R.id.card_view);
             mName = (TextView) itemView.findViewById(R.id.name_text);
             mLocation = (TextView) itemView.findViewById(R.id.location_text);
             mNeeds = (TextView) itemView.findViewById(R.id.needs_text);
@@ -47,31 +51,21 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
             mImage = (ImageView) itemView.findViewById(R.id.request_picture);
             mTransportImage = (ImageView) itemView.findViewById(R.id.transport_image);
             mTransport = (TextView) itemView.findViewById(R.id.transport_text);
-            itemView.findViewById(R.id.card_view).setOnClickListener(this);
+            cv.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(v.getContext(), RequestDetail.class);
-            TextView mName = (TextView) itemView.findViewById(R.id.name_text);
-            intent.putExtra("name", mName.getText());
-            TextView mNeeds = (TextView) itemView.findViewById(R.id.needs_text);
-            intent.putExtra("needs", mNeeds.getText());
-            TextView mLocation = (TextView) itemView.findViewById(R.id.location_text);
-            intent.putExtra("location", mLocation.getText());
-            TextView mWhen = (TextView) itemView.findViewById(R.id.when_text);
-            intent.putExtra("when", mWhen.getText());
-            TextView mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
-            intent.putExtra("diagnosis", mDiagnosis.getText());
-            TextView mTransport = (TextView) itemView.findViewById(R.id.transport_text);
-            intent.putExtra("transport", mTransport.getText());
+            intent.putExtra("request", (String) v.getTag());
             v.getContext().startActivity(intent);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RequestListDataAdapter(ArrayList<BloodRequest> req, Context context) {
+    public RequestListDataAdapter(ArrayList<BloodRequest> req, ArrayList<String> list, Context context) {
         requests = req;
         mContext = context;
+        keys = list;
     }
 
     // Create new views (invoked by the layout manager)
@@ -87,6 +81,7 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         BloodRequest request = (BloodRequest) requests.get(position);
+        holder.cv.setTag(keys.get(position));
         holder.mName.setText(request.name);
         holder.mNeeds.setText(request.quantity+" bags of "+request.blood_group);
         holder.mLocation.setText(request.location);
