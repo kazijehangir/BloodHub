@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -120,28 +121,40 @@ public class AddDonorActivity extends AppCompatActivity{
                 dAddress = address.getText().toString();
                 ddonorOrigin = donorOrigin.getText().toString();
                 dLastDonated = lastDonated.getText().toString();
-
-                Donor donor = new Donor(user.getUid(), dName, dBloodgroup, dNumber, dAddress, dLastDonated, ddonorOrigin, dAge);
-                try {
-                    db.push().setValue(donor);
-                    dialog = new Dialog(AddDonorActivity.this);
-                    dialog.setTitle("Add Donor");
-                    dialog.setContentView(R.layout.popup_donor);
-                    dialog.show();
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    final Button submit = (Button) dialog.findViewById(R.id.button_ok);
-                    submit.setOnClickListener(new View.OnClickListener(){
-
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(AddDonorActivity.this,MainActivityOrg.class);
-                            startActivity(intent);
-                        }
-                    });
-                } catch (DatabaseException e) {
-                    Toast.makeText(context,"Error occurred",Toast.LENGTH_SHORT).show();
+                View focusView = null;
+                if(TextUtils.isEmpty(dName)){
+                    name.setError("Name cannot be empty");
+                    focusView = name;
+                } else if(TextUtils.isEmpty(dNumber)) {
+                    number.setError("Number cannot be empty");
                 }
+                else {
+                    Donor donor = new Donor(user.getUid(), dName, dBloodgroup, dNumber, dAddress, dLastDonated, ddonorOrigin, dAge);
+                    try {
+                        db.push().setValue(donor);
+                        dialog = new Dialog(AddDonorActivity.this);
+                        dialog.setTitle("Add Donor");
+                        dialog.setContentView(R.layout.popup_donor);
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                        final Button submit = (Button) dialog.findViewById(R.id.button_ok);
+                        submit.setOnClickListener(new View.OnClickListener(){
+
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(AddDonorActivity.this,MainActivityOrg.class);
+                                startActivity(intent);
+                            }
+                        });
+                    } catch (DatabaseException e) {
+                        Toast.makeText(context,"Error occurred",Toast.LENGTH_SHORT).show();
+                    }
+                }
+//                else if(dBloodgroup) {
+//                    bloodgroup.setError("Blood group can not be empty");
+//                }
+
             }
         });
     }

@@ -129,7 +129,26 @@ public class MainActivityOrg extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
+        button_request.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(MainActivityOrg.this, AddPatientActivity.class);
+                intent.putExtra("mEmail", mEmail);
+                startActivity(intent);
+            }
+        });
+        button_patient.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(MainActivityOrg.this, AddDonorActivity.class);
+                intent.putExtra("mEmail", mEmail);
+                startActivity(intent);
+            }
+        });
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
