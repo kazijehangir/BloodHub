@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class OrganizationRegistrationActivity extends AppCompatActivity {
+    AutoCompleteTextView username;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -37,6 +39,10 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         mAuth = FirebaseAuth.getInstance();
 
+        username = (AutoCompleteTextView) findViewById(R.id.name);
+        String[] hospitals = getResources().getStringArray(R.array.hospitals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
+        username.setAdapter(adapter);
         // Set OnClick Listeners for buttons
         Button mRegisterButton = (Button) findViewById(R.id.register_button);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +65,6 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
     }
 
     private void writeNewUser(String userId, String email){
-        AutoCompleteTextView username = (AutoCompleteTextView) findViewById(R.id.name);
         EditText contactNum = (EditText) findViewById(R.id.contact);
         EditText address = (EditText) findViewById(R.id.add);
         String uname = username.getText().toString();

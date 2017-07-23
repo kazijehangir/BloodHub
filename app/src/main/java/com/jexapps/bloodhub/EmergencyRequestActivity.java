@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,8 +35,8 @@ import java.util.Date;
 public class EmergencyRequestActivity extends AppCompatActivity {
 // TODO: try to get location automatically
     Dialog dialog;
-    AutoCompleteTextView name;
-    Spinner bloodgroup, quantity, diagnosis, location;
+    AutoCompleteTextView name, location;
+    Spinner bloodgroup, quantity, diagnosis;
     EditText number;
     String pname, bgroup, quan, diag, num, loc, date, mEmail;
     DatabaseReference db;
@@ -52,8 +53,12 @@ public class EmergencyRequestActivity extends AppCompatActivity {
         bloodgroup = (Spinner) findViewById(R.id.spin);
         quantity = (Spinner) findViewById(R.id.spin1);
         number = (EditText) findViewById(R.id.contact_num);
-        location = (Spinner) findViewById(R.id.spin2);
+        location = (AutoCompleteTextView) findViewById(R.id.loc);
         diagnosis = (Spinner) findViewById(R.id.diagnosis);
+
+        String[] hospitals = getResources().getStringArray(R.array.hospitals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
+        location.setAdapter(adapter);
 
         Button submit = (Button) findViewById(R.id.submit_button);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +70,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
                 quan = quantity.getSelectedItem().toString();
                 diag = diagnosis.getSelectedItem().toString();
                 num = number.getText().toString();
-                loc = location.getSelectedItem().toString();
+                loc = location.getText().toString();
                 BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, diag, new Date().getTime(), true);
                 try {
                     db.push().setValue(request);

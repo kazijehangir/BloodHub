@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:entries="@array/blood_groups"
             android:layout_alignTop="@+id/bloodg"
+            android:dropDownVerticalOffset="10dp"
             android:layout_centerHorizontal="true">
 
         </Spinner>
@@ -93,8 +94,7 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/loc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,7 +102,6 @@
             android:maxLines="2"
             android:layout_marginTop="15dp"
             />
-
     </android.support.design.widget.TextInputLayout>
 
     <RelativeLayout

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,9 +33,9 @@ import java.util.Date;
 public class AddRequestActivity extends AppCompatActivity{
     Dialog dialog;
     private int date, month, year;
-    AutoCompleteTextView name;
+    AutoCompleteTextView name, location;
     Spinner bloodgroup, quantity, diagnosis;
-    EditText number, location, when;
+    EditText number, when;
     String pname, bgroup, quan, diag, num, loc, mEmail;
     Date pdate;
     private FirebaseAuth mAuth;
@@ -57,9 +58,13 @@ public class AddRequestActivity extends AppCompatActivity{
         bloodgroup = (Spinner) findViewById(R.id.spin);
         quantity = (Spinner) findViewById(R.id.spin1);
         number = (EditText) findViewById(R.id.contact_num);
-        location = (EditText) findViewById(R.id.loc);
+        location = (AutoCompleteTextView) findViewById(R.id.loc);
         when = (EditText) findViewById(R.id.editText);
         diagnosis = (Spinner) findViewById(R.id.diagnosis);
+
+        String[] hospitals = getResources().getStringArray(R.array.hospitals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
+        location.setAdapter(adapter);
 
         final EditText set = (EditText) findViewById(R.id.editText);
         set.setOnClickListener(new View.OnClickListener()
