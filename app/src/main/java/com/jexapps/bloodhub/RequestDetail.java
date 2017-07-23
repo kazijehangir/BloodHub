@@ -1,24 +1,26 @@
 package com.jexapps.bloodhub;
 
 import android.app.Dialog;
-import android.content.Intent;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
+import com.jexapps.bloodhub.m_Model.Donation;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -44,6 +46,7 @@ public class RequestDetail extends AppCompatActivity {
                 request = extras.getString("request");
             }
         }
+        db = FirebaseDatabase.getInstance().getReference().child("donations");
         FirebaseDatabase.getInstance().getReference().child("bloodrequests").child(request)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -81,19 +84,25 @@ public class RequestDetail extends AppCompatActivity {
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String x = user.getUid();
-                dialog = new Dialog(RequestDetail.this);
-                dialog.setTitle("Donation Confirmed");
-                dialog.setContentView(R.layout.popup_request_detail);
-                dialog.show();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                final Button request = (Button) dialog.findViewById(R.id.request_detail_dialog_ok);
-                request.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
+                final Context context = getApplicationContext();
+                Donation donation = new Donation(user.getUid(),request);
+                try {
+                    db.push().setValue(donation);
+                    dialog = new Dialog(RequestDetail.this);
+                    dialog.setTitle("Donation Confirmed");
+                    dialog.setContentView(R.layout.popup_request_detail);
+                    dialog.show();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    final Button submit = (Button) dialog.findViewById(R.id.request_detail_dialog_ok);
+                    submit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            finish();
+                        }
+                    });
+                } catch (DatabaseException e) {
+                    Toast.makeText(context,"Error occurred",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
