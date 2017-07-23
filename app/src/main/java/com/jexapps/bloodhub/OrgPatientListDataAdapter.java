@@ -33,7 +33,6 @@ public class OrgPatientListDataAdapter extends RecyclerView.Adapter<OrgPatientLi
             mName = (TextView) itemView.findViewById(R.id.name_text);
             mLastRequest = (TextView) itemView.findViewById(R.id.last_request_text);
             mBgroup = (TextView) itemView.findViewById(R.id.bgroup_text);
-            mStatus = (TextView) itemView.findViewById(R.id.patient_status_text);
             mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
             mImage = (ImageView) itemView.findViewById(R.id.request_picture);
             itemView.findViewById(R.id.card_view).setOnClickListener(this);
@@ -49,8 +48,6 @@ public class OrgPatientListDataAdapter extends RecyclerView.Adapter<OrgPatientLi
             intent.putExtra("lastRequest", mLastRequest.getText());
             TextView mBgroup = (TextView) itemView.findViewById(R.id.bgroup_text);
             intent.putExtra("bgroup", mBgroup.getText());
-            TextView mStatus = (TextView) itemView.findViewById(R.id.patient_status_text);
-            intent.putExtra("status", mStatus.getText());
             intent.putExtra("gender", "Male");
             intent.putExtra("mEmail", mEmail);
             v.getContext().startActivity(intent);

@@ -1,6 +1,5 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
@@ -54,6 +53,53 @@
                     android:text="Jamshed"
                     android:textStyle="normal|bold" />
             </android.support.v7.widget.LinearLayoutCompat>
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/cardview_top_padding"
+                android:id="@+id/age_horizontal">
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/age_label"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:text="Age:"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/age_text"
+                    android:layout_weight="0"
+                    android:layout_gravity="right"
+                    android:text="8"
+                    android:textStyle="normal|bold" />
+            </android.support.v7.widget.LinearLayoutCompat>
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/cardview_top_padding"
+                android:id="@+id/number_horizontal">
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/number_label"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:text="Contact No.:"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/number_text"
+                    android:layout_weight="0"
+                    android:layout_gravity="right"
+                    android:text="03008976003"
+                    android:textStyle="normal|bold" />
+            </android.support.v7.widget.LinearLayoutCompat>
+
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,30 +164,6 @@
                     android:layout_weight="0"
                     android:layout_gravity="right"
                     android:text="3rd December 2016"
-                    android:textStyle="normal|bold" />
-            </android.support.v7.widget.LinearLayoutCompat>
-            <android.support.v7.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/cardview_top_padding"
-                android:id="@+id/diagnosis_horizontal">
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/patient_status_label"
-                    android:layout_weight="1"
-                    android:layout_gravity="left"
-                    android:text="Patient Status:"/>
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/patient_status_text"
-                    android:layout_weight="0"
-                    android:layout_gravity="right"
-                    android:text="Admitted"
-                    android:fontFamily="sans-serif"
-                    tools:layout_gravity="right"
                     android:textStyle="normal|bold" />
             </android.support.v7.widget.LinearLayoutCompat>
         </android.support.v7.widget.LinearLayoutCompat>

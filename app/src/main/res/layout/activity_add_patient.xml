@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/contact_num"
         android:hint="Contact No."
         android:layout_marginTop="15dp" />
     </android.support.design.widget.TextInputLayout>
@@ -94,6 +94,7 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/diagnosis"
         android:entries="@array/diagnosis"
         android:layout_toRightOf="@+id/textView0"
         android:layout_marginLeft="20dp"/>
