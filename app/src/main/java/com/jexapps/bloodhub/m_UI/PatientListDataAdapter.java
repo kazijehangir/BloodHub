@@ -1,6 +1,7 @@
 package com.jexapps.bloodhub.m_UI;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jexapps.bloodhub.AddRequestOrgActivity;
 import com.jexapps.bloodhub.R;
 import com.jexapps.bloodhub.m_Model.Patient;
 
@@ -41,20 +43,24 @@ public class PatientListDataAdapter extends RecyclerView.Adapter<PatientListData
 
         @Override
         public void onClick(View v) {
-//            Intent intent = new Intent(v.getContext(), PatientDetail.class);
-//            TextView mName = (TextView) itemView.findViewById(R.id.name_text);
-//            intent.putExtra("name", mName.getText());
-//            TextView mNeeds = (TextView) itemView.findViewById(R.id.needs_text);
-//            intent.putExtra("needs", mNeeds.getText());
-//            TextView mLocation = (TextView) itemView.findViewById(R.id.location_text);
-//            intent.putExtra("location", mLocation.getText());
-//            TextView mWhen = (TextView) itemView.findViewById(R.id.when_text);
-//            intent.putExtra("when", mWhen.getText());
-//            TextView mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
-//            intent.putExtra("diagnosis", mDiagnosis.getText());
-//            TextView mTransport = (TextView) itemView.findViewById(R.id.transport_text);
-//            intent.putExtra("transport", mTransport.getText());
-//            v.getContext().startActivity(intent);
+            Intent intent = new Intent(v.getContext(), AddRequestOrgActivity.class);
+
+            TextView mName = (TextView) itemView.findViewById(R.id.name_text);
+            intent.putExtra("name", mName.getText());
+
+            TextView mAge = (TextView) itemView.findViewById(R.id.age_text);
+            intent.putExtra("age", mAge.getText());
+
+            TextView mBloodgroup = (TextView) itemView.findViewById(R.id.bgroup_text);
+            intent.putExtra("blood_group", mBloodgroup.getText());
+
+            TextView mCnumber = (TextView) itemView.findViewById(R.id.number_text);
+            intent.putExtra("con_number", mCnumber.getText());
+
+            TextView mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
+            intent.putExtra("diagnosis", mDiagnosis.getText());
+
+            v.getContext().startActivity(intent);
         }
     }
 

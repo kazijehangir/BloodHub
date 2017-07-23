@@ -4,9 +4,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -20,7 +20,9 @@ public class AddRequestOrgActivity extends AppCompatActivity {
     int date, month, year;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final String mEmail, name, needs, when, diagnosis, status, gender;
+        final String mEmail, name, age, num, bgroup, needs, status, when, diagnosis, lreq, gender, loc;
+        setContentView(R.layout.activity_add_request_org);
+        setTitle("Add Request for Patient");
         if (savedInstanceState == null) {
 //            Toast.makeText(this, "savedInstance == null",
 //                    Toast.LENGTH_SHORT).show();
@@ -29,16 +31,18 @@ public class AddRequestOrgActivity extends AppCompatActivity {
 //                Toast.makeText(this, "extras == null",
 //                        Toast.LENGTH_SHORT).show();
                 name = null;
+                age = null;
                 needs = null;
                 when = null;
-                diagnosis = null;
                 status = null;
+                diagnosis = null;
                 gender = null;
                 mEmail = null;
             } else {
 //                Toast.makeText(this, "getting strings from extras",
 //                        Toast.LENGTH_SHORT).show();
                 name = extras.getString("name");
+                age = extras.getString("age");
                 needs = extras.getString("bgroup");
                 when = extras.getString("lastRequest");
                 diagnosis = extras.getString("diagnosis");
@@ -51,6 +55,7 @@ public class AddRequestOrgActivity extends AppCompatActivity {
 //            Toast.makeText(this, "getting strings from savedInstance",
 //                    Toast.LENGTH_SHORT).show();
             name = (String) savedInstanceState.getSerializable("name");
+            age = (String) savedInstanceState.getSerializable("age");
             needs = (String) savedInstanceState.getSerializable("bgroup");
             when = (String) savedInstanceState.getSerializable("lastRequest");
             diagnosis = (String) savedInstanceState.getSerializable("diagnosis");
@@ -61,11 +66,11 @@ public class AddRequestOrgActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request_org);
-        setTitle("Add Request");
+        setTitle("Add Request for Patient");
         TextView mName = (TextView) findViewById(R.id.name);
         mName.setText("Name: "+name);
-        TextView mNeeds = (TextView) findViewById(R.id.age);
-        mNeeds.setText("Status: "+status);
+        TextView mAge = (TextView) findViewById(R.id.age);
+        mName.setText("Age: "+age);
         TextView mWhen = (TextView) findViewById(R.id.blood_g);
         mWhen.setText("Blood Group: "+needs);
         TextView mDiagnosis = (TextView) findViewById(R.id.con_num);
