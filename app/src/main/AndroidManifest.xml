@@ -57,6 +57,9 @@
             android:name=".AddRequestActivity"
             android:parentActivityName=".MainActivity"/>
         <activity
+            android:name=".ForgotPasswordActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".IndividualRegistrationActivity"
             android:parentActivityName=".LoginActivity">
 
