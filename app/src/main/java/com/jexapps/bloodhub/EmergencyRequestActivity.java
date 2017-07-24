@@ -8,11 +8,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.firebase.database.DatabaseException;
@@ -32,7 +35,10 @@ public class EmergencyRequestActivity extends AppCompatActivity {
     AutoCompleteTextView name, location;
     Spinner bloodgroup, quantity, diagnosis;
     EditText number;
-    String pname, bgroup, quan, diag, num, loc, date, mEmail;
+    String pname, bgroup, quan, diag, num, loc, mEmail;
+    Boolean transport;
+    RadioGroup transport_group;
+    RadioButton transport_btn;
     DatabaseReference db;
 
     @Override
@@ -49,6 +55,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
         number = (EditText) findViewById(R.id.contact_num);
         location = (AutoCompleteTextView) findViewById(R.id.loc);
         diagnosis = (Spinner) findViewById(R.id.diagnosis);
+        transport_group = (RadioGroup) findViewById(R.id.transport);
 
         String[] hospitals = getResources().getStringArray(R.array.hospitals);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
@@ -64,6 +71,13 @@ public class EmergencyRequestActivity extends AppCompatActivity {
                 diag = diagnosis.getSelectedItem().toString();
                 num = number.getText().toString();
                 loc = location.getText().toString();
+                transport_btn = (RadioButton) findViewById(transport_group.getCheckedRadioButtonId());
+                String transport_text = (String) transport_btn.getText();
+                if (transport_text.equals("Available")){
+                    transport = true;
+                } else if (transport_text.equals("Not Available")){
+                    transport = false;
+                }
                 String address = loc+", Lahore, Pakistan";
                 new GetCoordinates().execute(address.replace(" ", "+"));
             }
@@ -99,7 +113,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(s);
                 double lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
                 double lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
-                BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, lat, lng, diag, new Date().getTime(), true);
+                BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, lat, lng, diag, new Date().getTime(), transport);
                 db.push().setValue(request);
                 dialog = new Dialog(EmergencyRequestActivity.this);
                 dialog.setContentView(R.layout.popup_submit);

@@ -16,6 +16,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -42,6 +44,9 @@ public class AddRequestActivity extends AppCompatActivity{
     EditText number, when;
     String pname, bgroup, quan, diag, num, loc, mEmail;
     Date pdate;
+    Boolean transport;
+    RadioGroup transport_group;
+    RadioButton transport_btn;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     DatabaseReference db;
@@ -65,6 +70,7 @@ public class AddRequestActivity extends AppCompatActivity{
         location = (AutoCompleteTextView) findViewById(R.id.loc);
         when = (EditText) findViewById(R.id.editText);
         diagnosis = (Spinner) findViewById(R.id.diagnosis);
+        transport_group = (RadioGroup) findViewById(R.id.transport);
 
         String[] hospitals = getResources().getStringArray(R.array.hospitals);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
@@ -110,6 +116,13 @@ public class AddRequestActivity extends AppCompatActivity{
                 diag = diagnosis.getSelectedItem().toString();
                 num = number.getText().toString();
                 loc = location.getText().toString();
+                transport_btn = (RadioButton) findViewById(transport_group.getCheckedRadioButtonId());
+                String transport_text = (String) transport_btn.getText();
+                if (transport_text.equals("Available")){
+                    transport = true;
+                } else if (transport_text.equals("Not Available")){
+                    transport = false;
+                }
                 String address = loc+", Lahore, Pakistan";
                 new GetCoordinates().execute(address.replace(" ", "+"));
 
@@ -146,7 +159,7 @@ public class AddRequestActivity extends AppCompatActivity{
                 JSONObject jsonObject = new JSONObject(s);
                 double lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
                 double lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
-                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, lat, lng, diag, pdate.getTime(), true);
+                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, lat, lng, diag, pdate.getTime(), transport);
                 db.push().setValue(request);
                 dialog = new Dialog(AddRequestActivity.this);
                 dialog.setContentView(R.layout.popup_submit);
