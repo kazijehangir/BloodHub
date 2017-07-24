@@ -32,9 +32,9 @@ import java.util.Date;
 public class AddRequestActivity extends AppCompatActivity{
     Dialog dialog;
     private int date, month, year;
-    AutoCompleteTextView name;
+    AutoCompleteTextView name, location;
     Spinner bloodgroup, quantity, diagnosis;
-    EditText number, location, when;
+    EditText number, when;
     String pname, bgroup, quan, diag, num, loc, mEmail;
     Date pdate;
     private FirebaseAuth mAuth;
@@ -57,9 +57,13 @@ public class AddRequestActivity extends AppCompatActivity{
         bloodgroup = (Spinner) findViewById(R.id.spin);
         quantity = (Spinner) findViewById(R.id.spin1);
         number = (EditText) findViewById(R.id.contact_num);
-        location = (EditText) findViewById(R.id.loc);
+        location = (AutoCompleteTextView) findViewById(R.id.loc);
         when = (EditText) findViewById(R.id.editText);
         diagnosis = (Spinner) findViewById(R.id.diagnosis);
+
+        String[] hospitals = getResources().getStringArray(R.array.hospitals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
+        location.setAdapter(adapter);
 
         final EditText set = (EditText) findViewById(R.id.editText);
         set.setOnClickListener(new View.OnClickListener()
@@ -101,30 +105,61 @@ public class AddRequestActivity extends AppCompatActivity{
                 diag = diagnosis.getSelectedItem().toString();
                 num = number.getText().toString();
                 loc = location.getText().toString();
+                String address = loc+", Lahore, Pakistan";
+                new GetCoordinates().execute(address.replace(" ", "+"));
 
-
-                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, diag, pdate.getTime(), true);
-                try {
-                    db.push().setValue(request);
-                    dialog = new Dialog(AddRequestActivity.this);
-                    dialog.setTitle("Submit Request");
-                    dialog.setContentView(R.layout.popup_submit);
-                    dialog.show();
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    final Button submit = (Button) dialog.findViewById(R.id.button_ok);
-                    submit.setOnClickListener(new View.OnClickListener(){
-
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                } catch (DatabaseException e) {
-                    Toast.makeText(context,"Error occurred",Toast.LENGTH_SHORT).show();
-                }
             }
         });
+    }
+
+    private class GetCoordinates extends AsyncTask<String,Void,String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String response;
+            try{
+                String address = strings[0];
+                HttpDataHandler http = new HttpDataHandler();
+                String url = String.format("https://maps.googleapis.com/maps/api/geocode/json?address=%s",address);
+                response = http.getHTTPData(url);
+                return response;
+            }
+            catch (Exception ex)
+            {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try{
+                JSONObject jsonObject = new JSONObject(s);
+                double lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
+                double lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
+                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, lat, lng, diag, pdate.getTime(), true);
+                db.push().setValue(request);
+                dialog = new Dialog(AddRequestActivity.this);
+                dialog.setContentView(R.layout.popup_submit);
+                dialog.show();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                final Button submit = (Button) dialog.findViewById(R.id.button_ok);
+                submit.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"Error adding request",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

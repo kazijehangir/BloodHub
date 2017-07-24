@@ -5,37 +5,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
+import com.jexapps.bloodhub.m_UI.HttpDataHandler;
 
-import java.text.DateFormat;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 public class EmergencyRequestActivity extends AppCompatActivity {
 // TODO: try to get location automatically
     Dialog dialog;
-    AutoCompleteTextView name;
-    Spinner bloodgroup, quantity, diagnosis, location;
+    AutoCompleteTextView name, location;
+    Spinner bloodgroup, quantity, diagnosis;
     EditText number;
     String pname, bgroup, quan, diag, num, loc, date, mEmail;
     DatabaseReference db;
@@ -52,42 +47,76 @@ public class EmergencyRequestActivity extends AppCompatActivity {
         bloodgroup = (Spinner) findViewById(R.id.spin);
         quantity = (Spinner) findViewById(R.id.spin1);
         number = (EditText) findViewById(R.id.contact_num);
-        location = (Spinner) findViewById(R.id.spin2);
+        location = (AutoCompleteTextView) findViewById(R.id.loc);
         diagnosis = (Spinner) findViewById(R.id.diagnosis);
+
+        String[] hospitals = getResources().getStringArray(R.array.hospitals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
+        location.setAdapter(adapter);
 
         Button submit = (Button) findViewById(R.id.submit_button);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Context context = getApplicationContext();
                 pname = name.getText().toString();
                 bgroup = bloodgroup.getSelectedItem().toString();
                 quan = quantity.getSelectedItem().toString();
                 diag = diagnosis.getSelectedItem().toString();
                 num = number.getText().toString();
-                loc = location.getSelectedItem().toString();
-                BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, diag, new Date().getTime(), true);
-                try {
-                    db.push().setValue(request);
-                    dialog = new Dialog(EmergencyRequestActivity.this);
-                    dialog.setTitle("Submit Request");
-                    dialog.setContentView(R.layout.popup_submit);
-                    dialog.show();
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    final Button submit = (Button) dialog.findViewById(R.id.button_ok);
-                    submit.setOnClickListener(new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(EmergencyRequestActivity.this, SplashActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                } catch (DatabaseException e) {
-                    Toast.makeText(context,"Error occurred",Toast.LENGTH_SHORT).show();
-                }
+                loc = location.getText().toString();
+                String address = loc+", Lahore, Pakistan";
+                new GetCoordinates().execute(address.replace(" ", "+"));
             }
         });
+    }
+
+    private class GetCoordinates extends AsyncTask<String,Void,String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String response;
+            try{
+                String address = strings[0];
+                HttpDataHandler http = new HttpDataHandler();
+                String url = String.format("https://maps.googleapis.com/maps/api/geocode/json?address=%s",address);
+                response = http.getHTTPData(url);
+                return response;
+            }
+            catch (Exception ex)
+            {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try{
+                JSONObject jsonObject = new JSONObject(s);
+                double lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
+                double lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
+                BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, lat, lng, diag, new Date().getTime(), true);
+                db.push().setValue(request);
+                dialog = new Dialog(EmergencyRequestActivity.this);
+                dialog.setContentView(R.layout.popup_submit);
+                dialog.show();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                final Button submit = (Button) dialog.findViewById(R.id.button_ok);
+                submit.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(EmergencyRequestActivity.this, SplashActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"Error adding request",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

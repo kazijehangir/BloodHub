@@ -50,6 +50,7 @@ public class RequestListFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
+
         mAdapter = new RequestListDataAdapter(requests, keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
@@ -67,7 +68,7 @@ public class RequestListFragment extends Fragment {
         cal.set(Calendar.MILLISECOND, 0);
         Date startDate = cal.getTime();
 //        Date endDate = new Date();
-        db.orderByChild("date").startAt(startDate.getTime()).addValueEventListener(new ValueEventListener() {
+        db.orderByChild("date").startAt(startDate.getTime()).limitToFirst(15).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {

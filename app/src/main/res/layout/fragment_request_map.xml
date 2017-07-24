@@ -7,6 +7,9 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/mapView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:enabled="true"
+        android:apiKey="AIzaSyC9njTK9Nfc7-6siuc0yt3S7zvOU29LE7w"/>
 
 </RelativeLayout>
