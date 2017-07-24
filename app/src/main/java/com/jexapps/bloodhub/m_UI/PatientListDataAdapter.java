@@ -42,7 +42,7 @@ public class PatientListDataAdapter extends RecyclerView.Adapter<PatientListData
     private ArrayList<String> keys;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
+        CharSequence options[] = new CharSequence[] {"Delete Patient"};
         public TextView mName, mAge, mBloodgroup, mCnumber, mDiagnosis, mLastRequest;
         public ImageView mImage;
         protected CardView cv;
@@ -119,7 +119,7 @@ public class PatientListDataAdapter extends RecyclerView.Adapter<PatientListData
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public PatientListDataAdapter(ArrayList<Patient> pat, Context context) {
+    public PatientListDataAdapter(ArrayList<Patient> pat, ArrayList<String> list, Context context) {
         patients = pat;
         mContext = context;
         keys = list;
