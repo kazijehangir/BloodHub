@@ -83,7 +83,7 @@ public class RequestDetail extends AppCompatActivity {
             });
         } else {
             Toast.makeText(getApplicationContext(),"Error loading request",Toast.LENGTH_SHORT).show();
-            finish();-
+            finish();
         }
 
         Button donate = (Button) findViewById(R.id.request_detail_donate_button);
