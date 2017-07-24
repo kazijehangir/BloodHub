@@ -74,9 +74,6 @@ public class OrgPatientListFragment extends Fragment {
         fetchData();
         View rootView = inflater.inflate(R.layout.fragment_org_patient_list, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.org_patient_list_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
@@ -87,7 +84,7 @@ public class OrgPatientListFragment extends Fragment {
 
 
         // specify an adapter (see also next example)
-        mAdapter = new PatientListDataAdapter(patients, getContext());
+        mAdapter = new PatientListDataAdapter(patients, keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;

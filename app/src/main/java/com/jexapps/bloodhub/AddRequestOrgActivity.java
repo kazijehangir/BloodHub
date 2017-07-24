@@ -5,109 +5,135 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.m_Model.Patient;
 
 public class AddRequestOrgActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
+    DatabaseReference db;
+
     Dialog dialog;
     int date, month, year;
+    String mEmail, patient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final String mEmail, name, age, num, bgroup, needs, status, when, diagnosis, lreq, gender, loc;
-        setContentView(R.layout.activity_add_request_org);
-        setTitle("Add Request for Patient");
-        if (savedInstanceState == null) {
-//            Toast.makeText(this, "savedInstance == null",
-//                    Toast.LENGTH_SHORT).show();
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-//                Toast.makeText(this, "extras == null",
-//                        Toast.LENGTH_SHORT).show();
-                name = null;
-                age = null;
-                needs = null;
-                when = null;
-                status = null;
-                diagnosis = null;
-                gender = null;
-                mEmail = null;
-            } else {
-//                Toast.makeText(this, "getting strings from extras",
-//                        Toast.LENGTH_SHORT).show();
-                name = extras.getString("name");
-                age = extras.getString("age");
-                needs = extras.getString("bgroup");
-                when = extras.getString("lastRequest");
-                diagnosis = extras.getString("diagnosis");
-                status = extras.getString("status");
-                gender = extras.getString("gender");
-                mEmail = extras.getString("mEmail");
-                Toast.makeText(this,gender,Toast.LENGTH_SHORT).show();
-            }
-        } else {
-//            Toast.makeText(this, "getting strings from savedInstance",
-//                    Toast.LENGTH_SHORT).show();
-            name = (String) savedInstanceState.getSerializable("name");
-            age = (String) savedInstanceState.getSerializable("age");
-            needs = (String) savedInstanceState.getSerializable("bgroup");
-            when = (String) savedInstanceState.getSerializable("lastRequest");
-            diagnosis = (String) savedInstanceState.getSerializable("diagnosis");
-            status = (String) savedInstanceState.getSerializable("status");
-            gender = (String) savedInstanceState.getSerializable("gender");
-            mEmail = (String) savedInstanceState.getSerializable("mEmail");
 
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request_org);
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
         setTitle("Add Request for Patient");
-        TextView mName = (TextView) findViewById(R.id.name);
-        mName.setText("Name: "+name);
-        TextView mAge = (TextView) findViewById(R.id.age);
-        mName.setText("Age: "+age);
-        TextView mWhen = (TextView) findViewById(R.id.blood_g);
-        mWhen.setText("Blood Group: "+needs);
-        TextView mDiagnosis = (TextView) findViewById(R.id.con_num);
-        mDiagnosis.setText("Diagnosis: "+diagnosis);
-        TextView mTransport = (TextView) findViewById(R.id.last);
-        mTransport.setText("Last Request: "+when);
-        ImageView image = (ImageView) findViewById(R.id.image1);
-        if (gender.equals("Female")){
-            image.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.girl));
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                patient = null;
+            } else {
+                patient = extras.getString("patient");
+            }
         }
-        else {
-            image.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.boy));
-        }
-        final EditText set = (EditText) findViewById(R.id.editText);
-        set.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick (View view){
-                dialog = new Dialog(AddRequestOrgActivity.this);
-                dialog.setTitle("Set Date and Time");
-                dialog.setContentView(R.layout.set_date);
-                dialog.show();
-                final Button setDate = (Button) dialog.findViewById(R.id.set_date);
-                final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePicker);
-                setDate.setOnClickListener(new View.OnClickListener(){
+//                name = null;
+//                age = null;
+//                needs = null;
+//                when = null;
+//                diagnosis = null;
+//                gender = null;
+//                mEmail = null;
+//            } else {
+////
+//                name = extras.getString("name");
+//                age = extras.getString("age");
+//                needs = extras.getString("bgroup");
+//                when = extras.getString("lastRequest");
+//                diagnosis = extras.getString("diagnosis");
+//                gender = extras.getString("gender");
+//                mEmail = extras.getString("mEmail");
+//                Toast.makeText(this,gender,Toast.LENGTH_SHORT).show();
+//            }
+//        } else {
+////            Toast.makeText(this, "getting strings from savedInstance",
+////                    Toast.LENGTH_SHORT).show();
+//            name = (String) savedInstanceState.getSerializable("name");
+//            age = (String) savedInstanceState.getSerializable("age");
+//            needs = (String) savedInstanceState.getSerializable("bgroup");
+//            when = (String) savedInstanceState.getSerializable("lastRequest");
+//            diagnosis = (String) savedInstanceState.getSerializable("diagnosis");
+//            gender = (String) savedInstanceState.getSerializable("gender");
+//            mEmail = (String) savedInstanceState.getSerializable("mEmail");
+//
+//        }
+//
+////        TextView mName = (TextView) findViewById(R.id.name);
+////        mName.setText("Name: "+name);
+////        TextView mAge = (TextView) findViewById(R.id.age);
+////        mName.setText("Age: "+age);
+////        TextView mWhen = (TextView) findViewById(R.id.blood_g);
+////        mWhen.setText("Blood Group: "+needs);
+////        TextView mDiagnosis = (TextView) findViewById(R.id.con_num);
+////        mDiagnosis.setText("Diagnosis: "+diagnosis);
+////        TextView mTransport = (TextView) findViewById(R.id.last);
+//        mTransport.setText("Last Request: "+when);
+//        ImageView image = (ImageView) findViewById(R.id.image1);
+//        if (gender.equals("Female")){
+//            image.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.girl));
+//        }
+//        else {
+//            image.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.boy));
+//        }
+        //db = FirebaseDatabase.getInstance().getReference().child("patient details");
+        FirebaseDatabase.getInstance().getReference().child("patients").child(patient)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
-                    public void onClick(View view) {
-                        date = datePicker.getDayOfMonth();
-                        month = datePicker.getMonth();
-                        year = datePicker.getYear();
-                        set.setText(date+"-"+month+"-"+year);
-                        dialog.cancel();
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Patient data = dataSnapshot.getValue(Patient.class);
+
+                        TextView mName = (TextView) findViewById(R.id.name);
+                        mName.setText("Name: " + data.name);
+
+                        TextView mAge = (TextView) findViewById(R.id.age);
+                        mAge.setText("Age: " + data.age);
+
+                        TextView mCnumber = (TextView) findViewById(R.id.cnum);
+                        mCnumber.setText("Contact Number: " + data.cnumber);
+
+                        TextView mBloodgroup = (TextView) findViewById(R.id.blood_g);
+                        mBloodgroup.setText("Blood Group: " + data.blood_group);
+
+                        TextView mDiagnosis = (TextView) findViewById(R.id.con_num);
+                        mDiagnosis.setText("Diagnosis: " + data.diagnosis);
+
+//                        Spinner mNeeds = (Spinner) findViewById(R.id.spin1);
+//                        mNeeds.getSelectedItem().toString();
+
+//
+//                        TextView mLocation = (TextView) findViewById(R.id.request_detail_location);
+//                        mLocation.setText(data.location);
+//                        TextView mWhen = (TextView) findViewById(R.id.request_detail_when);
+//                        String date = DateFormat.getDateInstance().format(new Date(data.date));
+//                        mWhen.setText(date);
+//                        if (date.equals(DateFormat.getDateInstance().format(new Date()))) {
+//                            mWhen.setText("URGENT");
+//                            mWhen.setTextColor(0xFFFF0000);
+//                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-            }
-        });
+
         Button add = (Button) findViewById(R.id.add_button);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
