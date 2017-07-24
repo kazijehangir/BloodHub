@@ -19,6 +19,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
+        Log.d("D","whaaa");
 //       set layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -94,11 +96,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 attemptLogin();
             }
         });
-
+        Log.d("D","heree");
         TextView mEmailForgotPasswordButton = (TextView) findViewById(R.id.forgot_password_button);
         mEmailForgotPasswordButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {forgotPassword();
+            public void onClick(View view) {
+                Log.d("D","callll");
+                forgotPassword();
             }
         });
 
@@ -121,6 +125,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void forgotPassword() {
+        Log.d("D","startt");
         Intent intent = new Intent(LoginActivity.this,
                 ForgotPasswordActivity.class);
         startActivity(intent);
