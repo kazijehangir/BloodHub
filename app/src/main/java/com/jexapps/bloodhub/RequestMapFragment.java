@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,10 +22,18 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.m_Model.BloodRequest;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class RequestMapFragment extends Fragment {
     MapView mMapView;
-    private GoogleMap googleMap;
+    public GoogleMap googleMap;
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private OnFragmentInteractionListener mListener;
 
@@ -49,7 +60,6 @@ public class RequestMapFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
-
                 // For showing a move to my location button
 //                googleMap.setMyLocationEnabled(true);
                 if (ContextCompat.checkSelfPermission(getContext(),
@@ -66,17 +76,26 @@ public class RequestMapFragment extends Fragment {
 
                 }
                 // For dropping a marker at a point on the Map
-                LatLng NH = new LatLng(31.458251, 74.277245);
-                googleMap.addMarker(new MarkerOptions().position(NH).title("Jamshed").snippet("2 bags of O-"));
-
-                LatLng SK = new LatLng(31.449024, 74.272015);
-                googleMap.addMarker(new MarkerOptions().position(SK).title("Hamid").snippet("1 bag of AB-"));
-                LatLng RC = new LatLng(31.558520, 74.324131);
-                googleMap.addMarker(new MarkerOptions().position(RC).title("Aliya").snippet("1 bag of O+"));
-                LatLng AH = new LatLng(31.502391, 74.415261);
-                googleMap.addMarker(new MarkerOptions().position(AH).title("Saniya").snippet("1 bag of B+"));
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, 0);
+                cal.set(Calendar.MINUTE, 0);
+                cal.set(Calendar.SECOND, 0);
+                cal.set(Calendar.MILLISECOND, 0);
+                Date startDate = cal.getTime();
+                FirebaseDatabase.getInstance().getReference().child("bloodrequests").orderByChild("date").startAt(startDate.getTime()).limitToFirst(15).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                            BloodRequest request = child.getValue(BloodRequest.class);
+                            String needs = request.quantity+" bags of "+request.blood_group;
+                            googleMap.addMarker(new MarkerOptions().position(new LatLng(request.latitude,request.longitude)).title(request.name).snippet(needs));
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
                 LatLng lahore = new LatLng(31.55, 74.35);
-//                googleMap.addMarker(new MarkerOptions().position(lahore).title("Marker Title").snippet("Marker Description"));
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(lahore).zoom(12).build();

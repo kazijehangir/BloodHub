@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,12 +19,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
+import com.jexapps.bloodhub.m_UI.HttpDataHandler;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -106,29 +113,61 @@ public class AddRequestActivity extends AppCompatActivity{
                 diag = diagnosis.getSelectedItem().toString();
                 num = number.getText().toString();
                 loc = location.getText().toString();
+                String address = loc+", Lahore, Pakistan";
+                new GetCoordinates().execute(address.replace(" ", "+"));
 
-                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, diag, pdate.getTime(), true);
-                try {
-                    db.push().setValue(request);
-                    dialog = new Dialog(AddRequestActivity.this);
-                    dialog.setTitle("Submit Request");
-                    dialog.setContentView(R.layout.popup_submit);
-                    dialog.show();
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    final Button submit = (Button) dialog.findViewById(R.id.button_ok);
-                    submit.setOnClickListener(new View.OnClickListener(){
-
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                } catch (DatabaseException e) {
-                    Toast.makeText(context,"Error occurred",Toast.LENGTH_SHORT).show();
-                }
             }
         });
+    }
+
+    private class GetCoordinates extends AsyncTask<String,Void,String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String response;
+            try{
+                String address = strings[0];
+                HttpDataHandler http = new HttpDataHandler();
+                String url = String.format("https://maps.googleapis.com/maps/api/geocode/json?address=%s",address);
+                response = http.getHTTPData(url);
+                return response;
+            }
+            catch (Exception ex)
+            {
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try{
+                JSONObject jsonObject = new JSONObject(s);
+                double lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
+                double lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
+                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, lat, lng, diag, pdate.getTime(), true);
+                db.push().setValue(request);
+                dialog = new Dialog(AddRequestActivity.this);
+                dialog.setContentView(R.layout.popup_submit);
+                dialog.show();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                final Button submit = (Button) dialog.findViewById(R.id.button_ok);
+                submit.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"Error adding request",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
