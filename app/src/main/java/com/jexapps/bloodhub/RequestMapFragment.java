@@ -2,6 +2,7 @@ package com.jexapps.bloodhub;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.firebase.database.DataSnapshot;
@@ -91,7 +93,8 @@ public class RequestMapFragment extends Fragment {
                         for (DataSnapshot child: dataSnapshot.getChildren()) {
                             BloodRequest request = child.getValue(BloodRequest.class);
                             String needs = request.quantity+" bags of "+request.blood_group;
-                            googleMap.addMarker(new MarkerOptions().position(new LatLng(request.latitude,request.longitude)).title(request.name).snippet(needs));
+                            Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(request.latitude,request.longitude)).title(request.name).snippet(needs));
+                            marker.setTag(child.getKey());
                         }
                     }
                     @Override
@@ -107,6 +110,15 @@ public class RequestMapFragment extends Fragment {
                 final double longitude = location.getLongitude();
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude,longitude)).zoom(11).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        Intent intent = new Intent(getContext(), RequestDetail.class);
+                        intent.putExtra("request", (String) marker.getTag());
+                        getContext().startActivity(intent);
+                    }
+                });
             }
         });
 

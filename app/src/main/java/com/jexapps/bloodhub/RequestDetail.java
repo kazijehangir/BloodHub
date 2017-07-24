@@ -2,6 +2,7 @@ package com.jexapps.bloodhub;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -47,39 +48,43 @@ public class RequestDetail extends AppCompatActivity {
             }
         }
         db = FirebaseDatabase.getInstance().getReference().child("donations");
-        FirebaseDatabase.getInstance().getReference().child("bloodrequests").child(request)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        BloodRequest data = dataSnapshot.getValue(BloodRequest.class);
+        if (request != null && !request.isEmpty()) {
+            FirebaseDatabase.getInstance().getReference().child("bloodrequests").child(request).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    BloodRequest data = dataSnapshot.getValue(BloodRequest.class);
 
-                        TextView mName = (TextView) findViewById(R.id.request_detail_name);
-                        mName.setText(data.name);
-                        TextView mNeeds = (TextView) findViewById(R.id.request_detail_needs);
-                        mNeeds.setText(data.quantity+" bags of "+data.blood_group);
-                        TextView mLocation = (TextView) findViewById(R.id.request_detail_location);
-                        mLocation.setText(data.location);
-                        TextView mWhen = (TextView) findViewById(R.id.request_detail_when);
-                        String date = DateFormat.getDateInstance().format(new Date(data.date));
-                        mWhen.setText(date);
-                        if (date.equals(DateFormat.getDateInstance().format(new Date()))) {
-                            mWhen.setText("URGENT");
-                            mWhen.setTextColor(0xFFFF0000);
-                        }
-                        TextView mDiagnosis = (TextView) findViewById(R.id.request_detail_diagnosis);
-                        mDiagnosis.setText(data.diagnosis);
-                        TextView mTransport = (TextView) findViewById(R.id.request_detail_transport);
-                        if (data.transport){
-                            mTransport.setText("Available");
-                        } else {
-                            mTransport.setText("Not Available");
-                        }
+                    TextView mName = (TextView) findViewById(R.id.request_detail_name);
+                    mName.setText(data.name);
+                    TextView mNeeds = (TextView) findViewById(R.id.request_detail_needs);
+                    mNeeds.setText(data.quantity+" bags of "+data.blood_group);
+                    TextView mLocation = (TextView) findViewById(R.id.request_detail_location);
+                    mLocation.setText(data.location);
+                    TextView mWhen = (TextView) findViewById(R.id.request_detail_when);
+                    String date = DateFormat.getDateInstance().format(new Date(data.date));
+                    mWhen.setText(date);
+                    if (date.equals(DateFormat.getDateInstance().format(new Date()))) {
+                        mWhen.setText("URGENT");
+                        mWhen.setTextColor(0xFFFF0000);
+                    }
+                    TextView mDiagnosis = (TextView) findViewById(R.id.request_detail_diagnosis);
+                    mDiagnosis.setText(data.diagnosis);
+                    TextView mTransport = (TextView) findViewById(R.id.request_detail_transport);
+                    if (data.transport){
+                        mTransport.setText("Available");
+                    } else {
+                        mTransport.setText("Not Available");
+                    }
 
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        } else {
+            Toast.makeText(getApplicationContext(),"Error loading request",Toast.LENGTH_SHORT).show();
+            finish();-
+        }
 
         Button donate = (Button) findViewById(R.id.request_detail_donate_button);
         donate.setOnClickListener(new View.OnClickListener() {

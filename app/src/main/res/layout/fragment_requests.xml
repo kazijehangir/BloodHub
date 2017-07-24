@@ -12,7 +12,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="75dp"
-            android:text="Total Requests: 1"
             android:textStyle="bold"
             android:textSize="25sp" />
     </RelativeLayout>
