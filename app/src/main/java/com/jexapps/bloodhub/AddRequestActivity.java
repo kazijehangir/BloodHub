@@ -102,6 +102,7 @@ public class AddRequestActivity extends AppCompatActivity{
                 num = number.getText().toString();
                 loc = location.getText().toString();
 
+
                 BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, diag, pdate.getTime(), true);
                 try {
                     db.push().setValue(request);

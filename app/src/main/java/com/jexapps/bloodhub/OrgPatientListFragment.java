@@ -87,7 +87,7 @@ public class OrgPatientListFragment extends Fragment {
 
 
         // specify an adapter (see also next example)
-        mAdapter = new PatientListDataAdapter(patients, getContext());
+        mAdapter = new PatientListDataAdapter(patients, keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;

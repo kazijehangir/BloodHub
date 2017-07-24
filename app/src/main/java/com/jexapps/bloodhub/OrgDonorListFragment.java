@@ -36,6 +36,7 @@ public class OrgDonorListFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     DatabaseReference db;
+    ArrayList<String> keys;
     ArrayList<Donor> donors;
 //    "NAME:BGROUP:LOCATION:LASTDONATED:ORIGIN:GENDER:TRANSPORT"
 //    private static final String[] dummyDataset = new String[] {
@@ -84,6 +85,8 @@ public class OrgDonorListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        db = FirebaseDatabase.getInstance().getReference().child("donors");
+        fetchData();
         View rootView = inflater.inflate(R.layout.fragment_org_donor_list, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.org_donor_list_recycler_view);
 
@@ -96,15 +99,14 @@ public class OrgDonorListFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
-
-        db = FirebaseDatabase.getInstance().getReference().child("donors");
         // specify an adapter (see also next example)
-        mAdapter = new OrgDonorListDataAdapter(fetchData(), getContext());
+        mAdapter = new OrgDonorListDataAdapter(donors, keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
     public ArrayList<Donor> fetchData() {
+        keys = new ArrayList<String>();
         donors = new ArrayList<Donor>();
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -112,6 +114,7 @@ public class OrgDonorListFragment extends Fragment {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Donor donor = child.getValue(Donor.class);
                     donors.add(donor);
+                    keys.add(child.getKey());
                 }
                 mAdapter.notifyDataSetChanged();
             }

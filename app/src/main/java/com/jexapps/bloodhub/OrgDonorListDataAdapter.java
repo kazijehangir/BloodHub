@@ -1,18 +1,33 @@
 package com.jexapps.bloodhub;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.jexapps.bloodhub.m_Model.Donor;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Jehangir Kazi on 23/11/16.
@@ -24,6 +39,7 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
 //    private String[] mDataset;
     private final Context mContext;
     private ArrayList<Donor> donors;
+    private ArrayList<String> keys;
     private static String mEmail;
 
     // Provide a reference to the views for each data item
@@ -31,10 +47,13 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
+        CharSequence options[] = new CharSequence[] {"Delete Donor"};
         public TextView mName, mLocation, mBgroup, mLastDonated, mOrigin;
         public ImageView mImage;
+        protected CardView cv;
         public ViewHolder(View itemView) {
             super(itemView);
+            cv = (CardView) itemView.findViewById(R.id.card_view);
             mName = (TextView) itemView.findViewById(R.id.name_text);
             mLocation = (TextView) itemView.findViewById(R.id.location_text);
             mBgroup = (TextView) itemView.findViewById(R.id.bgroup_text);
@@ -42,6 +61,41 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
             mOrigin = (TextView) itemView.findViewById(R.id.donor_origin_text);
             mImage = (ImageView) itemView.findViewById(R.id.request_picture);
             itemView.findViewById(R.id.card_view).setOnClickListener(this);
+            itemView.findViewById(R.id.card_view).setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    final Object text = view.getTag();
+                    Toast toast = Toast.makeText(view.getContext(), text.toString(), Toast.LENGTH_SHORT);
+                    toast.show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                    builder.setTitle("Options");
+                    builder.setItems(options, new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which){
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                            final Query donor = ref.child("donors").child(text.toString());
+
+                            donor.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot donor: dataSnapshot.getChildren()) {
+                                        donor.getRef().removeValue();
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    Log.e(TAG, "onCancelled", databaseError.toException()
+                                    );
+                                }
+                            });
+                        }
+                    });
+                    builder.show();
+                    return true;
+                }
+            });
         }
         @Override
         public void onClick(View v) {
@@ -62,9 +116,10 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public OrgDonorListDataAdapter(ArrayList<Donor> don, Context context) {
+    public OrgDonorListDataAdapter(ArrayList<Donor> don, ArrayList<String> list, Context context) {
         donors = don;
         mContext = context;
+        keys = list;
     }
 
     // Create new views (invoked by the layout manager)
@@ -83,6 +138,7 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         Donor donor = (Donor) donors.get(position);
+        holder.cv.setTag(keys.get(position));
 //        String[] strings = mDataset[position].split(":");
         holder.mName.setText(donor.name);
         holder.mBgroup.setText(donor.blood_group);
