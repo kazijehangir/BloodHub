@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -31,9 +32,12 @@ import com.jexapps.bloodhub.m_Model.BloodRequest;
 import java.util.Calendar;
 import java.util.Date;
 
+import im.delight.android.location.SimpleLocation;
+
 public class RequestMapFragment extends Fragment {
     MapView mMapView;
-    public GoogleMap googleMap;
+    private GoogleMap googleMap;
+    private SimpleLocation location;
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private OnFragmentInteractionListener mListener;
 
@@ -47,7 +51,7 @@ public class RequestMapFragment extends Fragment {
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
-
+        location = new SimpleLocation(getContext());
         mMapView.onResume(); // needed to get the map to display immediately`
 
         try {
@@ -95,10 +99,14 @@ public class RequestMapFragment extends Fragment {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-                LatLng lahore = new LatLng(31.55, 74.35);
-
-                // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(lahore).zoom(12).build();
+                // if we can't access the location yet
+                if (!location.hasLocationEnabled()) {
+                    // ask the user to enable location access
+                    SimpleLocation.openSettings(getContext());
+                }
+                final double latitude = location.getLatitude();
+                final double longitude = location.getLongitude();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude,longitude)).zoom(11).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
@@ -109,13 +117,15 @@ public class RequestMapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        location.beginUpdates();
         mMapView.onResume();
     }
 
     @Override
     public void onPause() {
-        super.onPause();
         mMapView.onPause();
+        location.endUpdates();
+        super.onPause();
     }
 
     @Override
