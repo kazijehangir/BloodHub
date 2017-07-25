@@ -25,7 +25,6 @@ public class BloodRequest {
         this.longitude = longitude;
         this.diagnosis = diagnosis;
         this.date = date;
-        //this.image = image;
         this.transport = transport;
         this.completed = false;
     }

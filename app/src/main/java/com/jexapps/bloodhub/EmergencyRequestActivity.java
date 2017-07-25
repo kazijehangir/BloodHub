@@ -32,13 +32,17 @@ import java.util.Date;
 public class EmergencyRequestActivity extends AppCompatActivity {
 // TODO: try to get location automatically
     Dialog dialog;
+
     AutoCompleteTextView name, location;
     Spinner bloodgroup, quantity, diagnosis;
     EditText number;
-    String pname, bgroup, quan, diag, num, loc, mEmail;
-    Boolean transport;
     RadioGroup transport_group;
     RadioButton transport_btn;
+
+    String pname, bgroup, quan, diag, num, loc, mEmail;
+    double lat = -1, lng = -1;
+    Boolean transport;
+
     DatabaseReference db;
 
     @Override
@@ -111,26 +115,26 @@ public class EmergencyRequestActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             try{
                 JSONObject jsonObject = new JSONObject(s);
-                double lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
-                double lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
-                BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, lat, lng, diag, new Date().getTime(), transport);
-                db.push().setValue(request);
-                dialog = new Dialog(EmergencyRequestActivity.this);
-                dialog.setContentView(R.layout.popup_submit);
-                dialog.show();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                final Button submit = (Button) dialog.findViewById(R.id.button_ok);
-                submit.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(EmergencyRequestActivity.this, SplashActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
+                lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(),"Error adding request",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
             }
+            BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, lat, lng, diag, new Date().getTime(), transport);
+            db.push().setValue(request);
+            dialog = new Dialog(EmergencyRequestActivity.this);
+            dialog.setContentView(R.layout.popup_submit);
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            final Button submit = (Button) dialog.findViewById(R.id.button_ok);
+            submit.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(EmergencyRequestActivity.this, SplashActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 }

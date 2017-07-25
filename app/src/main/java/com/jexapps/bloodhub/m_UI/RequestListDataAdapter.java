@@ -2,6 +2,8 @@ package com.jexapps.bloodhub.m_UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +15,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
 import com.jexapps.bloodhub.R;
 import com.jexapps.bloodhub.RequestDetail;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,9 +86,10 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         BloodRequest request = (BloodRequest) requests.get(position);
-        holder.cv.setTag(keys.get(position));
+        String key = keys.get(position);
+        holder.cv.setTag(key);
         holder.mName.setText(request.name);
         holder.mNeeds.setText(request.quantity+" bags of "+request.blood_group);
         holder.mLocation.setText(request.location);
@@ -92,11 +100,10 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
             holder.mWhen.setTextColor(0xFFFF0000);
         }
         holder.mDiagnosis.setText(request.diagnosis);
-        holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
-        holder.mTransport.setText("Available");
-        holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_car));
+
+//        Defualt images
 //        if (strings[5].equals("Male")) {
-//            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
+//           holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
 //        } else if (strings[5].equals("Female")) {
 //            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
 //        }
@@ -106,6 +113,23 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         } else {
             holder.mTransport.setText("Not Available");
             holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_no_car));
+        }
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            FirebaseStorage.getInstance().getReference().child("bloodrequests").child(key).getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    // Successfully downloaded data to local file
+                    holder.mImage.setImageDrawable(Drawable.createFromPath(localFile.getPath()));
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(mContext,"Error loading image",Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception e){
+            //IOException: error making temp image
         }
     }
 

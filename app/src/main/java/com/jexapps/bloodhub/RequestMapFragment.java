@@ -92,9 +92,11 @@ public class RequestMapFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot child: dataSnapshot.getChildren()) {
                             BloodRequest request = child.getValue(BloodRequest.class);
-                            String needs = request.quantity+" bags of "+request.blood_group;
-                            Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(request.latitude,request.longitude)).title(request.name).snippet(needs));
-                            marker.setTag(child.getKey());
+                            if (request.latitude != -1 && request.longitude != -1){
+                                String needs = request.quantity+" bags of "+request.blood_group;
+                                Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(request.latitude,request.longitude)).title(request.name).snippet(needs));
+                                marker.setTag(child.getKey());
+                            }
                         }
                     }
                     @Override
@@ -108,7 +110,7 @@ public class RequestMapFragment extends Fragment {
                 }
                 final double latitude = location.getLatitude();
                 final double longitude = location.getLongitude();
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude,longitude)).zoom(11).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude,longitude)).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
                 googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {

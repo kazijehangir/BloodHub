@@ -6,10 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,10 +22,15 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 import com.jexapps.bloodhub.m_UI.HttpDataHandler;
 
@@ -35,21 +41,29 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-
 public class AddRequestActivity extends AppCompatActivity{
     Dialog dialog;
     private int date, month, year;
+
     AutoCompleteTextView name, location;
     Spinner bloodgroup, quantity, diagnosis;
     EditText number, when;
-    String pname, bgroup, quan, diag, num, loc, mEmail;
-    Date pdate;
-    Boolean transport;
     RadioGroup transport_group;
     RadioButton transport_btn;
+    Uri image_file;
+
+    String pname, bgroup, quan, diag, num, loc, mEmail;
+    Date pdate;
+    double lat = -1, lng = -1;
+    Boolean transport;
+
+    private static final int GALLERY_INTENT = 2;
+    Boolean request_added = false;
+
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    DatabaseReference db;
+    private DatabaseReference db, new_request;
+    private StorageReference mStorageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +72,7 @@ public class AddRequestActivity extends AppCompatActivity{
         mEmail = user.getEmail();
         //INITIALIZE FIREBASE DB
         db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("bloodrequests");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_request);
@@ -105,11 +120,21 @@ public class AddRequestActivity extends AppCompatActivity{
             }
         });
 
+        Button image_btn = (Button) findViewById(R.id.upload_image_button);
+        image_btn.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 final Context context = getApplicationContext();
+                 Intent intent = new Intent(Intent.ACTION_PICK);
+                 intent.setType("image/*");
+                 startActivityForResult(intent, GALLERY_INTENT);
+             }
+         });
+
         Button submit = (Button) findViewById(R.id.submit_button);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Context context = getApplicationContext();
                 pname = name.getText().toString();
                 bgroup = bloodgroup.getSelectedItem().toString();
                 quan = quantity.getSelectedItem().toString();
@@ -123,11 +148,48 @@ public class AddRequestActivity extends AppCompatActivity{
                 } else if (transport_text.equals("Not Available")){
                     transport = false;
                 }
+                new_request = db.push();
                 String address = loc+", Lahore, Pakistan";
                 new GetCoordinates().execute(address.replace(" ", "+"));
+                mStorageRef.child(new_request.getKey()).putFile(image_file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        Toast.makeText(getApplicationContext(),"Image uploaded",Toast.LENGTH_SHORT).show();
+                        BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, lat, lng, diag, pdate.getTime(), transport);
+                        new_request.setValue(request);
+                        request_added = true;
+                        dialog = new Dialog(AddRequestActivity.this);
+                        dialog.setContentView(R.layout.popup_submit);
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+                        final Button submit = (Button) dialog.findViewById(R.id.button_ok);
+                        submit.setOnClickListener(new View.OnClickListener(){
+
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getApplicationContext(),"Error uploading image",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+            image_file = data.getData();
+        }
     }
 
     private class GetCoordinates extends AsyncTask<String,Void,String> {
@@ -157,26 +219,14 @@ public class AddRequestActivity extends AppCompatActivity{
         protected void onPostExecute(String s) {
             try{
                 JSONObject jsonObject = new JSONObject(s);
-                double lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
-                double lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
-                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, lat, lng, diag, pdate.getTime(), transport);
-                db.push().setValue(request);
-                dialog = new Dialog(AddRequestActivity.this);
-                dialog.setContentView(R.layout.popup_submit);
-                dialog.show();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                final Button submit = (Button) dialog.findViewById(R.id.button_ok);
-                submit.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
+                lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
+                if (request_added) {
+                    new_request.child("latitude").setValue(lat);
+                    new_request.child("longitude").setValue(lng);
+                }
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(),"Error adding request",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
             }
         }
     }
