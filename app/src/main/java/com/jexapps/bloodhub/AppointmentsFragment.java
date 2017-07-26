@@ -62,7 +62,7 @@ public class AppointmentsFragment extends Fragment {
     }
 
     //Getting data from database
-    public ArrayList<Appointment> fetchData() {
+    public void fetchData() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         db.orderByChild("userid").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
@@ -82,7 +82,7 @@ public class AppointmentsFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return appointments;
+        return;
     }
 
 
