@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity
     private String mEmail = null;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,21 +69,6 @@ public class MainActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         mEmail = user.getEmail();
-
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(getIntent().hasExtra("appointments")) {
-               appoint = extras.getString("appointments");
-            } else {
-                appoint = null;
-            }
-            if(getIntent().hasExtra("request")) {
-                request = extras.getBoolean("request");
-            }
-        }
-//        TODO: comment this toast out when done debugging
-//        Toast.makeText(this, "Logged in " + mEmail + " successfully.",
-//                Toast.LENGTH_SHORT).show();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -177,15 +161,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(MainActivity.this, AddRequestActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -195,7 +170,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        setupDrawerContent(navigationView);
 
 //        Home should be selected when this activity starts
         navigationView.setCheckedItem(R.id.nav_home);
@@ -216,7 +190,7 @@ public class MainActivity extends AppCompatActivity
 
         mNav_email.setText(mEmail);
 
-//        TODO: Get name and image from database and display here
+//        TODO: Get image from database and display here
         getNameFromDatabase();
 //        mNav_image.setImageDrawable();
 //        TODO: Implement swipe views for home page
@@ -225,7 +199,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, UserProfile.class);
-                intent.putExtra("mEmail", mEmail);
                 startActivity(intent);
             }
         });

@@ -4,73 +4,94 @@ package com.jexapps.bloodhub;
  * Created by mahnoor on 23/11/2016.
  */
 
-import android.annotation.TargetApi;
-
-
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.view.View.OnClickListener;
 
-import android.icu.text.SimpleDateFormat;
-import java.util.Calendar;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.app.DatePickerDialog.OnDateSetListener;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.content.Intent;
-import android.view.animation.Animation;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.content.Context;
-import android.app.Activity;
 import android.widget.Button;
-import android.view.animation.AnimationUtils;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.m_Model.Appointment;
+import com.jexapps.bloodhub.m_Model.User;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-
 
 public class AddAppointmentActivity extends AppCompatActivity {
     Dialog dialog;
-    private int date, month, year, hour, minute;
-    private String time;
+    private Spinner spinner;
+    private EditText set, set1;
+    private RadioGroup radioGroup;
     private RadioButton radioButton;
+
+    private int day, month, year, hour, minute, position;
+    private String time, date;
+    private Boolean transport;
+    Date pdate;
+    ArrayList<String> hospitals;
+    ArrayList<String> keys;
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final String mEmail;
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                mEmail= null;
-            } else {
-                mEmail= extras.getString("mEmail");
-            }
-        } else {
-            mEmail= (String) savedInstanceState.getSerializable("mEmail");
-        }
         setContentView(R.layout.activity_add_appointment);
         setTitle("Add Appointment");
-        final EditText set = (EditText) findViewById(R.id.editText);
+
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+
+        spinner = (Spinner) findViewById(R.id.spin1);
+        set = (EditText) findViewById(R.id.editText);
+        set1 = (EditText) findViewById(R.id.editText2);
+        radioGroup = (RadioGroup) findViewById(R.id.radio);
+
+        hospitals = new ArrayList<String>();
+        keys = new ArrayList<String>();
+        FirebaseDatabase.getInstance().getReference().child("users").orderByChild("account_type").equalTo("organization")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                            User user = child.getValue(User.class);
+                            hospitals.add(user.username);
+                            keys.add(child.getKey());
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, hospitals);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner.setAdapter(adapter);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
         set.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick (View view){
                 dialog = new Dialog(AddAppointmentActivity.this);
-                dialog.setTitle("Set Date and Time");
+                dialog.setTitle("Set Date");
                 dialog.setContentView(R.layout.set_date);
                 dialog.show();
                 final Button setDate = (Button) dialog.findViewById(R.id.set_date);
@@ -79,24 +100,26 @@ public class AddAppointmentActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(View view) {
-                        date = datePicker.getDayOfMonth();
+                        day = datePicker.getDayOfMonth();
                         month = datePicker.getMonth();
                         year = datePicker.getYear();
-                        set.setText(date+"-"+month+"-"+year);
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, month, day);
+                        pdate = calendar.getTime();
+                        date = DateFormat.getDateInstance().format(pdate);
+                        set.setText(date);
                         dialog.cancel();
                     }
                 });
             }
         });
-        final Spinner spinner = (Spinner) findViewById(R.id.spin1);
-        final EditText set1 = (EditText) findViewById(R.id.editText2);
-        final RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radio);
+
         set1.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick (View view){
                 dialog = new Dialog(AddAppointmentActivity.this);
-                dialog.setTitle("Set Date and Time");
+                dialog.setTitle("Set Time");
                 dialog.setContentView(R.layout.set_time);
                 dialog.show();
                 final Button setTime = (Button) dialog.findViewById(R.id.set_time);
@@ -107,17 +130,45 @@ public class AddAppointmentActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         hour = timePicker.getCurrentHour();
                         minute = timePicker.getCurrentMinute();
-                        set1.setText(hour+":"+minute);
+                        if (hour >= 12){
+                            time = "PM";
+                        } else {
+                            time = "AM";
+                        }
+                        if (hour > 12){
+                            hour = hour - 12;
+                        }
+                        if (minute > 10){
+                            time = minute + " " + time;
+                        } else {
+                            time = "0" + minute + " " + time;
+                        }
+                        if (hour > 10){
+                            time = hour + ":" + time;
+                        } else {
+                            time = "0" + hour + ":" + time;
+                        }
+                        set1.setText(time);
                         dialog.cancel();
                     }
                 });
             }
         });
+
         Button submit = (Button) findViewById(R.id.submit_button1);
         submit.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick (View view){
+                radioButton = (RadioButton) findViewById(radioGroup.getCheckedRadioButtonId());
+                String transport_text = (String) radioButton.getText();
+                if (transport_text.equals("Yes")){
+                    transport = true;
+                } else {
+                    transport = false;
+                }
+                Appointment appointment = new Appointment(user.getUid(),keys.get(spinner.getSelectedItemPosition()),date,time,transport);
+                FirebaseDatabase.getInstance().getReference().child("appointments").push().setValue(appointment);
                 dialog = new Dialog(AddAppointmentActivity.this);
                 dialog.setTitle("Submit Request");
                 dialog.setContentView(R.layout.popup_appointment_submit);
@@ -129,71 +180,12 @@ public class AddAppointmentActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(AddAppointmentActivity.this,MainActivity.class);
-                        intent.putExtra("mEmail", mEmail);
-                        int selected_id = radioGroup.getCheckedRadioButtonId();
-                        radioButton = (RadioButton) findViewById(selected_id);
-                        intent.putExtra("appointments",spinner.getSelectedItem().toString()+";"+set.getText().toString()+", "+set1.getText().toString()+";"+radioButton.getText().toString());
                         startActivity(intent);
                     }
                 });
             }
         });
     }
-
-
-//    Spinner spinner = (Spinner) findViewById(R.id.spinner);
-//    // Create an ArrayAdapter using the string array and a default spinner layout
-//    ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-//            R.array.planets_array, android.R.layout.simple_spinner_item);
-//// Specify the layout to use when the list of choices appears
-//    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//// Apply the adapter to the spinner
-//    spinner.setAdapter(adapter);
-//    EditText _editText;
-//    private int _day;
-//    private int _month;
-//    private int _birthYear;
-//    private Context _context;
-//    public MyEditTextDatePicker(Context context, int editTextViewID)
-//    {
-//        Activity act = (Activity)context;
-//        this._editText = (EditText)act.findViewById(editTextViewID);
-//        this._editText.setOnClickListener(this);
-//        this._context = context;
-//    }
-
-//    EditText date;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_add_appointment);
-//        date = (EditText) findViewById(R.id.calendarView);
-//        date.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                new DatePickerDialog(AddAppointmentActivity.this, dateD, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-//            }
-//        });
-//
-//    }
-//
-//    Calendar myCalendar = Calendar.getInstance();
-//    DatePickerDialog.OnDateSetListener dateD = new DatePickerDialog.OnDateSetListener() {
-//        @Override
-//        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//            myCalendar.set(Calendar.YEAR, year);
-//            myCalendar.set(Calendar.MONTH, monthOfYear);
-//            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//            updateLabel();
-//        }
-//    };
-//
-//    private void updateLabel() {
-//        String myFormat = "MM/dd/yy";
-//        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
-//        date.setText(sdf.format(myCalendar.getTime()));
-//    }
 }
 
 

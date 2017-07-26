@@ -173,15 +173,24 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:layout_marginTop="10dp">
                 <Button
                     android:id="@+id/upload_image_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Upload Image"
-                    android:textAlignment="center"
                     android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/image_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text = "No file chosen"
+                    android:gravity="center"
+                    android:layout_toRightOf="@+id/upload_image_button"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="18sp">
+                </TextView>
             </RelativeLayout>/
             <Button
                 android:id="@+id/submit_button"

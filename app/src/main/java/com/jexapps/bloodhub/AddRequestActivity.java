@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -51,6 +52,7 @@ public class AddRequestActivity extends AppCompatActivity{
     RadioGroup transport_group;
     RadioButton transport_btn;
     Uri image_file;
+    TextView image;
 
     String pname, bgroup, quan, diag, num, loc, mEmail;
     Date pdate;
@@ -86,6 +88,7 @@ public class AddRequestActivity extends AppCompatActivity{
         when = (EditText) findViewById(R.id.editText);
         diagnosis = (Spinner) findViewById(R.id.diagnosis);
         transport_group = (RadioGroup) findViewById(R.id.transport);
+        image = (TextView) findViewById(R.id.image_text);
 
         String[] hospitals = getResources().getStringArray(R.array.hospitals);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
@@ -189,6 +192,7 @@ public class AddRequestActivity extends AppCompatActivity{
 
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
             image_file = data.getData();
+            image.setText("Image added!");
         }
     }
 

@@ -17,7 +17,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/num_appointments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Appointments: 1"
@@ -28,100 +28,11 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="82dp"
             android:layout_marginStart="82dp" />
-
     </RelativeLayout>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="339dp"
-        android:layout_height="190dp"
-        android:layout_gravity="center"
-        card_view:cardCornerRadius="1dp"
-        card_view:contentPadding="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.04">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            >
-
-            <ImageView
-                android:layout_width="150dp"
-                android:id="@+id/image1"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/red_crescent"
-                android:layout_toLeftOf="@+id/time"
-                android:layout_toStartOf="@+id/time"
-                android:layout_height="170dp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/time"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/name"
-                android:layout_alignLeft="@+id/name"
-                android:layout_marginTop="10dp"
-                android:text="Time: 2nd Dec'16, 12:00 pm"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/transport"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/time"
-                android:layout_alignLeft="@+id/name"
-                android:layout_marginTop="10dp"
-                android:text="Transport needed: No"
-                android:textSize="15sp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/b1"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/transport"
-                android:layout_alignLeft="@+id/name"
-                android:layout_marginTop="10dp"
-                android:text="Change Timing"
-                android:textSize="18sp"
-                android:textColor="@android:color/background_light"
-                android:background="@color/fab1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/b2"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/b1"
-                android:layout_alignLeft="@+id/name"
-                android:layout_marginTop="5dp"
-                android:text="Cancel Appointment"
-                android:textSize="18sp"
-                android:textColor="@android:color/background_light"
-                android:background="@color/fab1" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="65dp"
-                android:text="Organization: Red Crescent"
-                android:textSize="15sp"
-                android:layout_marginEnd="65dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-
-        </RelativeLayout>
-
-
-    </android.support.v7.widget.CardView>
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/appointment_list_recycler_view"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="452dp"
+        android:layout_marginTop="20dp"/>
 </LinearLayout>

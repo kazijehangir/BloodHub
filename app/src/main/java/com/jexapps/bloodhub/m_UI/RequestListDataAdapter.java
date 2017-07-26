@@ -101,12 +101,6 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         }
         holder.mDiagnosis.setText(request.diagnosis);
 
-//        Defualt images
-//        if (strings[5].equals("Male")) {
-//           holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.boy));
-//        } else if (strings[5].equals("Female")) {
-//            holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
-//        }
         if (request.transport) {
             holder.mTransport.setText("Available");
             holder.mTransportImage.setImageDrawable(ContextCompat.getDrawable(mContext,R.drawable.ic_car));
@@ -125,7 +119,9 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Toast.makeText(mContext,"Error loading image",Toast.LENGTH_SHORT).show();
+                    //TODO: add default image instead
+                    holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
+//                    Toast.makeText(mContext,"Error loading image",Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception e){

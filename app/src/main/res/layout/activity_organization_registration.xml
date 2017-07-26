@@ -27,12 +27,10 @@
             android:orientation="vertical"
             android:weightSum="1"
             android:id="@+id/linear">
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|bottom">
-
         <AutoCompleteTextView
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -41,17 +39,12 @@
             android:hint="@string/prompt_org_name"
             android:inputType="textPersonName"
             android:maxLines="1"
-            android:singleLine="true"
-
-            />
-
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|bottom">
-
         <AutoCompleteTextView
             android:id="@+id/email"
             android:layout_width="match_parent"
@@ -61,14 +54,11 @@
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:singleLine="true" />
-
     </android.support.design.widget.TextInputLayout>
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|bottom">
-
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
@@ -77,13 +67,10 @@
             android:inputType="textPassword"
             android:maxLines="1"
             android:singleLine="true" />
-
     </android.support.design.widget.TextInputLayout>
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <EditText
             android:id="@+id/contact"
             android:layout_width="match_parent"
@@ -92,13 +79,10 @@
             android:ems="10"
             android:inputType="number"
             android:hint="@string/prompt_contact" />
-
     </android.support.design.widget.TextInputLayout>
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <EditText
             android:id="@+id/add"
             android:layout_width="match_parent"
@@ -106,9 +90,7 @@
             android:layout_marginTop="30dp"
             android:hint="@string/prompt_add"
             android:maxLines="2" />
-
     </android.support.design.widget.TextInputLayout>
-
     <Button
         android:id="@+id/textTerms"
         style="?android:textAppearanceLarge"
@@ -126,12 +108,10 @@
     <ScrollView
         android:layout_width="364dp"
         android:layout_height="88dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
                 android:text="@string/agreeterms"
                 android:layout_width="308dp"
@@ -146,13 +126,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:checked="false"
-        android:gravity="center_horizontal|center"
+        android:gravity="left|center"
         android:text="I agree to share my details"
-        android:textAlignment="textStart"
         android:textSize="14sp"
         android:textAllCaps="true"
         android:id="@+id/agreeTerms" />
-
     <Button
         android:id="@+id/register_button"
         style="?android:textAppearanceLarge"
