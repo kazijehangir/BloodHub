@@ -1,4 +1,4 @@
-package com.jexapps.bloodhub;
+package com.jexapps.bloodhub.m_UI;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -6,13 +6,11 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.ContentFrameLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.OrgDonorDetail;
+import com.jexapps.bloodhub.R;
 import com.jexapps.bloodhub.m_Model.Donor;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ import static android.content.ContentValues.TAG;
  * and the request_card_view.xml file.
  */
 
-public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDataAdapter.ViewHolder> {
+public class DonorListDataAdapter extends RecyclerView.Adapter<DonorListDataAdapter.ViewHolder> {
 //    private String[] mDataset;
     private final Context mContext;
     private ArrayList<Donor> donors;
@@ -116,7 +116,7 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public OrgDonorListDataAdapter(ArrayList<Donor> don, ArrayList<String> list, Context context) {
+    public DonorListDataAdapter(ArrayList<Donor> don, ArrayList<String> list, Context context) {
         donors = don;
         mContext = context;
         keys = list;
@@ -124,8 +124,8 @@ public class OrgDonorListDataAdapter extends RecyclerView.Adapter<OrgDonorListDa
 
     // Create new views (invoked by the layout manager)
     @Override
-    public OrgDonorListDataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                 int viewType) {
+    public DonorListDataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                              int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.org_donor_card_view, parent, false);

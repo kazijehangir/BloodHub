@@ -16,12 +16,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.jexapps.bloodhub.m_Model.BloodRequest;
 import com.jexapps.bloodhub.m_Model.Donor;
+import com.jexapps.bloodhub.m_UI.DonorListDataAdapter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 
 /**
@@ -100,7 +98,7 @@ public class OrgDonorListFragment extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
         // specify an adapter (see also next example)
-        mAdapter = new OrgDonorListDataAdapter(donors, keys, getContext());
+        mAdapter = new DonorListDataAdapter(donors, keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
