@@ -29,6 +29,7 @@ import java.util.ArrayList;
 public class AppointmentsFragment extends Fragment {
     DatabaseReference db;
     ArrayList<Appointment> appointments;
+    ArrayList<String> keys;
 
     private RecyclerView mRecyclerView;
     private TextView numAppointments;
@@ -44,6 +45,10 @@ public class AppointmentsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = (View) inflater.inflate(R.layout.fragment_appointments, container, false);
+        db = FirebaseDatabase.getInstance().getReference().child("appointments");
+        appointments = new ArrayList<Appointment>();
+        keys = new ArrayList<String>();
+        fetchData();
         numAppointments = (TextView) rootView.findViewById(R.id.num_appointments);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.appointment_list_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -51,23 +56,24 @@ public class AppointmentsFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
-        db = FirebaseDatabase.getInstance().getReference().child("appointments");
-        mAdapter = new MyAppointmentDataAdapter(fetchData());
+        mAdapter = new MyAppointmentDataAdapter(appointments, keys);
         mRecyclerView.setAdapter(mAdapter);
         return rootView;
     }
 
     //Getting data from database
     public ArrayList<Appointment> fetchData() {
-        appointments = new ArrayList<Appointment>();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         db.orderByChild("userid").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                appointments.clear();
+                keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Appointment appointment = child.getValue(Appointment.class);
                     appointments.add(appointment);
+                    keys.add(child.getKey());
                 }
                 numAppointments.setText("Appointments: "+appointments.size());
                 mAdapter.notifyDataSetChanged();
