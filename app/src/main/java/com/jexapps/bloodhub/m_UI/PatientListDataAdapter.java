@@ -3,12 +3,14 @@ package com.jexapps.bloodhub.m_UI;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +43,7 @@ public class PatientListDataAdapter extends RecyclerView.Adapter<PatientListData
     private ArrayList<Patient> patients;
     private ArrayList<String> keys;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CharSequence options[] = new CharSequence[] {"Delete Patient"};
         public TextView mName, mAge, mBloodgroup, mCnumber, mDiagnosis, mLastRequest;
         public ImageView mImage;
@@ -57,35 +59,23 @@ public class PatientListDataAdapter extends RecyclerView.Adapter<PatientListData
             mLastRequest = (TextView) itemView.findViewById(R.id.last_request_text);
             mImage = (ImageView) itemView.findViewById(R.id.request_picture);
             cv.setOnClickListener(this);
-            itemView.findViewById(R.id.card_view).setOnLongClickListener(new View.OnLongClickListener() {
+            cv.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    final Object text = view.getTag();
-                    Toast toast = Toast.makeText(view.getContext(), text.toString(), Toast.LENGTH_SHORT);
-                    toast.show();
+                    final String id = (String) view.getTag();
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    builder.setTitle("Options");
+                    TextView title = new TextView(view.getContext());
+                    title.setText("Options");
+                    title.setPadding(15, 30, 15, 15);
+                    title.setGravity(Gravity.CENTER);
+                    title.setTypeface(null, Typeface.BOLD);
+                    title.setTextSize(20);
+                    builder.setCustomTitle(title);
                     builder.setItems(options, new DialogInterface.OnClickListener(){
                         @Override
                         public void onClick(DialogInterface dialog, int which){
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                            final Query patients = ref.child("patients").child(text.toString());
-                            patients.getRef().removeValue();
-//                            patients.addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(DataSnapshot dataSnapshot) {
-//                                    for (DataSnapshot patients: dataSnapshot.getChildren()) {
-//                                        patients.getRef().removeValue();
-//
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(DatabaseError databaseError) {
-//                                    Log.e(TAG, "onCancelled", databaseError.toException()
-//                                    );
-//                                }
-//                            });
+                            // add if-statement for more than one options
+                            FirebaseDatabase.getInstance().getReference().child("patients").child(id).removeValue();
                         }
                     });
                     builder.show();
@@ -99,22 +89,6 @@ public class PatientListDataAdapter extends RecyclerView.Adapter<PatientListData
             Intent intent = new Intent(v.getContext(), AddRequestOrgActivity.class);
             intent.putExtra("patient", (String) v.getTag());
             v.getContext().startActivity(intent);
-
-//            TextView mName = (TextView) itemView.findViewById(R.id.name_text);
-//            intent.putExtra("name", mName.getText());
-//
-//            TextView mAge = (TextView) itemView.findViewById(R.id.age_text);
-//            intent.putExtra("age", mAge.getText());
-//
-//            TextView mBloodgroup = (TextView) itemView.findViewById(R.id.bgroup_text);
-//            intent.putExtra("blood_group", mBloodgroup.getText());
-//
-//            TextView mCnumber = (TextView) itemView.findViewById(R.id.number_text);
-//            intent.putExtra("con_number", mCnumber.getText());
-//
-//            TextView mDiagnosis = (TextView) itemView.findViewById(R.id.diagnosis_text);
-//            intent.putExtra("diagnosis", mDiagnosis.getText());
-
         }
     }
 

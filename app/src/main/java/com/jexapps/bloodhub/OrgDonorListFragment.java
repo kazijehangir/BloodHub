@@ -21,29 +21,10 @@ import com.jexapps.bloodhub.m_UI.DonorListDataAdapter;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OrgDonorListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link OrgDonorListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class OrgDonorListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     DatabaseReference db;
     ArrayList<String> keys;
     ArrayList<Donor> donors;
-//    "NAME:BGROUP:LOCATION:LASTDONATED:ORIGIN:GENDER:TRANSPORT"
-//    private static final String[] dummyDataset = new String[] {
-//            "Jamshed:O-:DHA Phase 5:3 Weeks:Patient Attendant:Male",
-//            "Aliya:A+:Main Boulevard:1 Week:Blood Drive:Female",
-//            "Hamid:AB-:Gulberg:17 Weeks:Walk In:Male",
-//            "Saniya:B+:LUMS:5 Weeks:Blood Drive:Female"
-//    };
-    private String mEmail;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -54,61 +35,30 @@ public class OrgDonorListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param email Parameter 1.
-     * @return A new instance of fragment OrgDonorListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OrgDonorListFragment newInstance(String email) {
-        OrgDonorListFragment fragment = new OrgDonorListFragment();
-        Bundle args = new Bundle();
-        args.putString("mEmail", email);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mEmail = getArguments().getString("mEmail");
-        }
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        db = FirebaseDatabase.getInstance().getReference().child("donors");
-        fetchData();
         View rootView = inflater.inflate(R.layout.fragment_org_donor_list, container, false);
+        db = FirebaseDatabase.getInstance().getReference().child("donors");
+        donors = new ArrayList<>();
+        keys = new ArrayList<>();
+        fetchData();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.org_donor_list_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
-        // specify an adapter (see also next example)
         mAdapter = new DonorListDataAdapter(donors, keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
-
         return rootView;
     }
-    public ArrayList<Donor> fetchData() {
-        keys = new ArrayList<String>();
-        donors = new ArrayList<Donor>();
+    public void fetchData() {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                donors.clear();
+                keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Donor donor = child.getValue(Donor.class);
                     donors.add(donor);
@@ -120,7 +70,7 @@ public class OrgDonorListFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return donors;
+        return;
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

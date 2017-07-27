@@ -21,81 +21,43 @@ import com.jexapps.bloodhub.m_UI.PatientListDataAdapter;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link OrgDonorListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link OrgDonorListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class OrgPatientListFragment extends Fragment {
     DatabaseReference db;
     ArrayList<Patient> patients;
     ArrayList<String> keys;
-
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     private OrgPatientListFragment.OnFragmentInteractionListener mListener;
-
     public OrgPatientListFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param email Parameter 1.
-     * @return A new instance of fragment OrgDonorListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OrgPatientListFragment newInstance(String email) {
-        OrgPatientListFragment fragment = new OrgPatientListFragment();
-        Bundle args = new Bundle();
-        args.putString("mEmail", email);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        db = FirebaseDatabase.getInstance().getReference().child("patients");
-        fetchData();
         View rootView = inflater.inflate(R.layout.fragment_org_patient_list, container, false);
+        db = FirebaseDatabase.getInstance().getReference().child("patients");
+        patients = new ArrayList<Patient>();
+        keys = new ArrayList<String>();
+        fetchData();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.org_patient_list_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
-
-
-        // specify an adapter (see also next example)
         mAdapter = new PatientListDataAdapter(patients, keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
-
         return rootView;
     }
 
     public void fetchData() {
-        patients = new ArrayList<Patient>();
-        keys = new ArrayList<String>();
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                patients.clear();
+                keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Patient patient = child.getValue(Patient.class);
                     patients.add(patient);
