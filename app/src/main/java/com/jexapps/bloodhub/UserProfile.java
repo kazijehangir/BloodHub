@@ -6,17 +6,30 @@ import android.os.Bundle;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-public class UserProfile extends AppCompatActivity {
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.m_Model.User;
+
+public class UserProfile extends AppCompatActivity  {
     private static final String CREDENTIALS_FILE_NAME = "credentials";
     private SharedPreferences CREDENTIAL_FILE;
     private static String[] CREDENTIALS;
+    DatabaseReference db;
     private FirebaseAuth mAuth;
-    FirebaseUser user = mAuth.getCurrentUser();
+
+    private DatabaseReference mUserReference;
+    private ValueEventListener mUserListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-
+        mUserReference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
         final String mEmail;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -29,10 +42,34 @@ public class UserProfile extends AppCompatActivity {
             mEmail= (String) savedInstanceState.getSerializable("mEmail");
         }
         String credential = getInfoFromDatabase(mEmail);
-        TextView name = (TextView) findViewById(R.id.name);
-        name.setText("Name: " + credential.split(":")[2]);
-        TextView bgroup = (TextView) findViewById(R.id.blood_g);
-        bgroup.setText("Blood Group: " + credential.split(":")[3]);
+//        TextView name = (TextView) findViewById(R.id.name);
+//        name.setText("Name: " + user.getDisplayName());
+//        TextView bgroup = (TextView) findViewById(R.id.blood_g);
+//        bgroup.setText("Blood Group: " + db.child(user.getUid()));
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        final TextView name = (TextView) findViewById(R.id.name);
+        final TextView bgroup = (TextView) findViewById(R.id.blood_g);
+
+        //add value event listener to the user
+        ValueEventListener userListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User curruser = dataSnapshot.getValue(User.class);
+                name.setText("Name: " + curruser.username);
+                bgroup.setText("Blood group: " + curruser.blood_group);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        mUserReference.addValueEventListener(userListener);
+        mUserListener = userListener;
     }
     private String getInfoFromDatabase(String email) {
         CREDENTIAL_FILE = getSharedPreferences(CREDENTIALS_FILE_NAME, 0);

@@ -63,7 +63,10 @@ public class MainActivityOrg extends AppCompatActivity
 //        get email from login activity
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        mEmail = user.getEmail();
+        if(user != null) {
+            mEmail = user.getEmail();
+
+        }
 //        TODO: comment this toast out when done debugging
 //        Toast.makeText(this, "Logged in " + mEmail + " successfully.",
 //                Toast.LENGTH_SHORT).show();
