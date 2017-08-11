@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jexapps.bloodhub.m_Model.User;
 
 import static android.R.attr.duration;
@@ -38,12 +40,10 @@ public class SplashActivity extends AppCompatActivity
                         if(account_type.equals("individual")) {
                             Intent intent;
                             intent = new Intent(SplashActivity.this, MainActivity.class);
-                            intent.putExtra("mEmail", email);
                             startActivity(intent);
                         } else if(account_type.equals("organization")) {
                             Intent intent;
                             intent = new Intent(SplashActivity.this, MainActivityOrg.class);
-                            intent.putExtra("mEmail", email);
                             startActivity(intent);
                         }
                     }
@@ -58,19 +58,7 @@ public class SplashActivity extends AppCompatActivity
     public void onStart() {
         super.onStart();
         mAuth = FirebaseAuth.getInstance();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        Context context = getApplicationContext();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
-//        if(currentUser == null){
-//            Toast toast = Toast.makeText(context, "No user", Toast.LENGTH_SHORT);
-//            toast.show();
-//        } else {
-//            Toast toast = Toast.makeText(context, "hir", Toast.LENGTH_SHORT);
-//            toast.show();
-//        }
-
-
         if(currentUser != null){
             setView(currentUser.getUid(), currentUser.getEmail());
         } else {
@@ -99,8 +87,6 @@ public class SplashActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
         mAuth = FirebaseAuth.getInstance();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        Context context = getApplicationContext();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
 

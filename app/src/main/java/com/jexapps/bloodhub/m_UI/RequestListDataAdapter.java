@@ -1,13 +1,17 @@
 package com.jexapps.bloodhub.m_UI;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.jexapps.bloodhub.R;
@@ -42,8 +47,9 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        // each data item is just a string in this case
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        CharSequence options[] = new CharSequence[] {"View details","Share"};
+        CharSequence share[] = new CharSequence[] {"Facebook","Gmail","Whatsapp"};
         public TextView mName, mLocation, mNeeds, mWhen, mDiagnosis, mTransport;
         public ImageView mImage, mTransportImage;
         protected CardView cv;
@@ -59,12 +65,48 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
             mTransportImage = (ImageView) itemView.findViewById(R.id.transport_image);
             mTransport = (TextView) itemView.findViewById(R.id.transport_text);
             cv.setOnClickListener(this);
+            cv.setOnLongClickListener(this);
         }
+
         @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), RequestDetail.class);
-            intent.putExtra("request", (String) v.getTag());
-            v.getContext().startActivity(intent);
+        public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), RequestDetail.class);
+            intent.putExtra("request", (String) view.getTag());
+            view.getContext().startActivity(intent);
+        }
+
+        @Override
+        public boolean onLongClick(final View view) {
+            final String id = (String) view.getTag();
+            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+            TextView title = new TextView(view.getContext());
+            title.setText("Request options");
+            title.setPadding(15, 30, 15, 15);
+            title.setGravity(Gravity.CENTER);
+            title.setTypeface(null, Typeface.BOLD);
+            title.setTextSize(20);
+            builder.setCustomTitle(title);
+            builder.setItems(options, new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which){
+                    if (which == 0){
+                        Intent intent = new Intent(view.getContext(), RequestDetail.class);
+                        intent.putExtra("request", id);
+                        view.getContext().startActivity(intent);
+                    } else if (which == 1){
+                        shareDialog(id, view.getContext());
+                    }
+                }
+            });
+            builder.show();
+            return true;
+        }
+
+        private void shareDialog(final String id, final Context context) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            context.startActivity(Intent.createChooser(intent,"Share via"));
+            return;
         }
     }
 

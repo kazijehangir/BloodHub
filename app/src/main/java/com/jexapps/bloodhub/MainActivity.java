@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.jexapps.bloodhub.m_Model.User;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         mEmail = user.getEmail();
+//        FirebaseMessaging.getInstance().subscribeToTopic("android");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
