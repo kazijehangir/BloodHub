@@ -51,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Blood Group"
+                    android:textColor="@color/fab1"
                     android:textSize="18sp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
@@ -66,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Quantity of bag (s) "
+                    android:textColor="@color/fab1"
                     android:textSize="18sp" />
                 <Spinner
                     android:id="@+id/spin1"
@@ -111,6 +113,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Date: "
+                    android:textColor="@color/fab1"
                     android:textSize="18sp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
@@ -136,6 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Diagnosis:"
+                android:textColor="@color/fab1"
                 android:textSize="18sp" />
             <Spinner
                 android:id="@+id/diagnosis"
@@ -159,6 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Transport: "
+                        android:textColor="@color/fab1"
                         android:textSize="18sp" />
                     <RadioButton android:id="@+id/available"
                         android:layout_width="wrap_content"
@@ -180,6 +185,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Upload Image"
+                    android:textColor="@color/fab1"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/image_text"

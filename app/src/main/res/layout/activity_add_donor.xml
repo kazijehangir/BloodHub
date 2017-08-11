@@ -66,6 +66,7 @@
             android:id="@+id/bloodg"
             android:text="@string/prompt_bloodgroup"
             android:textSize="18sp"
+            android:textColor="@color/fab1"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -113,6 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Last Donated: "
+            android:textColor="@color/fab1"
             android:textSize="18sp"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
@@ -141,7 +143,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add"
-            android:text="Add a photo:     "
+            android:text="Add a photo:  "
+            android:textColor="@color/fab1"
             android:textSize="18sp"
             android:layout_marginTop="3dp" />
 
