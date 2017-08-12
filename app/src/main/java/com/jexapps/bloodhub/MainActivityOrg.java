@@ -190,7 +190,7 @@ public class MainActivityOrg extends AppCompatActivity
         lheader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivityOrg.this, UserProfile.class);
+                Intent intent = new Intent(MainActivityOrg.this, UserProfileOrg.class);
                 intent.putExtra("mEmail", mEmail);
                 startActivity(intent);
             }

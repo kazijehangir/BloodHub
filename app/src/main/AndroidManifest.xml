@@ -106,6 +106,15 @@
                 android:value="com.jexapps.bloodhub.MainActivity" />
         </activity>
         <activity
+            android:name=".UserProfileOrg"
+            android:parentActivityName=".MainActivityOrg">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivity" />
+        </activity>
+        <activity
             android:name=".EditProfile"
             android:parentActivityName=".UserProfile">
 

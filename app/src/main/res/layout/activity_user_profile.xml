@@ -7,13 +7,14 @@
     android:orientation="vertical"
     tools:context="com.jexapps.bloodhub.EditProfile"
     android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
     android:layout_marginStart="5dp">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -76,6 +77,7 @@
             android:textColor="@android:color/background_light"
             android:background="@drawable/dialog_bg"
             android:layout_below="@+id/image1"
+            android:layout_marginLeft="7dp"
             android:layout_marginStart="7dp"
             android:layout_marginRight="7dp"
             android:layout_width="140dp"

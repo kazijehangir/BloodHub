@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jexapps.bloodhub.m_Model.User;
 
-public class UserProfile extends AppCompatActivity  {
+public class UserProfileOrg extends AppCompatActivity  {
     DatabaseReference db;
     private FirebaseAuth mAuth;
 
@@ -25,7 +25,7 @@ public class UserProfile extends AppCompatActivity  {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_org_profile);
         mUserReference = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
     }
 
@@ -33,7 +33,6 @@ public class UserProfile extends AppCompatActivity  {
     public void onStart() {
         super.onStart();
         final TextView name = (TextView) findViewById(R.id.name);
-        final TextView bgroup = (TextView) findViewById(R.id.blood_g);
         final TextView number = (TextView) findViewById(R.id.con_num);
         //add value event listener to the user
         ValueEventListener userListener = new ValueEventListener() {
@@ -41,7 +40,6 @@ public class UserProfile extends AppCompatActivity  {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User curruser = dataSnapshot.getValue(User.class);
                 name.setText("Name: " + curruser.username);
-                bgroup.setText("Blood group: "+ curruser.blood_group);
                 number.setText("Number : " + curruser.number);
             }
 
