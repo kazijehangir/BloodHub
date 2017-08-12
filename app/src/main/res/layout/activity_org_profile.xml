@@ -12,72 +12,51 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="171dp">
+
         <ImageView
             android:id="@+id/image1"
             android:layout_width="150dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentLeft="true"
+            android:layout_height="125dp"
             android:src="@drawable/red_crescent"
-            android:layout_height="125dp" />
+            android:layout_alignTop="@+id/con_num"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="-35dp"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name: Aimen Gaba"
-            android:textSize="20sp"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/image1"
+            android:layout_marginTop="7dp"
             android:layout_toEndOf="@+id/image1"
-            android:layout_marginTop="26dp" />
-
-        <TextView
-            android:id="@+id/age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Age: 20"
-            android:textSize="20sp"
-            android:layout_below="@+id/name"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="7dp" />
-
-        <TextView
-            android:id="@+id/blood_g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Blood Group: A+"
-            android:textSize="20sp"
-            android:layout_below="@+id/age"
             android:layout_toRightOf="@+id/image1"
-            android:layout_toEndOf="@+id/image1"
-            android:layout_marginTop="7dp" />
+            android:text="Name: Aimen Gaba"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/con_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contact No: 039994804"
-            android:textSize="20sp"
-            android:layout_below="@+id/blood_g"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="7dp"
             android:layout_toRightOf="@+id/image1"
-            android:layout_toEndOf="@+id/image1"
-            android:layout_marginTop="7dp" />
+            android:text="Contact No: 039994804"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/edit_pro"
-            android:text="Edit Profile"
-            android:layout_alignTop="@+id/con_num"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="@android:color/background_light"
-            android:background="@drawable/dialog_bg"
-            android:layout_height="40dp"
             android:layout_width="140dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginLeft="7dp" />
+            android:layout_height="40dp"
+            android:background="@drawable/dialog_bg"
+            android:text="Edit Profile"
+            android:textColor="@android:color/background_light"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/name"
+            android:layout_toStartOf="@+id/name" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
