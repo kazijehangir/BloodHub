@@ -222,7 +222,8 @@ public class MainActivityOrg extends AppCompatActivity
         if (menuItem.getItemId() == R.id.signout) {
 
             mAuth.signOut();
-            finish();
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
 //            Intent intent = new Intent(this,LoginActivity.class);
 //            startActivity(intent);
         }
