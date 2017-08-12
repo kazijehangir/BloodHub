@@ -25,7 +25,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.jexapps.bloodhub.m_Model.User;
+
+import java.util.Arrays;
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
     AutoCompleteTextView username, mEmailView;
@@ -149,6 +152,10 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(context, "Registration Successful!",
                                             Toast.LENGTH_SHORT).show();
+                                    //set default subscriptions
+                                    int id = Arrays.asList(getResources().getStringArray(R.array.blood_groups)).indexOf(bgroup);
+                                    FirebaseMessaging.getInstance().subscribeToTopic("Request_"+id);
+                                    FirebaseMessaging.getInstance().subscribeToTopic("URGENT");
                                     // take user to main screen
                                     sendVerificationEmail();
                                     writeNewUser(user.getUid(), user.getEmail());

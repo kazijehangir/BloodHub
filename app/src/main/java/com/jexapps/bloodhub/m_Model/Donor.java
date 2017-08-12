@@ -2,10 +2,13 @@ package com.jexapps.bloodhub.m_Model;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.Calendar;
+
 @IgnoreExtraProperties
 public class Donor {
 
     public String userid, name, blood_group, number, location, lastDonated, donorOrigin, age;
+    public long created_at;
 
     public Donor() {
         // Default constructor required for calls to DataSnapshot.getValue(BloodRequest.class)
@@ -20,5 +23,6 @@ public class Donor {
         this.lastDonated = lastDonated;
         this.donorOrigin = donorOrigin;
         this.age = age;
+        this.created_at = Calendar.getInstance().getTime().getTime();
     }
 }

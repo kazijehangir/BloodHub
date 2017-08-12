@@ -238,8 +238,8 @@ public class AddRequestOrgActivity extends AppCompatActivity {
                 new_request = db.push();
                 String address = loc+", Lahore, Pakistan";
                 new GetCoordinates().execute(address.replace(" ", "+"));
-                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, lat, lng, diag, pdate.getTime(), transport);
-                new_request.setValue(request);
+//                BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, lat, lng, diag, pdate.getTime(), transport);
+//                new_request.setValue(request);
 
                 dialog = new Dialog(AddRequestOrgActivity.this);
                 dialog.setTitle("Add Request");

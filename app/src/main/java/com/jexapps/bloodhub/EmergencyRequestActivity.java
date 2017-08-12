@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 import com.jexapps.bloodhub.m_UI.HttpDataHandler;
 
@@ -120,7 +121,8 @@ public class EmergencyRequestActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
             }
-            BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, lat, lng, diag, new Date().getTime(), transport);
+            String regToken = FirebaseInstanceId.getInstance().getToken();
+            BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, lat, lng, diag, new Date().getTime(), transport, regToken);
             db.push().setValue(request);
             dialog = new Dialog(EmergencyRequestActivity.this);
             dialog.setContentView(R.layout.popup_submit);

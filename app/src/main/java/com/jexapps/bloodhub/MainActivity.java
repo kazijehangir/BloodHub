@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         mEmail = user.getEmail();
-//        FirebaseMessaging.getInstance().subscribeToTopic("android");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

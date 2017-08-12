@@ -4,12 +4,13 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 @IgnoreExtraProperties
 public class Appointment {
 
     public String userid, orgid;
-    public long date;
+    public long date, created_at;
     public Boolean transport, confirmed;
 
     public Appointment() {
@@ -25,6 +26,7 @@ public class Appointment {
         } catch (Exception e){
         }
         this.transport = transport;
+        this.created_at = Calendar.getInstance().getTime().getTime();
         this.confirmed = false;
     }
 }

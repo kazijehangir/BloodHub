@@ -103,7 +103,8 @@ public class RequestDetail extends AppCompatActivity {
                     submit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            finish();
+                            Intent intent = new Intent(RequestDetail.this, MainActivity.class);
+                            startActivity(intent);
                         }
                     });
                 } catch (DatabaseException e) {
