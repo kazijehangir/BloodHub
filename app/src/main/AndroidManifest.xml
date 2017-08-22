@@ -42,14 +42,6 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
@@ -72,8 +64,6 @@
         <activity
             android:name=".OrganizationRegistrationActivity"
             android:parentActivityName=".LoginActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.LoginActivity" />
@@ -81,8 +71,6 @@
         <activity
             android:name=".EmergencyRequestActivity"
             android:parentActivityName=".LoginActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.LoginActivity" />
@@ -90,8 +78,6 @@
         <activity
             android:name=".AddAppointmentActivity"
             android:parentActivityName=".MainActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivity" />
@@ -99,8 +85,6 @@
         <activity
             android:name=".UserProfile"
             android:parentActivityName=".MainActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivity" />
@@ -117,8 +101,6 @@
         <activity
             android:name=".EditProfile"
             android:parentActivityName=".UserProfile">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.UserProfile" />
@@ -126,10 +108,8 @@
         <activity android:name=".SearchResultsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -138,14 +118,6 @@
             android:name=".MainActivityOrg"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity" />
@@ -153,8 +125,6 @@
         <activity
             android:name=".AddPatientActivity"
             android:parentActivityName=".MainActivityOrg">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivityOrg" />
@@ -162,8 +132,6 @@
         <activity
             android:name=".AddDonorActivity"
             android:parentActivityName=".MainActivityOrg">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivityOrg" />
@@ -171,16 +139,12 @@
         <activity
             android:name=".AddRequestOrgActivity"
             android:parentActivityName=".MainActivityOrg">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivityOrg" />
         </activity>
         <activity android:name=".OrgDonorDetail"
             android:parentActivityName=".MainActivityOrg">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivityOrg" />
@@ -193,8 +157,6 @@
         </activity>
         <activity android:name=".OrgPatientDetail"
             android:parentActivityName=".MainActivityOrg">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivityOrg" />

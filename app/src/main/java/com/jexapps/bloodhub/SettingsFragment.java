@@ -1,72 +1,39 @@
 package com.jexapps.bloodhub;
 
-import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.jexapps.bloodhub.m_Firebase.FirebaseInstanceIDService;
+import com.jexapps.bloodhub.m_Model.User;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SettingsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SettingsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.Arrays;
+
 public class SettingsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
+    private int bgroup_id;
+    SwitchCompat bgroup_switch, urgent_switch, drive_switch;
     private OnFragmentInteractionListener mListener;
 
     public SettingsFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -74,30 +41,63 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
-        final Activity activity = getActivity();
-        final Boolean appoint = getArguments().getBoolean("request");
-
-//        Switch aSwitch = (Switch) rootView.findViewById(R.id.switch2);
-//        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (b) {
-//                    if (appoint) {
-//                        NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-//                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.ic_stat_name).setContentTitle("Ahmed responded to your request").setContentText("Click to view his profile").getNotification();
-//                        mNotifyMgr.notify(0, notif);
-//                    } else {
-//                        Intent intent = new Intent(activity,DonateActivity.class);
-//                        PendingIntent pendingIntent = PendingIntent.getActivity(activity,(int) System.currentTimeMillis(),intent,0);
-//                        NotificationManager mNotifyMgr = (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
-//                        Notification notif = new Notification.Builder(activity).setSmallIcon(R.drawable.ic_stat_name).setContentTitle("Farhan needs 1 bag of O+ blood").setContentText("Click to view his request").setContentIntent(pendingIntent).getNotification();
-//                        mNotifyMgr.notify(0, notif);
-//                        }
-//                }
-//            }
-//        });
+        bgroup_switch = (SwitchCompat) rootView.findViewById(R.id.bgroup_switch);
+        urgent_switch = (SwitchCompat) rootView.findViewById(R.id.urgent_switch);
+        drive_switch = (SwitchCompat) rootView.findViewById(R.id.drive_switch);
+        sharedPref = getContext().getSharedPreferences(getString(R.string.pref_file_settings), Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        Log.d("Token", FirebaseInstanceId.getInstance().getToken());
+        getValues();
+        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        User usr = dataSnapshot.getValue(User.class);
+                        bgroup_id = Arrays.asList(getResources().getStringArray(R.array.blood_groups)).indexOf(usr.blood_group);
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+        bgroup_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                editor.putBoolean(getString(R.string.key_group_request), b);
+                if (b){
+                    FirebaseMessaging.getInstance().subscribeToTopic("Request_"+bgroup_id);
+                } else {
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("Request_"+bgroup_id);
+                }
+                editor.commit();
+            }
+        });
+        urgent_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                editor.putBoolean(getString(R.string.key_urgent_request), b);
+                if (b){
+                    FirebaseMessaging.getInstance().subscribeToTopic("URGENT");
+                } else {
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("URGENT");
+                }
+                editor.commit();
+            }
+        });
+        drive_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                editor.putBoolean(getString(R.string.key_drive), b);
+                editor.commit();
+            }
+        });
         return rootView;
     }
+
+    private void getValues(){
+        bgroup_switch.setChecked(sharedPref.getBoolean(getString(R.string.key_group_request), true));
+        urgent_switch.setChecked(sharedPref.getBoolean(getString(R.string.key_urgent_request), true));
+        drive_switch.setChecked(sharedPref.getBoolean(getString(R.string.key_drive), true));
+    };
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
