@@ -41,7 +41,7 @@ public class AppointmentsOrgFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = (View) inflater.inflate(R.layout.fragment_appointments, container, false);
+        View rootView = (View) inflater.inflate(R.layout.fragment_appointments_org, container, false);
         db = FirebaseDatabase.getInstance().getReference().child("appointments");
         appointments = new ArrayList<Appointment>();
         keys = new ArrayList<String>();

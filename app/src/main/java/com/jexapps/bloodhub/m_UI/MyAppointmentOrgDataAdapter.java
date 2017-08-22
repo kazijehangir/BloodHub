@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +36,7 @@ public class MyAppointmentOrgDataAdapter extends RecyclerView.Adapter<MyAppointm
         CharSequence options[] = new CharSequence[] {"Change Timings","Cancel Appointment"};
         public TextView mName, mTransport, mDate, mTime;
         protected CardView cv;
-
+        public Button accept, decline;
         public ViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.card_view);
@@ -43,32 +44,34 @@ public class MyAppointmentOrgDataAdapter extends RecyclerView.Adapter<MyAppointm
             mTransport = (TextView) itemView.findViewById(R.id.transport);
             mDate = (TextView) itemView.findViewById(R.id.date);
             mTime = (TextView) itemView.findViewById(R.id.time);
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    final String id = (String) view.getTag();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                    TextView title = new TextView(view.getContext());
-                    title.setText("Options");
-                    title.setPadding(15, 30, 15, 15);
-                    title.setGravity(Gravity.CENTER);
-                    title.setTypeface(null, Typeface.BOLD);
-                    title.setTextSize(20);
-                    builder.setCustomTitle(title);
-                    builder.setItems(options, new DialogInterface.OnClickListener(){
-                        @Override
-                        public void onClick(DialogInterface dialog, int which){
-                            if (which == 0){
-
-                            } else if (which == 1){
-                                FirebaseDatabase.getInstance().getReference().child("appointments").child(id).removeValue();
-                            }
-                        }
-                    });
-                    builder.show();
-                    return true;
-                }
-            });
+            accept = (Button) itemView.findViewById(R.id.button1);
+            decline = (Button) itemView.findViewById(R.id.button2);
+//            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View view) {
+//                    final String id = (String) view.getTag();
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+//                    TextView title = new TextView(view.getContext());
+//                    title.setText("Options");
+//                    title.setPadding(15, 30, 15, 15);
+//                    title.setGravity(Gravity.CENTER);
+//                    title.setTypeface(null, Typeface.BOLD);
+//                    title.setTextSize(20);
+//                    builder.setCustomTitle(title);
+//                    builder.setItems(options, new DialogInterface.OnClickListener(){
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which){
+//                            if (which == 0){
+//
+//                            } else if (which == 1){
+//                                FirebaseDatabase.getInstance().getReference().child("appointments").child(id).removeValue();
+//                            }
+//                        }
+//                    });
+//                    builder.show();
+//                    return true;
+//                }
+//            });
         }
         @Override
         public void onClick(View v) {
@@ -86,13 +89,14 @@ public class MyAppointmentOrgDataAdapter extends RecyclerView.Adapter<MyAppointm
     public MyAppointmentOrgDataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.myappointment_card_view, parent, false);
+                .inflate(R.layout.myappointmentorg_card_view, parent, false);
         return new ViewHolder(v);
     }
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final MyAppointmentOrgDataAdapter.ViewHolder holder, int position) {
-        Appointment appointment = appointments.get(position);
+        final Appointment appointment = appointments.get(position);
+        final String key = keys.get(position);
         holder.cv.setTag(keys.get(position));
         if (appointment.transport){
             holder.mTransport.setText("Yes");
@@ -109,6 +113,15 @@ public class MyAppointmentOrgDataAdapter extends RecyclerView.Adapter<MyAppointm
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        holder.accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference().child("appointments").child(key).child("confirmed").setValue(true);
+                holder.accept.setVisibility(View.GONE);
+                holder.decline.setVisibility(View.GONE);
 
             }
         });

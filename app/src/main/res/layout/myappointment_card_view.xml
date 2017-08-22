@@ -94,6 +94,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingTop="@dimen/cardview_top_padding">
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/status_label"
+                    android:layout_weight="1"
+                    android:text="Status:  "/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/status"
+                    android:layout_weight="0"
+                    android:textStyle="normal|bold" />
+            </android.support.v7.widget.LinearLayoutCompat>
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:paddingTop="@dimen/cardview_top_padding"
                 android:paddingBottom="@dimen/cardview_top_padding"
                 android:id="@+id/location_horizontal">
