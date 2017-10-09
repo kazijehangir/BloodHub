@@ -33,62 +33,16 @@
     <string name="prompt_name">Name</string>
     <string name="check_box">Agree to share my details</string>
 
-    <string-array name="blood_groups">
-        <item>A+</item>
-        <item>B+</item>
-        <item>AB+</item>
-        <item>O+</item>
-        <item>A-</item>
-        <item>B-</item>
-        <item>AB-</item>
-        <item>O-</item>
-    </string-array>
-
     <!-- Strings related to Individual User Registeration -->
     <string name="prompt_org_name">Institute Name</string>
     <string name="prompt_contact">Contact No.</string>
     <string name="prompt_add">Address</string>
-
 
     <!-- Strings related to Emergency Request -->
     <string name="prompt_quan">Quantity</string>
     <string name="prompt_loc">Location</string>
     <string name="action_submit_request">Submit Request</string>
     <string name="prompt_reason">Reason/Why</string>
-
-    <string-array name="bag_quantity">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-    </string-array>
-
-    <string-array name="diagnosis">
-        <item>Surgery</item>
-        <item>Accident</item>
-        <item>Blood Disease</item>
-        <item>Infection</item>
-        <item>Other</item>
-    </string-array>
-
-    <string-array name="num_days">
-        <item>8</item>
-        <item>16</item>
-        <item>24</item>
-        <item>32</item>
-        <item>40</item>
-        <item>48</item>
-        <item>56</item>
-        <item>64</item>
-        <item>72</item>
-        <item>80</item>
-        <item>88</item>
-        <item>96</item>
-    </string-array>
 
     <!-- Strings related to Emergency Request -->
     <string name="faq1">Eligible to donate</string>
@@ -104,15 +58,6 @@
     <string name="popup_appointment">Your appointment has been set. </string>
     <string name="set">SET</string>
     <string name="signout">Sign out</string>
-    <string-array name="organizations_array">
-        <item>Fatmid</item>
-        <item>Shaukat Khanum</item>
-        <item>Sundus Foundation</item>
-        <item>Hussaini Blood Bank</item>
-        <item>National Hospital</item>
-        <item>Red Crescent</item>
-        <item>Children\'s Hospital</item>
-    </string-array>
     <!--Strings related to main activity-->
     <string name="title_activity_main">Home</string>
 
@@ -149,4 +94,6 @@
     <string name="key_group_request">bgroup_request</string>
     <string name="key_urgent_request">urgent_request</string>
     <string name="key_drive">nearby_bdrive</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

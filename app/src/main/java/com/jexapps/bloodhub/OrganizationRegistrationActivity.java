@@ -40,7 +40,7 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         username = (AutoCompleteTextView) findViewById(R.id.name);
-        String[] hospitals = getResources().getStringArray(R.array.hospitals);
+        String[] hospitals = getResources().getStringArray(R.array.organizations_array);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
         username.setAdapter(adapter);
         // Set OnClick Listeners for buttons

@@ -91,7 +91,7 @@ public class AddRequestActivity extends AppCompatActivity{
         transport_group = (RadioGroup) findViewById(R.id.transport);
         image = (TextView) findViewById(R.id.image_text);
 
-        String[] hospitals = getResources().getStringArray(R.array.hospitals);
+        String[] hospitals = getResources().getStringArray(R.array.organizations_array);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
         location.setAdapter(adapter);
 

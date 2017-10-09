@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="hospitals">
+    <string-array name="organizations_array">
         <!--Public-->
         <item>The Children\'s Hospital</item>
         <item>Jinnah Hospital</item>
@@ -66,5 +66,48 @@
         <item>Zia Hospital</item>
         <item>Dental Consultants</item>
         <item>Health Bridge Hospital</item>
+    </string-array>
+    <string-array name="num_days">
+        <item>8</item>
+        <item>16</item>
+        <item>24</item>
+        <item>32</item>
+        <item>40</item>
+        <item>48</item>
+        <item>56</item>
+        <item>64</item>
+        <item>72</item>
+        <item>80</item>
+        <item>88</item>
+        <item>96</item>
+    </string-array>
+    <string-array name="bag_quantity">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="diagnosis">
+        <item>Surgery</item>
+        <item>Accident</item>
+        <item>Blood Disease</item>
+        <item>Infection</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="blood_groups">
+        <item>A+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>O+</item>
+        <item>A-</item>
+        <item>B-</item>
+        <item>AB-</item>
+        <item>O-</item>
+        <item>Don\'t know</item>
+        <item>Blood Group</item>
     </string-array>
 </resources>
