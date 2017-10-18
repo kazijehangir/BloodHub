@@ -27,11 +27,11 @@ public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdap
 //        public ImageView mImage, mTransportImage;
         public ViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.card_view);
+//            cv = (CardView) itemView.findViewById(R.id.card_view);
             mName = (TextView) itemView.findViewById(R.id.name);
             mLocation = (TextView) itemView.findViewById(R.id.location);
             mWhen = (TextView) itemView.findViewById(R.id.time);
-            cv.setOnClickListener(this);
+//            cv.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {
