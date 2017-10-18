@@ -1,12 +1,16 @@
 package com.jexapps.bloodhub.m_UI;
 
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jexapps.bloodhub.MyRequestDetail;
 import com.jexapps.bloodhub.R;
+import com.jexapps.bloodhub.RequestDetail;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 
 import java.text.DateFormat;
@@ -19,15 +23,21 @@ public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdap
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public TextView mName, mLocation, mWhen;
+        protected CardView cv;
 //        public ImageView mImage, mTransportImage;
         public ViewHolder(View itemView) {
             super(itemView);
+            cv = (CardView) itemView.findViewById(R.id.card_view);
             mName = (TextView) itemView.findViewById(R.id.name);
             mLocation = (TextView) itemView.findViewById(R.id.location);
             mWhen = (TextView) itemView.findViewById(R.id.time);
+            cv.setOnClickListener(this);
         }
         @Override
-        public void onClick(View v) {
+        public void onClick(View view) {
+            Intent intent = new Intent(view.getContext(), MyRequestDetail.class);
+            intent.putExtra("request", (String) view.getTag());
+            view.getContext().startActivity(intent);
         }
     }
 
