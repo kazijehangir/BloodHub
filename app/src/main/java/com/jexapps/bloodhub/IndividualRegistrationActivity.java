@@ -2,6 +2,11 @@ package com.jexapps.bloodhub;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +15,11 @@ import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,25 +36,30 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.jexapps.bloodhub.m_Model.User;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
 public class IndividualRegistrationActivity extends AppCompatActivity {
+    ImageButton photo_btn;
     AutoCompleteTextView username, mEmailView;
     EditText mPasswordView;
-    CheckBox mTermsAgree;
-    ProgressBar progressBar;
     Spinner bloodGroup;
+    Uri image_file;
     String email, password, uname, bgroup;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
+    private static final int GALLERY_INTENT = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_registration);
+        setTitle("Individual Registration");
         //make the actionbar show arrow to go back to login
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -74,8 +83,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         username = (AutoCompleteTextView) findViewById(R.id.name);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
-//        mTermsAgree = (CheckBox) findViewById(R.id.agreeTerms);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+//        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         bloodGroup = (Spinner) findViewById(R.id.spin);
         try {
             Field popup = Spinner.class.getDeclaredField("mPopup");
@@ -107,6 +115,16 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         bloodGroup.setSelection(adapter.getCount());
 
         // Set OnClick Listeners for buttons
+        photo_btn = (ImageButton) findViewById(R.id.profile_photo);
+        photo_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+            }
+        });
+
         Button mRegisterButton = (Button) findViewById(R.id.register_individual_button);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +133,29 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+            image_file = data.getData();
+            InputStream is;
+            Drawable icon = getResources().getDrawable(R.drawable.user_default);
+            try {
+                is = this.getContentResolver().openInputStream(image_file);
+//                BitmapFactory.Options options=new BitmapFactory.Options();
+//                options.inSampleSize = 10;
+//                Bitmap preview_bitmap=BitmapFactory.decodeStream(is,null,options);
+                icon = Drawable.createFromStream(is, image_file.toString() );
+            } catch (FileNotFoundException e) {
+//                icon = getResources().getDrawable(R.drawable.shopping1);
+                Toast.makeText(this, "Heree",Toast.LENGTH_SHORT).show();
+            }
+            photo_btn.setImageDrawable(icon);
+//            photo_btn.setImageBitmap(bm);
+        }
     }
 
     @Override
