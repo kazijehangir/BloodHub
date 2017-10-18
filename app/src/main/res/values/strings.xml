@@ -136,7 +136,6 @@
     <string name="nav_report">Report a Problem</string>
     <string name="title_activity_individual_registration">IndividualRegistrationActivity</string>
     <string name="organization_name">Organization Name</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tems_cond">TemsCond</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
@@ -149,4 +148,5 @@
     <string name="key_group_request">bgroup_request</string>
     <string name="key_urgent_request">urgent_request</string>
     <string name="key_drive">nearby_bdrive</string>
+    <string name="email_verification_prompt">Enter your email address so that your email can be verified.</string>
 </resources>
