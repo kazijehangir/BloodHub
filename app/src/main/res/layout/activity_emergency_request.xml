@@ -10,7 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jexapps.bloodhub.EmergencyRequestActivity">
-<!--TODO: move emergency request from separate textview to page title-->
+<!--TODO: move emergency request
+from separate textview to page title-->
 <!--TODO: Add separate layout for request when logged in-->
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
