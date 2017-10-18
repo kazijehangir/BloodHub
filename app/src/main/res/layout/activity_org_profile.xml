@@ -18,7 +18,7 @@
             android:layout_height="200dp"
             android:layout_below="@+id/header_cover_image"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="-90dp"
+            android:layout_marginTop="-100dp"
             android:background="@drawable/profile_circular_imageview"
             android:elevation="5dp"
             android:padding="20dp"
@@ -26,10 +26,10 @@
             android:src="@drawable/boy" />
         <RelativeLayout
             android:id="@+id/profile_layout"
+            android:layout_marginTop="100dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header_cover_image"
-            android:background="#FFEBEE"
             android:elevation="4dp"
             android:paddingBottom="24dp">
             <!--<ImageView-->
@@ -45,10 +45,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="76dp"
+                android:layout_marginTop="20dp"
                 android:text="Red Crescent"
                 android:textColor="@color/fab1"
-                android:textSize="24sp"
+                android:textSize="32sp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/user_profile_number"
@@ -59,40 +59,17 @@
                 android:layout_marginTop="30dp"
                 android:text="Number: 03345123456"
                 android:textColor="@color/fab1"
-                android:textSize="14sp" />
+                android:textSize="24sp" />
             <TextView
-                android:id="@+id/user_profile_bgroup"
+                android:id="@+id/org_profile_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/user_profile_name"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="48dp"
-                android:text="Blood group"
+                android:layout_marginTop="58dp"
+                android:text="Address: "
                 android:textColor="@color/fab1"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/user_profile_Diagnosis"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_profile_name"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="66dp"
-                android:text="Diagnosis"
-                android:textColor="@color/fab1"
-                android:textSize="14sp" />
-            <TextView
-                android:id="@+id/user_profile_last_request"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/user_profile_name"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="84dp"
-                android:text="Last request"
-                android:textColor="@color/fab1"
-                android:textSize="14sp" />
-
-
-
+                android:textSize="24sp" />
         </RelativeLayout>
 
 

@@ -96,6 +96,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
                 dialog.show();
                 final Button setDate = (Button) dialog.findViewById(R.id.set_date);
                 final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePicker);
+                datePicker.setMinDate(System.currentTimeMillis() - 1000);
                 setDate.setOnClickListener(new View.OnClickListener(){
 
                     @Override
