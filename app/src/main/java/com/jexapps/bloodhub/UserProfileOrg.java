@@ -34,13 +34,15 @@ public class UserProfileOrg extends AppCompatActivity  {
         super.onStart();
         final TextView name = (TextView) findViewById(R.id.user_profile_name);
         final TextView number = (TextView) findViewById(R.id.user_profile_number);
+        final TextView address = (TextView) findViewById(R.id.org_profile_address);
         //add value event listener to the user
         ValueEventListener userListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User curruser = dataSnapshot.getValue(User.class);
                 name.setText("Name: " + curruser.username);
-                number.setText("Number : " + curruser.number);
+                number.setText("Number: " + curruser.number);
+                address.setText("Address: "+ curruser.address);
             }
 
             @Override

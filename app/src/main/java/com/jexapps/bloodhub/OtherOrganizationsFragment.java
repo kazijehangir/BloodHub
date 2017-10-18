@@ -4,9 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.jexapps.bloodhub.m_Model.User;
+
+import java.util.ArrayList;
 
 
 /**
@@ -22,6 +29,14 @@ public class OtherOrganizationsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    DatabaseReference db;
+    ArrayList<User> organizations;
+    ArrayList<String> keys;
+
+    private RecyclerView mRecyclerView;
+    private TextView numRequests;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
