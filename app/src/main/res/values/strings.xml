@@ -148,5 +148,6 @@
     <string name="key_group_request">bgroup_request</string>
     <string name="key_urgent_request">urgent_request</string>
     <string name="key_drive">nearby_bdrive</string>
-    <string name="email_verification_prompt">Enter your email address so that your email can be verified.</string>
+    <string name="email_verification_prompt">Enter your email address so that your password can be reset.</string>
+    <string name="send_email">Send Password Reset Email</string>
 </resources>
