@@ -4,200 +4,103 @@
     android:id="@+id/activity_edit_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.jexapps.bloodhub.EditProfile"
-    android:layout_marginRight="5dp"
     android:layout_marginLeft="5dp"
-    android:layout_marginStart="5dp">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_marginRight="5dp"
+    android:layout_marginStart="5dp"
+    android:orientation="vertical"
+    tools:context="com.jexapps.bloodhub.EditProfile">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="150dp"
-            android:layout_marginRight="5dp"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/boy"
-            android:layout_height="120dp"
-            android:layout_marginTop="15dp" />
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name: Aimen Gaba"
-            android:textSize="20sp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/image1"
-            android:layout_toEndOf="@+id/image1"
-            android:layout_marginTop="20dp" />
-
-        <TextView
-            android:id="@+id/age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Age: 20"
-            android:textSize="20sp"
-            android:layout_below="@+id/name"
-            android:layout_toRightOf="@+id/image1"
-            android:layout_toEndOf="@+id/image1"
-            android:layout_marginTop="7dp" />
-
-        <TextView
-            android:id="@+id/blood_g"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Blood Group: A+"
-            android:textSize="20sp"
-            android:layout_below="@+id/age"
-            android:layout_toRightOf="@+id/image1"
-            android:layout_toEndOf="@+id/image1"
-            android:layout_marginTop="7dp" />
-
-        <TextView
-            android:id="@+id/con_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contact No: 5855950"
-            android:textSize="20sp"
-            android:layout_below="@+id/blood_g"
-            android:layout_toRightOf="@+id/image1"
-            android:layout_toEndOf="@+id/image1"
-            android:layout_marginTop="7dp" />
-        <Button
-            android:id="@+id/edit_pro"
-            android:text="Edit Profile"
-            android:textColor="@android:color/background_light"
-            android:background="@drawable/dialog_bg"
-            android:layout_below="@+id/image1"
-            android:layout_marginLeft="7dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginTop="5dp" />
-
-    </RelativeLayout>
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:background="@color/fab1"
-            android:layout_height="3dp"
-            android:layout_marginTop="5dp" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/imageButton1"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/don_info"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="23dp"
-            android:layout_marginStart="23dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="332dp">
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/reqlast"
-            android:layout_marginRight="27dp"
-            android:layout_marginEnd="27dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Donation Info"
-            android:textSize="18sp"
-            android:textColor="@color/fab1"
-            android:id="@+id/textView2"
-            android:layout_weight="1"
-            android:gravity="center" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Requests Info"
-            android:textColor="@color/fab1"
-            android:textSize="18sp"
-            android:id="@+id/textView4"
-            android:layout_weight="1"
-            android:gravity="center" />
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/header_cover_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/header_background" />
 
-        <ImageButton
-            android:id="@+id/imageButton3"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/health_info"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="23dp"
-            android:layout_marginStart="23dp" />
+                <ImageButton
+                    android:id="@+id/user_profile_photo"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_below="@+id/header_cover_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="-90dp"
+                    android:background="@drawable/profile_circular_imageview"
+                    android:elevation="5dp"
+                    android:padding="20dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/boy" />
 
-        <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/more_info"
-            android:layout_marginRight="27dp"
-            android:layout_marginEnd="27dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Health Info"
-            android:textSize="18sp"
-            android:textColor="@color/fab1"
-            android:id="@+id/textView1"
-            android:layout_weight="1"
-            android:gravity="center" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="More Info"
-            android:textColor="@color/fab1"
-            android:textSize="18sp"
-            android:id="@+id/textView3"
-            android:layout_weight="1"
-            android:gravity="center" />
-    </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aimen Gaba"
+                    android:textStyle="bold"
+                    android:textColor="@color/fab2"
+                    android:textSize="28sp"
+                    android:layout_marginLeft="15sp"
+                    android:layout_below="@+id/user_profile_photo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/image1"
+                    android:layout_toRightOf="@+id/image1"
+                    android:text="Age: 20"
+                    android:textSize="25sp"
+                    android:layout_marginLeft="15sp"/>
+
+                <TextView
+                    android:id="@+id/blood_g"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/age"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/image1"
+                    android:layout_toRightOf="@+id/image1"
+                    android:text="Blood Group: A+"
+                    android:textSize="25sp"
+                    android:layout_marginLeft="15sp"/>
+
+                <TextView
+                    android:id="@+id/con_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/blood_g"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/image1"
+                    android:layout_toRightOf="@+id/image1"
+                    android:text="Contact No: 5855950"
+                    android:textSize="25sp"
+                    android:layout_marginLeft="15sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
