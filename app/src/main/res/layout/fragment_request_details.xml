@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="4dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp"
+            app:contentPadding="5dp">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:id="@+id/root_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:id="@+id/left_vertical"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="4dp">
+
+                    <ImageView
+                        android:id="@+id/org_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/skmch" />
+                </android.support.v7.widget.LinearLayoutCompat>
+
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:id="@+id/right_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingRight="4dp">
+
+                    <android.support.v7.widget.LinearLayoutCompat
+                        android:id="@+id/name_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/cardview_top_padding">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/name_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Name:  " />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="Jamshed"
+                            android:textStyle="normal|bold" />
+                    </android.support.v7.widget.LinearLayoutCompat>
+
+                    <android.support.v7.widget.LinearLayoutCompat
+                        android:id="@+id/when_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/cardview_top_padding">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/when_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="When:  " />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="URGENT"
+                            android:textStyle="normal|bold" />
+                    </android.support.v7.widget.LinearLayoutCompat>
+
+                    <android.support.v7.widget.LinearLayoutCompat
+                        android:id="@+id/location_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/cardview_top_padding">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/location_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Location:  " />
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0"
+                            android:text="National Hospital"
+                            android:textStyle="normal|bold" />
+                    </android.support.v7.widget.LinearLayoutCompat>
+                </android.support.v7.widget.LinearLayoutCompat>
+            </android.support.v7.widget.LinearLayoutCompat>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
+
+        <Button
+            android:id="@+id/edit_request_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Request"
+            android:textColor="@color/fab2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/delete_request_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Request"
+            android:textColor="@color/fab2"
+            android:layout_below="@+id/edit_request_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/delete_request_button"
+            android:layout_alignParentStart="true">
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="2dp"
+                app:cardElevation="2dp"
+                app:contentPadding="5dp">
+
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:id="@+id/root_horizontal2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.LinearLayoutCompat
+                        android:id="@+id/left_vertical2"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingTop="4dp">
+
+                        <ImageView
+                            android:id="@+id/res_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/boy" />
+                    </android.support.v7.widget.LinearLayoutCompat>
+
+                    <android.support.v7.widget.LinearLayoutCompat
+                        android:id="@+id/right_vertical2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingRight="4dp">
+
+                        <android.support.v7.widget.LinearLayoutCompat
+                            android:id="@+id/name_horizontal2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/cardview_top_padding">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/name_label2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Name:  " />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/name2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:text="Jamshed"
+                                android:textStyle="normal|bold" />
+                        </android.support.v7.widget.LinearLayoutCompat>
+
+                        <android.support.v7.widget.LinearLayoutCompat
+                            android:id="@+id/res_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/cardview_top_padding">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/res_age_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Age:  " />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/r_age"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:text="20"
+                                android:textStyle="normal|bold" />
+                        </android.support.v7.widget.LinearLayoutCompat>
+
+                        <android.support.v7.widget.LinearLayoutCompat
+                            android:id="@+id/res_bgroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/cardview_top_padding">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/res_bgroup_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Blood Group:  " />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/rbgroup"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:text="B+"
+                                android:textStyle="normal|bold" />
+                        </android.support.v7.widget.LinearLayoutCompat>
+                        <android.support.v7.widget.LinearLayoutCompat
+                            android:id="@+id/res_lsaved"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="@dimen/cardview_top_padding">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/res_lsaved_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Lives Saved:  " />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/r_lsaved"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0"
+                                android:text="2"
+                                android:textStyle="normal|bold" />
+                        </android.support.v7.widget.LinearLayoutCompat>
+                    </android.support.v7.widget.LinearLayoutCompat>
+                </android.support.v7.widget.LinearLayoutCompat>
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
