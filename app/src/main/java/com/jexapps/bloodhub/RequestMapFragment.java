@@ -49,11 +49,28 @@ public class RequestMapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_request_map, container, false);
-
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         location = new SimpleLocation(getContext());
         mMapView.onResume(); // needed to get the map to display immediately`
+
+        // For showing a move to my location button googleMap.setMyLocationEnabled(true);
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            setupMap();
+        }
+        else {
+            // Show rationale and request permission.
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+        }
+        return rootView;
+    }
+
+    public void setupMap() {
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -64,67 +81,79 @@ public class RequestMapFragment extends Fragment {
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
-                googleMap = mMap;
-                // For showing a move to my location button
-//                googleMap.setMyLocationEnabled(true);
-                if (ContextCompat.checkSelfPermission(getContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                {
-                    googleMap.setMyLocationEnabled(true);
-                }
-                else
-                {
-                    // Show rationale and request permission.
-                    ActivityCompat.requestPermissions(getActivity(),
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-
-                }
-                // For dropping a marker at a point on the Map
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.HOUR_OF_DAY, 0);
-                cal.set(Calendar.MINUTE, 0);
-                cal.set(Calendar.SECOND, 0);
-                cal.set(Calendar.MILLISECOND, 0);
-                Date startDate = cal.getTime();
-                FirebaseDatabase.getInstance().getReference().child("bloodrequests").orderByChild("date").startAt(startDate.getTime()).limitToFirst(15).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot child: dataSnapshot.getChildren()) {
-                            BloodRequest request = child.getValue(BloodRequest.class);
-                            if (request.latitude != -1 && request.longitude != -1){
-                                String needs = request.quantity+" bags of "+request.blood_group;
-                                Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(request.latitude,request.longitude)).title(request.name).snippet(needs));
-                                marker.setTag(child.getKey());
-                            }
+            googleMap = mMap;
+            if (ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                googleMap.setMyLocationEnabled(true);
+            }
+            // For dropping a marker at a point on the Map
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            Date startDate = cal.getTime();
+            FirebaseDatabase.getInstance().getReference().child("bloodrequests").orderByChild("date").startAt(startDate.getTime()).limitToFirst(15).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot child: dataSnapshot.getChildren()) {
+                        BloodRequest request = child.getValue(BloodRequest.class);
+                        if (request.latitude != -1 && request.longitude != -1){
+                            String needs = request.quantity+" bags of "+request.blood_group;
+                            Marker marker = googleMap.addMarker(new MarkerOptions().position(new LatLng(request.latitude,request.longitude)).title(request.name).snippet(needs));
+                            marker.setTag(child.getKey());
                         }
                     }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-                // if we can't access the location yet
-                if (!location.hasLocationEnabled()) {
-                    // ask the user to enable location access
-                    SimpleLocation.openSettings(getContext());
                 }
-                final double latitude = location.getLatitude();
-                final double longitude = location.getLongitude();
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude,longitude)).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+            // if we can't access the location yet
+            if (!location.hasLocationEnabled()) {
+                // ask the user to enable location access
+                SimpleLocation.openSettings(getContext());
+            }
+            final double latitude = location.getLatitude();
+            final double longitude = location.getLongitude();
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude,longitude)).zoom(12).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-                googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-                    @Override
-                    public void onInfoWindowClick(Marker marker) {
-                        Intent intent = new Intent(getContext(), RequestDetail.class);
-                        intent.putExtra("request", (String) marker.getTag());
-                        getContext().startActivity(intent);
-                    }
-                });
+            googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Intent intent = new Intent(getContext(), RequestDetail.class);
+                    intent.putExtra("request", (String) marker.getTag());
+                    getContext().startActivity(intent);
+                }
+            });
             }
         });
 
-        return rootView;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay!
+                    setupMap();
+
+                } else {
+                    // permission denied, boo!
+                    getActivity().onBackPressed();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     @Override
