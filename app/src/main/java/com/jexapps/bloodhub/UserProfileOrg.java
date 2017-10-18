@@ -32,8 +32,8 @@ public class UserProfileOrg extends AppCompatActivity  {
     @Override
     public void onStart() {
         super.onStart();
-        final TextView name = (TextView) findViewById(R.id.name);
-        final TextView number = (TextView) findViewById(R.id.con_num);
+        final TextView name = (TextView) findViewById(R.id.user_profile_name);
+        final TextView number = (TextView) findViewById(R.id.user_profile_number);
         //add value event listener to the user
         ValueEventListener userListener = new ValueEventListener() {
             @Override
