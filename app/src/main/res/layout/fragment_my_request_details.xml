@@ -147,12 +147,24 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Respondents:"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:textColor="@color/fab2"
+            android:layout_below="@+id/delete_request_button"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp" />
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:layout_below="@+id/delete_request_button"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:id="@+id/relativeLayout2">
 
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -286,9 +298,33 @@
                         </android.support.v7.widget.LinearLayoutCompat>
                     </android.support.v7.widget.LinearLayoutCompat>
                 </android.support.v7.widget.LinearLayoutCompat>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="164dp">
+
+                    <Button
+                        android:id="@+id/button7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="66dp"
+                        android:text="Decline" />
+                </RelativeLayout>
             </android.support.v7.widget.CardView>
 
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="69dp"
+            android:text="Accept"
+            android:layout_alignBottom="@+id/relativeLayout2"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="17dp" />
 
     </RelativeLayout>
 
