@@ -30,12 +30,16 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         if (remoteMessage.getData().size() > 0) {
             intentId = remoteMessage.getData().get("requestId");
             notificationKey = remoteMessage.getData().get("notificationKey");
+        } else {
+            return;
         }
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             title = remoteMessage.getNotification().getTitle();
             body = remoteMessage.getNotification().getBody();
+        } else {
+            return;
         }
         sendNotification(title, body, intentId, notificationKey);
     }
