@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Enter your email address so that your email can be varified "
+        android:text="@string/email_verification_prompt"
         android:textSize="20sp"
         />
     <AutoCompleteTextView
