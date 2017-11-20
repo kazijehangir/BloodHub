@@ -2,11 +2,32 @@ package com.jexapps.bloodhub;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,14 +39,20 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class NewsListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "NewsListFragment";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView mRecyclerView;
+    private EditText mEditText;
+    private Button mFetchFeedButton;
+    private SwipeRefreshLayout mSwipeLayout;
+    private TextView mFeedTitleTextView;
+    private TextView mFeedLinkTextView;
+    private TextView mFeedDescriptionTextView;
+
+    private List<RssFeedModel> mFeedModelList;
+    private String mFeedTitle;
+    private String mFeedLink;
+    private String mFeedDescription;
 
     private OnFragmentInteractionListener mListener;
 
@@ -37,27 +64,17 @@ public class NewsListFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment NewsListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewsListFragment newInstance(String param1, String param2) {
+    public static NewsListFragment newInstance() {
         NewsListFragment fragment = new NewsListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -67,6 +84,32 @@ public class NewsListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_news_list, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
+//        mEditText = (EditText) getView().findViewById(R.id.rssFeedEditText);
+//        mFetchFeedButton = (Button) getView().findViewById(R.id.fetchFeedButton);
+        mSwipeLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeRefreshLayout);
+//        mFeedTitleTextView = (TextView) getView().findViewById(R.id.feedTitle);
+//        mFeedDescriptionTextView = (TextView) getView().findViewById(R.id.feedDescription);
+//        mFeedLinkTextView = (TextView) getView().findViewById(R.id.feedLink);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+//        mFetchFeedButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                new FetchFeedTask().execute((Void) null);
+//            }
+//        });
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new FetchFeedTask().execute((Void) null);
+            }
+        });
+        new FetchFeedTask().execute((Void) null);
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -105,4 +148,129 @@ public class NewsListFragment extends Fragment {
         // TODO: Update argument type and name
         void onNewsListFragmentInteraction(Uri uri);
     }
+
+    public List<RssFeedModel> parseFeed(InputStream inputStream) throws XmlPullParserException, IOException {
+        String title = null;
+        String link = null;
+        String description = null;
+        boolean isItem = false;
+        List<RssFeedModel> items = new ArrayList<>();
+
+        try {
+            XmlPullParser xmlPullParser = Xml.newPullParser();
+            xmlPullParser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
+            xmlPullParser.setInput(inputStream, null);
+
+            xmlPullParser.nextTag();
+            while (xmlPullParser.next() != XmlPullParser.END_DOCUMENT) {
+                int eventType = xmlPullParser.getEventType();
+
+                String name = xmlPullParser.getName();
+                if(name == null)
+                    continue;
+
+                if(eventType == XmlPullParser.END_TAG) {
+                    if(name.equalsIgnoreCase("item")) {
+                        isItem = false;
+                    }
+                    continue;
+                }
+
+                if (eventType == XmlPullParser.START_TAG) {
+                    if(name.equalsIgnoreCase("item")) {
+                        isItem = true;
+                        continue;
+                    }
+                }
+
+                Log.d("MainActivity", "Parsing name ==> " + name);
+                String result = "";
+                if (xmlPullParser.next() == XmlPullParser.TEXT) {
+                    result = xmlPullParser.getText();
+                    xmlPullParser.nextTag();
+                }
+
+                if (name.equalsIgnoreCase("title")) {
+                    title = result;
+                } else if (name.equalsIgnoreCase("link")) {
+                    link = result;
+                } else if (name.equalsIgnoreCase("description")) {
+                    description = result;
+                }
+
+                if (title != null && link != null && description != null) {
+                    if(isItem) {
+                        RssFeedModel item = new RssFeedModel(title, link, description);
+                        items.add(item);
+                    }
+                    else {
+//                        mFeedTitle = title;
+//                        mFeedLink = link;
+//                        mFeedDescription = description;
+                    }
+
+                    title = null;
+                    link = null;
+                    description = null;
+                    isItem = false;
+                }
+            }
+
+            return items;
+        } finally {
+            inputStream.close();
+        }
+    }
+
+    private class FetchFeedTask extends AsyncTask<Void, Void, Boolean> {
+
+        private String urlLink;
+
+        @Override
+        protected void onPreExecute() {
+            mSwipeLayout.setRefreshing(true);
+//            urlLink = mEditText.getText().toString();
+            urlLink = "https://rss.medicalnewstoday.com/blood.xml";
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            if (TextUtils.isEmpty(urlLink))
+                return false;
+
+            try {
+                if(!urlLink.startsWith("http://") && !urlLink.startsWith("https://"))
+                    urlLink = "http://" + urlLink;
+
+                URL url = new URL(urlLink);
+                InputStream inputStream = url.openConnection().getInputStream();
+                mFeedModelList = parseFeed(inputStream);
+                return true;
+            } catch (IOException e) {
+                Log.e(TAG, "Error", e);
+            } catch (XmlPullParserException e) {
+                Log.e(TAG, "Error", e);
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            mSwipeLayout.setRefreshing(false);
+
+            if (success) {
+//                mFeedTitleTextView.setText("Feed Title: " + mFeedTitle);
+//                mFeedDescriptionTextView.setText("Feed Description: " + mFeedDescription);
+//                mFeedLinkTextView.setText("Feed Link: " + mFeedLink);
+                // Fill RecyclerView
+                mRecyclerView.setAdapter(new RssFeedListAdapter(getActivity(), mFeedModelList));
+            } else {
+                Toast.makeText(getActivity(),
+                        "Enter a valid Rss feed url",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 }
+
+
