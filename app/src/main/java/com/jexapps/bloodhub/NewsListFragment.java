@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
@@ -87,21 +86,10 @@ public class NewsListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mRecyclerView = (RecyclerView) getView().findViewById(R.id.recyclerView);
-//        mEditText = (EditText) getView().findViewById(R.id.rssFeedEditText);
-//        mFetchFeedButton = (Button) getView().findViewById(R.id.fetchFeedButton);
         mSwipeLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeRefreshLayout);
-//        mFeedTitleTextView = (TextView) getView().findViewById(R.id.feedTitle);
-//        mFeedDescriptionTextView = (TextView) getView().findViewById(R.id.feedDescription);
-//        mFeedLinkTextView = (TextView) getView().findViewById(R.id.feedLink);
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(new RssFeedListAdapter(getActivity(), new ArrayList<RssFeedModel>()));
 
-//        mFetchFeedButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                new FetchFeedTask().execute((Void) null);
-//            }
-//        });
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -223,33 +211,48 @@ public class NewsListFragment extends Fragment {
     }
 
     private class FetchFeedTask extends AsyncTask<Void, Void, Boolean> {
-
-        private String urlLink;
-
+        // TODO(kazijehangir): Update parsing logic to support all these feeds.
+        private String[] rss_urls = {
+                "https://rss.medicalnewstoday.com/blood.xml",
+//                "https://www.medicinenet.com/audio/audionewsletter.xml",
+//                "https://blood.ca/en/media-news-rss",
+//                "https://blood.ca/en/blog-rss",
+//                "http://www.bloodjournal.org/rss/current.xml",
+//                "http://feeds.bbci.co.uk/news/health/rss.xml",
+//                "http://feeds.reuters.com/reuters/healthNews"
+        };
         @Override
         protected void onPreExecute() {
             mSwipeLayout.setRefreshing(true);
 //            urlLink = mEditText.getText().toString();
-            urlLink = "https://rss.medicalnewstoday.com/blood.xml";
         }
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            if (TextUtils.isEmpty(urlLink))
-                return false;
+            // Create empty list.
+            mFeedModelList= new ArrayList<>();
 
-            try {
-                if(!urlLink.startsWith("http://") && !urlLink.startsWith("https://"))
-                    urlLink = "http://" + urlLink;
+            // Get rss items for each rss feed url.
+            // TODO(kazijehangir): For loop doesn't work; just receives first feed.
+            // Probably something to do with async task.
+            for (String urlLink: rss_urls) {
+                Log.e(TAG, "Getting feed:" + urlLink);
+                try {
+                    if(!urlLink.startsWith("http://") && !urlLink.startsWith("https://"))
+                        urlLink = "http://" + urlLink;
 
-                URL url = new URL(urlLink);
-                InputStream inputStream = url.openConnection().getInputStream();
-                mFeedModelList = parseFeed(inputStream);
-                return true;
-            } catch (IOException e) {
-                Log.e(TAG, "Error", e);
-            } catch (XmlPullParserException e) {
-                Log.e(TAG, "Error", e);
+                    URL url = new URL(urlLink);
+                    InputStream inputStream = url.openConnection().getInputStream();
+                    List<RssFeedModel> newList = parseFeed(inputStream);
+                    Log.e(TAG, "adding newlist with elements" + newList.size());
+
+                    mFeedModelList.addAll(newList);
+                    return true;
+                } catch (IOException e) {
+                    Log.e(TAG, "Error", e);
+                } catch (XmlPullParserException e) {
+                    Log.e(TAG, "Error", e);
+                }
             }
             return false;
         }
