@@ -28,15 +28,14 @@ public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdap
 //        public ImageView mImage, mTransportImage;
         public ViewHolder(View itemView) {
             super(itemView);
-//            cv = (CardView) itemView.findViewById(R.id.card_view);
+            cv = (CardView) itemView.findViewById(R.id.card_view);
             mName = (TextView) itemView.findViewById(R.id.name);
             mLocation = (TextView) itemView.findViewById(R.id.location);
             mWhen = (TextView) itemView.findViewById(R.id.time);
-//            cv.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "Clicking on request to open details.", Toast.LENGTH_SHORT);
 
             Intent intent = new Intent(view.getContext(), MyRequestDetail.class);
             intent.putExtra("request", (String) view.getTag());
