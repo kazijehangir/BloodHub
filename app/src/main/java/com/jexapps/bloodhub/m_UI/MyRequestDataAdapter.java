@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jexapps.bloodhub.MyRequestDetail;
 import com.jexapps.bloodhub.R;
@@ -35,6 +36,8 @@ public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdap
         }
         @Override
         public void onClick(View view) {
+            Toast.makeText(view.getContext(), "Clicking on request to open details.", Toast.LENGTH_SHORT);
+
             Intent intent = new Intent(view.getContext(), MyRequestDetail.class);
             intent.putExtra("request", (String) view.getTag());
             view.getContext().startActivity(intent);

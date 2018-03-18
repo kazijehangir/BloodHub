@@ -262,9 +262,6 @@ public class NewsListFragment extends Fragment {
             mSwipeLayout.setRefreshing(false);
 
             if (success) {
-//                mFeedTitleTextView.setText("Feed Title: " + mFeedTitle);
-//                mFeedDescriptionTextView.setText("Feed Description: " + mFeedDescription);
-//                mFeedLinkTextView.setText("Feed Link: " + mFeedLink);
                 // Fill RecyclerView
                 mRecyclerView.setAdapter(new RssFeedListAdapter(getActivity(), mFeedModelList));
             } else {
