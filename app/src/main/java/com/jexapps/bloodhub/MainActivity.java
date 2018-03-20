@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(MainActivity.this, EmergencyRequestActivity.class);
+                Intent intent = new Intent(MainActivity.this, AddRequestActivity.class);
                 intent.putExtra("mEmail", mEmail);
                 startActivity(intent);
             }

@@ -40,7 +40,7 @@ public class UserProfileOrg extends AppCompatActivity  {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User curruser = dataSnapshot.getValue(User.class);
-                name.setText("Name: " + curruser.username);
+                name.setText(curruser.username);
                 number.setText("Number: " + curruser.number);
                 address.setText("Address: "+ curruser.address);
             }

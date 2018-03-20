@@ -41,18 +41,21 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/name_label"
+                    android:id="@+id/name_text"
                     android:layout_weight="1"
                     android:layout_gravity="left"
-                    android:text="Name:"/>
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/name_text"
-                    android:layout_weight="0"
-                    android:layout_gravity="right"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
                     android:text="Jamshed"
-                    android:textStyle="normal|bold" />
+                    android:textStyle="normal|bold"/>
+                <!--<android.support.v7.widget.AppCompatTextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/name_t"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:layout_gravity="right"-->
+                    <!--android:text="Jamshed"-->
+                    <!--android:textStyle="normal|bold" />-->
             </android.support.v7.widget.LinearLayoutCompat>
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
