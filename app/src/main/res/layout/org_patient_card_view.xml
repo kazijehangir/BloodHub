@@ -37,21 +37,32 @@
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/cardview_top_padding"
                 android:id="@+id/name_horizontal">
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/name_label"
-                    android:layout_weight="1"
-                    android:layout_gravity="left"
-                    android:text="Name:"/>
+                <!--<android.support.v7.widget.AppCompatTextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/name_label"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_gravity="left"-->
+                    <!--android:text="Name:"/>-->
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/name_text"
-                    android:layout_weight="0"
-                    android:layout_gravity="right"
-                    android:text="Jamshed"
-                    android:textStyle="normal|bold" />
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:maxHeight="40dp"
+                    android:textSize="16dp"
+                    android:layout_gravity="left"
+                    android:text="Name:"
+                    android:textStyle="normal|bold"/>
+                <!--<android.support.v7.widget.AppCompatTextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/name_text"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:layout_gravity="right"-->
+                    <!--android:text="Jamshed"-->
+                    <!--android:textStyle="normal|bold" />-->
             </android.support.v7.widget.LinearLayoutCompat>
 
             <android.support.v7.widget.LinearLayoutCompat

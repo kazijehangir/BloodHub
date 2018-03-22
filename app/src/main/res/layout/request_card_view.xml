@@ -122,7 +122,7 @@
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="8"
+                        android:ems="7"
                         android:maxHeight="35dp"
                         android:id="@+id/location_text"
                         android:layout_weight="0"
