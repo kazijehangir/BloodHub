@@ -242,16 +242,16 @@ public class AddRequestActivity extends AppCompatActivity{
         @Override
         protected String doInBackground(String... address) {
             String response;
-            try{
+            try {
 //                String address = strings[0];
                 HttpDataHandler http = new HttpDataHandler();
                 String url = String.format(
                         "https://maps.googleapis.com/maps/api/geocode/json?address=%s",address);
                 response = http.getHTTPData(url);
                 return response;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"Error in map search",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
             return null;
         }
@@ -272,7 +272,7 @@ public class AddRequestActivity extends AppCompatActivity{
                 }
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
         }
     }

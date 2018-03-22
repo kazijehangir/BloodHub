@@ -19,6 +19,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:weightSum="1">
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -46,16 +47,17 @@
                     android:dropDownVerticalOffset="10dp"
                     android:layout_centerHorizontal="true">
                 </Spinner>
+
                 <TextView
                     android:id="@+id/bloodg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Blood Group"
-                    android:textColor="@color/fab1"
-                    android:textSize="18sp"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="Blood Group *"
+                    android:textColor="@color/fab1"
+                    android:textSize="18sp" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -91,7 +93,7 @@
                     android:inputType="phone"
                     android:ems="10"
                     android:id="@+id/contact_num"
-                    android:hint="Contact no" />
+                    android:hint="Contact number *" />
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -108,16 +110,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
+
                 <TextView
                     android:id="@+id/set_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date: "
-                    android:textColor="@color/fab1"
-                    android:textSize="18sp"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="Date *"
+                    android:textColor="@color/fab1"
+                    android:textSize="18sp" />
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -134,13 +137,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Diagnosis:"
-                android:textColor="@color/fab1"
-                android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Diagnosis *"
+                    android:textColor="@color/fab1"
+                    android:textSize="18sp" />
             <Spinner
                 android:id="@+id/diagnosis"
                 android:layout_width="wrap_content"
@@ -159,10 +163,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Transport: "
+                        android:text="Transport *"
                         android:textColor="@color/fab1"
                         android:textSize="18sp" />
                     <RadioButton android:id="@+id/available"
@@ -198,6 +203,15 @@
                     android:textSize="18sp">
                 </TextView>
             </RelativeLayout>/
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="* = Required Field"
+                android:textColor="@color/fab1"
+                android:textSize="18sp" />
+
             <Button
                 android:id="@+id/submit_button"
                 style="?android:textAppearanceSmall"
