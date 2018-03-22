@@ -84,7 +84,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
                 } else if (transport_text.equals("Not Available")){
                     transport = false;
                 }
-                String address = loc+", Lahore, Pakistan";
+                String address = loc + ", Pakistan";
                 new GetCoordinates().execute(address.replace(" ", "+"));
             }
         });

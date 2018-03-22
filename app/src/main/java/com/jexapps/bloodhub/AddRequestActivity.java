@@ -155,8 +155,8 @@ public class AddRequestActivity extends AppCompatActivity{
                 transport = false;
             }
             new_request = db.push();
-//            TODO: Generalize this to work outside Lahore too.
-            String address = loc + ", Lahore, Pakistan";
+//            TODO: Generalize this to work outside Pakistan too.
+            String address = loc + ", Pakistan";
             new GetCoordinates().execute(address.replace(" ", "+"));
             if (image_file != null) {
                 mStorageRef.child(new_request.getKey()).putFile(image_file)
