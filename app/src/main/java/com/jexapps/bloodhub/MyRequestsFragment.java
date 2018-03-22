@@ -24,7 +24,7 @@ import com.jexapps.bloodhub.m_UI.MyRequestDataAdapter;
 
 import java.util.ArrayList;
 
-public class RequestsFragment extends Fragment {
+public class MyRequestsFragment extends Fragment {
     DatabaseReference db;
     ArrayList<BloodRequest> requests;
 
@@ -34,7 +34,7 @@ public class RequestsFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private OnFragmentInteractionListener mListener;
 
-    public RequestsFragment() {
+    public MyRequestsFragment() {
         // Required empty public constructor
     }
 

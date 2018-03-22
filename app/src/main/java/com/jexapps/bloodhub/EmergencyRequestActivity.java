@@ -29,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.Random;
 
 public class EmergencyRequestActivity extends AppCompatActivity {
 // TODO: try to get location automatically
@@ -83,7 +84,7 @@ public class EmergencyRequestActivity extends AppCompatActivity {
                 } else if (transport_text.equals("Not Available")){
                     transport = false;
                 }
-                String address = loc+", Lahore, Pakistan";
+                String address = loc + ", Pakistan";
                 new GetCoordinates().execute(address.replace(" ", "+"));
             }
         });
@@ -122,7 +123,10 @@ public class EmergencyRequestActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
             }
             String regToken = FirebaseInstanceId.getInstance().getToken();
-            BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc, lat, lng, diag, new Date().getTime(), transport, regToken);
+            BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc,
+                    lat + ((Math.random() - 0.5) / 4000),
+                    lng + ((Math.random() - 0.5) / 4000),
+                    diag, new Date().getTime(), transport, regToken);
             db.push().setValue(request);
             dialog = new Dialog(EmergencyRequestActivity.this);
             dialog.setContentView(R.layout.popup_submit);

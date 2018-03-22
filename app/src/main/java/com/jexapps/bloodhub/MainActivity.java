@@ -4,7 +4,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.jexapps.bloodhub.m_Model.User;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,7 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        RequestsFragment.OnFragmentInteractionListener,
+        MyRequestsFragment.OnFragmentInteractionListener,
         DonationsFragment.OnFragmentInteractionListener,
         AppointmentsFragment.OnFragmentInteractionListener,
         FaqFragment.OnFragmentInteractionListener,
@@ -71,7 +69,11 @@ public class MainActivity extends AppCompatActivity
         request = false;
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        mEmail = user.getEmail();
+        if (user != null) {
+            mEmail = user.getEmail();
+        } else {
+            super.onBackPressed();
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -240,7 +242,7 @@ public class MainActivity extends AppCompatActivity
                 args.putString("mEmail",mEmail);
                 break;
             case R.id.nav_requests:
-                fragmentClass = RequestsFragment.class;
+                fragmentClass = MyRequestsFragment.class;
                 break;
             case R.id.nav_request_map:
                 fragmentClass = RequestMapFragment.class;

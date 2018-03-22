@@ -30,7 +30,7 @@
     </string>
 
     <!-- Strings related to Individual User Registeration -->
-    <string name="prompt_name">Name</string>
+    <string name="prompt_name">Name *</string>
     <string name="check_box">Agree to share my details</string>
 
     <string-array name="blood_groups">
@@ -52,7 +52,7 @@
 
     <!-- Strings related to Emergency Request -->
     <string name="prompt_quan">Quantity</string>
-    <string name="prompt_loc">Location</string>
+    <string name="prompt_loc">Location (include city)*</string>
     <string name="action_submit_request">Submit Request</string>
     <string name="prompt_reason">Reason/Why</string>
 

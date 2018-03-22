@@ -51,7 +51,7 @@
             android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".ForgotPasswordActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".LoginActivity"/>
         <activity
             android:name=".IndividualRegistrationActivity"
             android:parentActivityName=".LoginActivity">

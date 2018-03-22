@@ -155,8 +155,8 @@ public class AddRequestActivity extends AppCompatActivity{
                 transport = false;
             }
             new_request = db.push();
-//            TODO: Generalize this to work outside Lahore too.
-            String address = loc + ", Lahore, Pakistan";
+//            TODO: Generalize this to work outside Pakistan too.
+            String address = loc + ", Pakistan";
             new GetCoordinates().execute(address.replace(" ", "+"));
             if (image_file != null) {
                 mStorageRef.child(new_request.getKey()).putFile(image_file)
@@ -242,16 +242,21 @@ public class AddRequestActivity extends AppCompatActivity{
         @Override
         protected String doInBackground(String... address) {
             String response;
-            try{
+            try {
 //                String address = strings[0];
                 HttpDataHandler http = new HttpDataHandler();
                 String url = String.format(
                         "https://maps.googleapis.com/maps/api/geocode/json?address=%s",address);
                 response = http.getHTTPData(url);
                 return response;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"Error in map search",Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
             return null;
         }
@@ -267,12 +272,17 @@ public class AddRequestActivity extends AppCompatActivity{
                         .getJSONObject(0).getJSONObject("geometry").getJSONObject("location")
                         .get("lng").toString());
                 if (request_added) {
-                    new_request.child("latitude").setValue(lat);
-                    new_request.child("longitude").setValue(lng);
+                    new_request.child("latitude").setValue(lat + ((Math.random() - 0.5) / 4000));
+                    new_request.child("longitude").setValue(lng + ((Math.random() - 0.5) / 4000));
                 }
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
         }
     }
