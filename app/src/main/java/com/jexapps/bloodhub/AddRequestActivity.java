@@ -251,6 +251,11 @@ public class AddRequestActivity extends AppCompatActivity{
                 return response;
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(),"Error in map search",Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
                 Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
             return null;
@@ -267,11 +272,16 @@ public class AddRequestActivity extends AppCompatActivity{
                         .getJSONObject(0).getJSONObject("geometry").getJSONObject("location")
                         .get("lng").toString());
                 if (request_added) {
-                    new_request.child("latitude").setValue(lat + ((Math.random() - 0.5) / 2000));
-                    new_request.child("longitude").setValue(lng + ((Math.random() - 0.5) / 2000));
+                    new_request.child("latitude").setValue(lat + ((Math.random() - 0.5) / 4000));
+                    new_request.child("longitude").setValue(lng + ((Math.random() - 0.5) / 4000));
                 }
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
                 Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
         }

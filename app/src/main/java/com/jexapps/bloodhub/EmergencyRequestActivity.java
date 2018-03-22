@@ -124,8 +124,8 @@ public class EmergencyRequestActivity extends AppCompatActivity {
             }
             String regToken = FirebaseInstanceId.getInstance().getToken();
             BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc,
-                    lat + ((Math.random() - 0.5) / 2000),
-                    lng + ((Math.random() - 0.5) / 2000),
+                    lat + ((Math.random() - 0.5) / 4000),
+                    lng + ((Math.random() - 0.5) / 4000),
                     diag, new Date().getTime(), transport, regToken);
             db.push().setValue(request);
             dialog = new Dialog(EmergencyRequestActivity.this);

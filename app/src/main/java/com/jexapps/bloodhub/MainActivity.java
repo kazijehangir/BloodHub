@@ -69,7 +69,11 @@ public class MainActivity extends AppCompatActivity
         request = false;
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        mEmail = user.getEmail();
+        if (user != null) {
+            mEmail = user.getEmail();
+        } else {
+            super.onBackPressed();
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
