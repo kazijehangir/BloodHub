@@ -267,8 +267,8 @@ public class AddRequestActivity extends AppCompatActivity{
                         .getJSONObject(0).getJSONObject("geometry").getJSONObject("location")
                         .get("lng").toString());
                 if (request_added) {
-                    new_request.child("latitude").setValue(lat);
-                    new_request.child("longitude").setValue(lng);
+                    new_request.child("latitude").setValue(lat + ((Math.random() - 0.5) / 2000));
+                    new_request.child("longitude").setValue(lng + ((Math.random() - 0.5) / 2000));
                 }
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
