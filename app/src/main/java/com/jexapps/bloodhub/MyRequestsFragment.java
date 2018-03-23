@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class MyRequestsFragment extends Fragment {
     DatabaseReference db;
     ArrayList<BloodRequest> requests;
+    ArrayList<String> keys;
 
     private RecyclerView mRecyclerView;
     private TextView numRequests;
@@ -51,14 +52,16 @@ public class MyRequestsFragment extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
         db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
-        mAdapter = new MyRequestDataAdapter(fetchData());
+        fetchData();
+        mAdapter = new MyRequestDataAdapter(requests,keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
         return rootView;
     }
 
     //Getting data from database
-    public ArrayList<BloodRequest> fetchData() {
+    public void fetchData() {
         requests = new ArrayList<BloodRequest>();
+        keys = new ArrayList<String>();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         db.orderByChild("userid").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
@@ -67,6 +70,7 @@ public class MyRequestsFragment extends Fragment {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     BloodRequest request = child.getValue(BloodRequest.class);
                     requests.add(request);
+                    keys.add(child.getKey());
                 }
                 numRequests.setText("Total Requests: "+requests.size());
                 mAdapter.notifyDataSetChanged();
@@ -75,7 +79,7 @@ public class MyRequestsFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return requests;
+        return;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

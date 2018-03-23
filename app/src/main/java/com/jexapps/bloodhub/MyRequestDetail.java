@@ -45,11 +45,12 @@ public class MyRequestDetail extends AppCompatActivity {
                     BloodRequest data = dataSnapshot.getValue(BloodRequest.class);
 
                     TextView mName = (TextView) findViewById(R.id.name);
-                    mName.setText(name);
+                    mName.setText(data.name);
                     TextView mTime = (TextView) findViewById(R.id.time);
-                    mTime.setText(when);
+                    String date = DateFormat.getDateInstance().format(new Date(data.date));
+                    mTime.setText(date);
                     TextView mLocation = (TextView) findViewById(R.id.location);
-                    mLocation.setText(location);
+                    mLocation.setText(data.location);
 
                 }
                 @Override

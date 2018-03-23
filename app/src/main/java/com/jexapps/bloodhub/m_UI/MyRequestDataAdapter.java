@@ -1,5 +1,6 @@
 package com.jexapps.bloodhub.m_UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +20,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdapter.ViewHolder> {
+    private Context mContext;
     private ArrayList<BloodRequest> requests;
-
+    private ArrayList<String> keys;
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public TextView mName, mLocation, mWhen;
@@ -28,10 +30,11 @@ public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdap
 //        public ImageView mImage, mTransportImage;
         public ViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.card_view);
+            cv = (CardView) itemView.findViewById(R.id.cardView);
             mName = (TextView) itemView.findViewById(R.id.name);
             mLocation = (TextView) itemView.findViewById(R.id.location);
             mWhen = (TextView) itemView.findViewById(R.id.time);
+            cv.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
         @Override
@@ -44,8 +47,10 @@ public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdap
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyRequestDataAdapter(ArrayList<BloodRequest> req) {
+    public MyRequestDataAdapter(ArrayList<BloodRequest> req, ArrayList<String> list, Context context) {
         requests = req;
+        mContext = context;
+        keys = list;
     }
 
     // Create new views (invoked by the layout manager)
@@ -60,6 +65,8 @@ public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdap
     @Override
     public void onBindViewHolder(MyRequestDataAdapter.ViewHolder holder, int position) {
         BloodRequest request = (BloodRequest) requests.get(position);
+        String key = keys.get(position);
+        holder.cv.setTag(key);
         holder.mName.setText(request.name);
         holder.mLocation.setText(request.location);
         holder.mWhen.setText(DateFormat.getDateInstance().format(new Date(request.date)));
