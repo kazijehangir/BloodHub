@@ -5,7 +5,6 @@
     android:orientation="vertical"
     tools:context="com.jexapps.bloodhub.DonationsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/num_donations"
         android:layout_width="wrap_content"

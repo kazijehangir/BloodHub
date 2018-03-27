@@ -65,7 +65,6 @@ public class NewsListFragment extends Fragment {
      *
      * @return A new instance of fragment NewsListFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static NewsListFragment newInstance() {
         NewsListFragment fragment = new NewsListFragment();
         return fragment;
@@ -98,7 +97,6 @@ public class NewsListFragment extends Fragment {
         });
         new FetchFeedTask().execute((Void) null);
     }
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onNewsListFragmentInteraction(uri);
@@ -133,7 +131,6 @@ public class NewsListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onNewsListFragmentInteraction(Uri uri);
     }
 
@@ -211,7 +208,6 @@ public class NewsListFragment extends Fragment {
     }
 
     private class FetchFeedTask extends AsyncTask<Void, Void, Boolean> {
-        // TODO(kazijehangir): Update parsing logic to support all these feeds.
         private String[] rss_urls = {
                 "https://rss.medicalnewstoday.com/blood.xml",
 //                "https://www.medicinenet.com/audio/audionewsletter.xml",
@@ -233,7 +229,7 @@ public class NewsListFragment extends Fragment {
             mFeedModelList= new ArrayList<>();
 
             // Get rss items for each rss feed url.
-            // TODO(kazijehangir): For loop doesn't work; just receives first feed.
+            // For loop doesn't work; just receives first feed.
             // Probably something to do with async task.
             for (String urlLink: rss_urls) {
                 Log.e(TAG, "Getting feed:" + urlLink);

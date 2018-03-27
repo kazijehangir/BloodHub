@@ -48,9 +48,7 @@ public class MainActivity extends AppCompatActivity
         RequestListFragment.OnFragmentInteractionListener,
         RequestMapFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener{
-//    TODO: Understand inflating views. probably is fix to update email and photo
-//    inflating views is creating view and view-groups from an xml file/resource
-//    not sure if that helps.
+
     private DrawerLayout mDrawer;
     FloatingActionButton fab_plus, fab_request, fab_appointment;
     Button button_request, button_appointment;
@@ -195,10 +193,8 @@ public class MainActivity extends AppCompatActivity
 
         mNav_email.setText(mEmail);
 
-//        TODO: Get image from database and display here
         getNameFromDatabase();
 //        mNav_image.setImageDrawable();
-//        TODO: Implement swipe views for home page
         LinearLayout lheader = (LinearLayout) header.findViewById(R.id.header);
         lheader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -307,7 +303,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-//        TODO: Implement search using this guide
+//        Implement search using this guide
 //        https://developer.android.com/training/search/setup.html
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
@@ -323,9 +319,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-//        TODO: add search button
         if (id == R.id.action_settings) {
-//            TODO: add settings activity here
             return true;
         }
 
@@ -342,7 +336,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-//    TODO: Understand what OnFragmentInteractionListener is supposed to do
     @Override
     public void onAppointmentsFragmentInteraction(Uri uri) {
 

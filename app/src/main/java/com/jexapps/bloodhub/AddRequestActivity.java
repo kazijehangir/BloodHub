@@ -155,7 +155,6 @@ public class AddRequestActivity extends AppCompatActivity{
                 transport = false;
             }
             new_request = db.push();
-//            TODO: Generalize this to work outside Pakistan too.
             String address = loc + ", Pakistan";
             new GetCoordinates().execute(address.replace(" ", "+"));
             if (image_file != null) {

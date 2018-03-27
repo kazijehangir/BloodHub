@@ -32,7 +32,6 @@ import java.util.Date;
 import java.util.Random;
 
 public class EmergencyRequestActivity extends AppCompatActivity {
-// TODO: try to get location automatically
     Dialog dialog;
 
     AutoCompleteTextView name, location;

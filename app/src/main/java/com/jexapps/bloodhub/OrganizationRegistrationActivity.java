@@ -98,7 +98,6 @@ public class OrganizationRegistrationActivity extends AppCompatActivity {
                 });
     }
     private void registerNewOrg() {
-//        TODO: check if username, email, number, address is added or not
         AutoCompleteTextView mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         EditText mPasswordView = (EditText) findViewById(R.id.password);
         CheckBox mTermsAgree = (CheckBox) findViewById(R.id.agreeTerms);

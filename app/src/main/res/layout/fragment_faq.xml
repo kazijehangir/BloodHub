@@ -6,9 +6,6 @@
     tools:context="com.jexapps.bloodhub.FaqFragment"
     android:divider="#383232">
 
-    <!-- TODO: Update blank fragment layout -->
-    <!--TODO: implement collapsible views-->
-
     <ExpandableListView
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
