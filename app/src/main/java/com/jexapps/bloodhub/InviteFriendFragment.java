@@ -20,11 +20,9 @@ public class InviteFriendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //TODO: Implement using Firebase Invites
         return inflater.inflate(R.layout.fragment_invite_friend, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onInviteFriendFragmentInteraction(uri);
@@ -59,7 +57,6 @@ public class InviteFriendFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onInviteFriendFragmentInteraction(Uri uri);
     }
 }

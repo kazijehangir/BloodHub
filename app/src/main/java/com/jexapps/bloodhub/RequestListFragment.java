@@ -85,7 +85,6 @@ public class RequestListFragment extends Fragment {
         return;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onRequestListFragmentInteraction(uri);
@@ -120,7 +119,6 @@ public class RequestListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onRequestListFragmentInteraction(Uri uri);
     }
 }

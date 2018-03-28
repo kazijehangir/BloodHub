@@ -123,7 +123,6 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         mDatabase.child("users").child(userId).setValue(user);
     }
     private void registerNewUser() {
-//        TODO: check if username, email, password is added or not
         email = mEmailView.getText().toString().trim();
         password = mPasswordView.getText().toString().trim();
         uname = username.getText().toString();

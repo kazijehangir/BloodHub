@@ -32,8 +32,6 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class OtherOrganizationsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     DatabaseReference db;
@@ -45,7 +43,6 @@ public class OtherOrganizationsFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -63,7 +60,6 @@ public class OtherOrganizationsFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment OtherOrganizationsFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static OtherOrganizationsFragment newInstance(String param1, String param2) {
         OtherOrganizationsFragment fragment = new OtherOrganizationsFragment();
         Bundle args = new Bundle();
@@ -120,7 +116,6 @@ public class OtherOrganizationsFragment extends Fragment {
         });
         return;
     }
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onOtherOrganizationsFragmentInteraction(uri);
@@ -155,7 +150,6 @@ public class OtherOrganizationsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onOtherOrganizationsFragmentInteraction(Uri uri);
     }
 }
