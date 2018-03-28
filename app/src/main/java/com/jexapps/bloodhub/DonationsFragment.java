@@ -68,6 +68,23 @@ public class DonationsFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Donation donation = child.getValue(Donation.class);
+                    if(donation!= null){
+                        FirebaseDatabase.getInstance().getReference().child("bloodrequests").child(donation.requestid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                BloodRequest request = dataSnapshot.getValue(BloodRequest.class);
+                                if(request!=null){
+                                    donations.add(request);
+                                    numDonations.setText("LIVES SAVED: "+donations.size());
+                                    mAdapter.notifyDataSetChanged();
+                                }
+
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
                     FirebaseDatabase.getInstance().getReference().child("bloodrequests").child(donation.requestid).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

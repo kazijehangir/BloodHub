@@ -67,6 +67,8 @@ public class MyRequestsFragment extends Fragment {
         db.orderByChild("userid").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                requests.clear();
+                keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     BloodRequest request = child.getValue(BloodRequest.class);
                     requests.add(request);

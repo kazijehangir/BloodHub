@@ -7,9 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.jexapps.bloodhub.MyRequestDetail;
 import com.jexapps.bloodhub.R;
 import com.jexapps.bloodhub.RequestDetail;
@@ -26,14 +30,24 @@ public class MyRequestDataAdapter extends RecyclerView.Adapter<MyRequestDataAdap
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public TextView mName, mLocation, mWhen;
+        public ImageButton delete, edit;
         protected CardView cv;
 //        public ImageView mImage, mTransportImage;
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cardView);
             mName = (TextView) itemView.findViewById(R.id.name);
             mLocation = (TextView) itemView.findViewById(R.id.location);
             mWhen = (TextView) itemView.findViewById(R.id.time);
+            delete = (ImageButton) itemView.findViewById(R.id.delete);
+            edit = (ImageButton) itemView.findViewById(R.id.edit);
+            final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+//            final Query request = ref.child("bloodrequests").child((String) itemView.getTag());
+            delete.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    ref.child("bloodrequests").child((String) itemView.getTag()).removeValue();
+                }
+            });
             cv.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
