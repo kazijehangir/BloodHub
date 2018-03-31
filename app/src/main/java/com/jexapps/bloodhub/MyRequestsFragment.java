@@ -46,7 +46,7 @@ public class MyRequestsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_requests, container, false);
         numRequests = (TextView) rootView.findViewById(R.id.num_requests);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.request_list_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());

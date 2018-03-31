@@ -2,9 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp">
 
     <RelativeLayout
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">
@@ -52,20 +55,24 @@
                         android:orientation="horizontal"
                         android:paddingTop="@dimen/cardview_top_padding">
 
-                        <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/name_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Name:  " />
+                        <!--<android.support.v7.widget.AppCompatTextView-->
+                            <!--android:id="@+id/name_label"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_weight="1"-->
+                            <!--android:text="Name:  " />-->
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0"
-                            android:text="Jamshed"
-                            android:textStyle="normal|bold" />
+                            android:id="@+id/name"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:maxHeight="40dp"
+                            android:textSize="16dp"
+                            android:layout_gravity="left"
+                            android:text="Namehhhhh:"
+                            android:textStyle="normal|bold"/>
                     </android.support.v7.widget.LinearLayoutCompat>
 
                     <android.support.v7.widget.LinearLayoutCompat
@@ -106,11 +113,15 @@
                             android:text="Location:  " />
 
                         <android.support.v7.widget.AppCompatTextView
-                            android:id="@+id/location"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:ems="6"
+                            android:maxHeight="35dp"
+                            android:id="@+id/location"
                             android:layout_weight="0"
-                            android:text="National Hospital"
+                            android:gravity="right"
+                            android:layout_gravity="right"
+                            android:text="National Hospital ahdhshhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
                             android:textStyle="normal|bold" />
                     </android.support.v7.widget.LinearLayoutCompat>
                 </android.support.v7.widget.LinearLayoutCompat>
@@ -118,212 +129,73 @@
         </LinearLayout>
 
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
-        <Button
-            android:id="@+id/edit_request_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit Request"
-            android:textColor="@color/fab2"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+        <!--<Button-->
+            <!--android:id="@+id/edit_request_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Edit Request"-->
+            <!--android:textColor="@color/fab2"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true" />-->
 
-        <Button
-            android:id="@+id/delete_request_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete Request"
-            android:textColor="@color/fab2"
-            android:layout_below="@+id/edit_request_button"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"/>
+        <!--<Button-->
+            <!--android:id="@+id/delete_request_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Delete Request"-->
+            <!--android:textColor="@color/fab2"-->
+            <!--android:layout_below="@+id/edit_request_button"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginTop="10dp"/>-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Respondents:"
             android:textStyle="bold"
-            android:textSize="24sp"
+
+            android:textSize="20sp"
             android:textColor="@color/fab2"
-            android:layout_below="@+id/delete_request_button"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="10dp" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_below="@+id/delete_request_button"
-            android:layout_alignParentStart="true"
-            android:id="@+id/relativeLayout2">
 
-            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/cardView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="4dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="2dp"
-                app:cardElevation="2dp"
-                app:contentPadding="5dp">
 
-                <android.support.v7.widget.LinearLayoutCompat
-                    android:id="@+id/root_horizontal2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:id="@+id/left_vertical2"
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingTop="4dp">
-
-                        <ImageView
-                            android:id="@+id/res_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="90dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/boy" />
-                    </android.support.v7.widget.LinearLayoutCompat>
-
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:id="@+id/right_vertical2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingRight="4dp">
-
-                        <android.support.v7.widget.LinearLayoutCompat
-                            android:id="@+id/name_horizontal2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingTop="@dimen/cardview_top_padding">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/name_label2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Name:  " />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/name2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0"
-                                android:text="Jamshed"
-                                android:textStyle="normal|bold" />
-                        </android.support.v7.widget.LinearLayoutCompat>
-
-                        <android.support.v7.widget.LinearLayoutCompat
-                            android:id="@+id/res_age"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingTop="@dimen/cardview_top_padding">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/res_age_label"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Age:  " />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/r_age"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0"
-                                android:text="20"
-                                android:textStyle="normal|bold" />
-                        </android.support.v7.widget.LinearLayoutCompat>
-
-                        <android.support.v7.widget.LinearLayoutCompat
-                            android:id="@+id/res_bgroup"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingTop="@dimen/cardview_top_padding">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/res_bgroup_label"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Blood Group:  " />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/rbgroup"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0"
-                                android:text="B+"
-                                android:textStyle="normal|bold" />
-                        </android.support.v7.widget.LinearLayoutCompat>
-                        <android.support.v7.widget.LinearLayoutCompat
-                            android:id="@+id/res_lsaved"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:paddingTop="@dimen/cardview_top_padding">
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/res_lsaved_label"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Lives Saved:  " />
-
-                            <android.support.v7.widget.AppCompatTextView
-                                android:id="@+id/r_lsaved"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0"
-                                android:text="2"
-                                android:textStyle="normal|bold" />
-                        </android.support.v7.widget.LinearLayoutCompat>
-                    </android.support.v7.widget.LinearLayoutCompat>
-                </android.support.v7.widget.LinearLayoutCompat>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="164dp">
-
-                    <Button
-                        android:id="@+id/button7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="66dp"
-                        android:text="Decline" />
-                </RelativeLayout>
-            </android.support.v7.widget.CardView>
-
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="69dp"
-            android:text="Accept"
-            android:layout_alignBottom="@+id/relativeLayout2"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="17dp" />
 
     </RelativeLayout>
 
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/respondent_list_recycler_view"-->
+        <!--android:scrollbars="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="452dp"-->
+        <!--android:layout_marginTop="20dp"/>-->
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/home_tabs_top_padding"
+        tools:context="com.jexapps.bloodhub.RequestListFragment">
+
+
+        <!-- A RecyclerView with some commonly used attributes -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/respondent_list_recycler_view"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
 
 
 
