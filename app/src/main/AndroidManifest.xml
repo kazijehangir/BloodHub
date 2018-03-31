@@ -95,17 +95,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.UserProfile" />
         </activity>
-        <activity android:name=".SearchResultsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-        </activity>
         <activity
             android:name=".MainActivityOrg"
             android:label="@string/title_activity_main"
