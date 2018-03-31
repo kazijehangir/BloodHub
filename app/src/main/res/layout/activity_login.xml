@@ -9,8 +9,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jexapps.bloodhub.LoginActivity">
-
-    <!-- Login progress -->
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -20,7 +18,6 @@
         android:layout_gravity="center"
         android:visibility="gone"
         android:elevation="1dp" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_gravity="center"
@@ -28,14 +25,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:id="@+id/login_form">
-
         <LinearLayout
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:weightSum="1"
             android:layout_height="wrap_content">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,17 +38,13 @@
                 android:textSize="60dp"
                 android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="25dp"
-
-                />
-
+                android:layout_marginTop="25dp" />
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|bottom"
-                android:layout_marginTop="30dp"
-                >
-
+                android:theme="@style/TextLabel"
+                android:layout_marginTop="30dp">
                 <AutoCompleteTextView
                     android:id="@+id/email"
                     android:layout_width="match_parent"
@@ -62,22 +53,14 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textColor="@color/white"
-                    android:textColorLink="@color/white"
-                    />
-                    <!--android:textColorHint="@color/white"-->
-                    <!--android:textColorHighlight="@color/white"-->
-                    <!--android:textCursorDrawable="@color/white" />-->
-
+                    android:textColorLink="@color/white" />
             </android.support.design.widget.TextInputLayout>
-
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center|bottom"
-                android:layout_marginTop="10dp"
-                >
-
+                android:theme="@style/TextLabel"
+                android:layout_marginTop="10dp">
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
@@ -88,15 +71,8 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/white"
-                    />
-                    <!--android:textColorHighlight="@color/white"-->
-                    <!--android:textColorHint="@color/white"-->
-                    <!--android:textColorLink="@color/white" />-->
-
+                    android:textColor="@color/white" />
             </android.support.design.widget.TextInputLayout>
-
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
@@ -124,9 +100,7 @@
                 android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="15sp"
-                />
-
+                android:textSize="15sp" />
             <TextView
                 android:text="@string/action_register_individual"
                 android:layout_width="match_parent"
@@ -150,5 +124,4 @@
                 android:textScaleX="1.1" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

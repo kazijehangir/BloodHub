@@ -89,12 +89,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 attemptLogin();
             }
         });
-        Log.d("D","heree");
         TextView mEmailForgotPasswordButton = (TextView) findViewById(R.id.forgot_password_button);
         mEmailForgotPasswordButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("D","callll");
                 forgotPassword();
             }
         });
@@ -118,7 +116,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void forgotPassword() {
-        Log.d("D","startt");
         Intent intent = new Intent(LoginActivity.this,
                 ForgotPasswordActivity.class);
         startActivity(intent);
