@@ -19,6 +19,8 @@ import com.jexapps.bloodhub.R;
 import com.jexapps.bloodhub.m_Model.Appointment;
 import com.jexapps.bloodhub.m_Model.User;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +31,7 @@ public class MyAppointmentDataAdapter extends RecyclerView.Adapter<MyAppointment
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CharSequence options[] = new CharSequence[] {"Change Timings","Cancel Appointment"};
-        public TextView mName, mTransport, mDate, mTime;
+        public TextView mName, mTransport, mDate, mTime, mStatus;
         protected CardView cv;
 
         public ViewHolder(View itemView) {
@@ -39,6 +41,7 @@ public class MyAppointmentDataAdapter extends RecyclerView.Adapter<MyAppointment
             mTransport = (TextView) itemView.findViewById(R.id.transport);
             mDate = (TextView) itemView.findViewById(R.id.date);
             mTime = (TextView) itemView.findViewById(R.id.time);
+            mStatus = (TextView) itemView.findViewById(R.id.status);
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -94,6 +97,11 @@ public class MyAppointmentDataAdapter extends RecyclerView.Adapter<MyAppointment
             holder.mTransport.setText("Yes");
         } else {
             holder.mTransport.setText("No");
+        }
+        if(appointment.confirmed.equals(false)){
+            holder.mStatus.setText("Pending confirmation");
+        } else {
+            holder.mStatus.setText("Confirmed");
         }
         holder.mDate.setText(DateFormat.getDateInstance().format(new Date(appointment.date)));
         holder.mTime.setText(DateFormat.getTimeInstance(DateFormat.SHORT).format(new Date(appointment.date)));

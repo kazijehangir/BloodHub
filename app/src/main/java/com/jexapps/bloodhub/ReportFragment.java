@@ -18,12 +18,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ReportFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -41,7 +38,6 @@ public class ReportFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment ReportFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static ReportFragment newInstance(String param1, String param2) {
         ReportFragment fragment = new ReportFragment();
         Bundle args = new Bundle();
@@ -67,7 +63,6 @@ public class ReportFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_report, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onReportFragmentInteraction(uri);
@@ -102,7 +97,6 @@ public class ReportFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onReportFragmentInteraction(Uri uri);
     }
 }

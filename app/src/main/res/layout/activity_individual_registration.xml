@@ -87,6 +87,7 @@
                         android:inputType="textPassword"
                         android:maxLines="1" />
                 </android.support.design.widget.TextInputLayout>
+
                 <Spinner
                     android:id="@+id/spin"
                     android:layout_width="match_parent"
@@ -163,6 +164,7 @@
                 <Button
                     android:id="@+id/register_individual_button"
                     style="?android:textAppearanceLarge"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"

@@ -24,9 +24,10 @@ import com.jexapps.bloodhub.m_UI.MyRequestDataAdapter;
 
 import java.util.ArrayList;
 
-public class RequestsFragment extends Fragment {
+public class MyRequestsFragment extends Fragment {
     DatabaseReference db;
     ArrayList<BloodRequest> requests;
+    ArrayList<String> keys;
 
     private RecyclerView mRecyclerView;
     private TextView numRequests;
@@ -34,7 +35,7 @@ public class RequestsFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private OnFragmentInteractionListener mListener;
 
-    public RequestsFragment() {
+    public MyRequestsFragment() {
         // Required empty public constructor
     }
 
@@ -51,22 +52,27 @@ public class RequestsFragment extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(getActivity()));
         db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
-        mAdapter = new MyRequestDataAdapter(fetchData());
+        fetchData();
+        mAdapter = new MyRequestDataAdapter(requests,keys, getContext());
         mRecyclerView.setAdapter(mAdapter);
         return rootView;
     }
 
     //Getting data from database
-    public ArrayList<BloodRequest> fetchData() {
+    public void fetchData() {
         requests = new ArrayList<BloodRequest>();
+        keys = new ArrayList<String>();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         db.orderByChild("userid").equalTo(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                requests.clear();
+                keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     BloodRequest request = child.getValue(BloodRequest.class);
                     requests.add(request);
+                    keys.add(child.getKey());
                 }
                 numRequests.setText("Total Requests: "+requests.size());
                 mAdapter.notifyDataSetChanged();
@@ -75,10 +81,9 @@ public class RequestsFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        return requests;
+        return;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onRequestsFragmentInteraction(uri);
@@ -113,7 +118,6 @@ public class RequestsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onRequestsFragmentInteraction(Uri uri);
     }
 }

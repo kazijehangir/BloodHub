@@ -106,6 +106,7 @@ public class AddRequestActivity extends AppCompatActivity{
                 dialog.show();
                 final Button setDate = (Button) dialog.findViewById(R.id.set_date);
                 final DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePicker);
+                datePicker.setMinDate(System.currentTimeMillis() - 1000);
                 setDate.setOnClickListener(new View.OnClickListener(){
 
                     @Override
@@ -139,51 +140,83 @@ public class AddRequestActivity extends AppCompatActivity{
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pname = name.getText().toString();
-                bgroup = bloodgroup.getSelectedItem().toString();
-                quan = quantity.getSelectedItem().toString();
-                diag = diagnosis.getSelectedItem().toString();
-                num = number.getText().toString();
-                loc = location.getText().toString();
-                transport_btn = (RadioButton) findViewById(transport_group.getCheckedRadioButtonId());
-                String transport_text = (String) transport_btn.getText();
-                if (transport_text.equals("Available")){
-                    transport = true;
-                } else if (transport_text.equals("Not Available")){
-                    transport = false;
-                }
-                new_request = db.push();
-                String address = loc+", Lahore, Pakistan";
-                new GetCoordinates().execute(address.replace(" ", "+"));
-                mStorageRef.child(new_request.getKey()).putFile(image_file).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            pname = name.getText().toString();
+            bgroup = bloodgroup.getSelectedItem().toString();
+            quan = quantity.getSelectedItem().toString();
+            diag = diagnosis.getSelectedItem().toString();
+            num = number.getText().toString();
+            loc = location.getText().toString();
+            transport_btn = (RadioButton) findViewById(transport_group.
+                    getCheckedRadioButtonId());
+            String transport_text = (String) transport_btn.getText();
+            if (transport_text.equals("Available")) {
+                transport = true;
+            } else if (transport_text.equals("Not Available")) {
+                transport = false;
+            }
+            new_request = db.push();
+            String address = loc + ", Pakistan";
+            new GetCoordinates().execute(address.replace(" ", "+"));
+            if (image_file != null) {
+                mStorageRef.child(new_request.getKey()).putFile(image_file)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        Toast.makeText(getApplicationContext(),"Image uploaded",Toast.LENGTH_SHORT).show();
-                        String regToken = FirebaseInstanceId.getInstance().getToken();
-                        BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup, quan, num, loc, lat, lng, diag, pdate.getTime(), transport, regToken);
-                        new_request.setValue(request);
-                        request_added = true;
-                        dialog = new Dialog(AddRequestActivity.this);
-                        dialog.setContentView(R.layout.popup_submit);
-                        dialog.show();
-                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                      Toast.makeText(getApplicationContext(),"Image uploaded",
+//                          Toast.LENGTH_SHORT).show();
+                    String regToken = FirebaseInstanceId.getInstance().getToken();
+                    BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup,
+                            quan, num, loc, lat, lng, diag, pdate.getTime(), transport,
+                            regToken);
+                    new_request.setValue(request);
+                    request_added = true;
+                    dialog = new Dialog(AddRequestActivity.this);
+                    dialog.setContentView(R.layout.popup_submit);
+                    dialog.show();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(
+                            Color.TRANSPARENT));
 
-                        final Button submit = (Button) dialog.findViewById(R.id.button_ok);
-                        submit.setOnClickListener(new View.OnClickListener(){
+                    final Button submit = (Button) dialog.findViewById(R.id.button_ok);
+                    submit.setOnClickListener(new View.OnClickListener() {
 
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(AddRequestActivity.this,MainActivity.class);
-                                startActivity(intent);
-                            }
-                        });
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(AddRequestActivity.this,
+                                    MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getApplicationContext(),"Error uploading image",Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(getApplicationContext(), "Error uploading image",
+                        Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            String regToken = FirebaseInstanceId.getInstance().getToken();
+            BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup,
+                    quan, num, loc, lat, lng, diag, pdate.getTime(), transport,
+                    regToken);
+            new_request.setValue(request);
+            request_added = true;
+            dialog = new Dialog(AddRequestActivity.this);
+            dialog.setContentView(R.layout.popup_submit);
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(
+                    Color.TRANSPARENT));
+
+            final Button submit = (Button) dialog.findViewById(R.id.button_ok);
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(AddRequestActivity.this,
+                            MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+            }
             }
         });
     }
@@ -206,17 +239,23 @@ public class AddRequestActivity extends AppCompatActivity{
         }
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected String doInBackground(String... address) {
             String response;
-            try{
-                String address = strings[0];
+            try {
+//                String address = strings[0];
                 HttpDataHandler http = new HttpDataHandler();
-                String url = String.format("https://maps.googleapis.com/maps/api/geocode/json?address=%s",address);
+                String url = String.format(
+                        "https://maps.googleapis.com/maps/api/geocode/json?address=%s",address);
                 response = http.getHTTPData(url);
                 return response;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"Error in map search",Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
             return null;
         }
@@ -225,14 +264,24 @@ public class AddRequestActivity extends AppCompatActivity{
         protected void onPostExecute(String s) {
             try{
                 JSONObject jsonObject = new JSONObject(s);
-                lat = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString());
-                lng = Double.parseDouble(((JSONArray)jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString());
+                lat = Double.parseDouble(((JSONArray)jsonObject.get("results"))
+                        .getJSONObject(0).getJSONObject("geometry").getJSONObject("location")
+                        .get("lat").toString());
+                lng = Double.parseDouble(((JSONArray)jsonObject.get("results"))
+                        .getJSONObject(0).getJSONObject("geometry").getJSONObject("location")
+                        .get("lng").toString());
                 if (request_added) {
-                    new_request.child("latitude").setValue(lat);
-                    new_request.child("longitude").setValue(lng);
+                    new_request.child("latitude").setValue(lat + ((Math.random() - 0.5) / 4000));
+                    new_request.child("longitude").setValue(lng + ((Math.random() - 0.5) / 4000));
                 }
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
             }
         }
     }

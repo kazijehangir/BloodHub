@@ -5,32 +5,49 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp" >
 
-    <TextView
+    <!-- progress -->
+    <ProgressBar
+        android:id="@+id/progress_spinner"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Enter your email address so that your email can be varified "
-        android:textSize="20sp"
-        />
-    <AutoCompleteTextView
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="@string/prompt_email"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:singleLine="true" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Verify Email"
+        android:layout_marginBottom="8dp"
         android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:background="@color/fab1"
-        android:layout_marginTop="20dp"
-        android:id="@+id/verify_email_button"
-        />
+        android:visibility="gone"
+        android:elevation="1dp" />
+    <LinearLayout
+        android:id="@+id/email_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/email_verification_prompt"
+            android:textSize="20sp"
+            />
+        <AutoCompleteTextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/send_email"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:background="@color/fab1"
+            android:layout_marginTop="20dp"
+            android:id="@+id/send_email_button"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

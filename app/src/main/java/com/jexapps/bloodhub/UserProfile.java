@@ -1,10 +1,9 @@
 package com.jexapps.bloodhub;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +39,7 @@ public class UserProfile extends AppCompatActivity  {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User curruser = dataSnapshot.getValue(User.class);
-                name.setText("Name: " + curruser.username);
+                name.setText(curruser.username);
                 bgroup.setText("Blood group: "+ curruser.blood_group);
                 number.setText("Number : " + curruser.number);
             }

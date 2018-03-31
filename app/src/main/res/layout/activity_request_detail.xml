@@ -36,6 +36,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/request_detail_name"
             android:layout_weight="0"
+            android:ems="10"
+            android:gravity="right"
             android:layout_gravity="right"
             android:text="Jamshed"
             android:textStyle="normal|bold" />
@@ -78,9 +80,11 @@
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="10"
             android:id="@+id/request_detail_location"
             android:layout_weight="0"
             android:layout_gravity="right"
+            android:gravity="right"
             android:text="National Hospital"
             android:textStyle="normal|bold" />
     </android.support.v7.widget.LinearLayoutCompat>

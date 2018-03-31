@@ -174,16 +174,19 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(), "sent email", Toast.LENGTH_SHORT);
                         if(task.isSuccessful()){
                             FirebaseAuth.getInstance().signOut();
-                            startActivity(new Intent(IndividualRegistrationActivity.this, LoginActivity.class));
+//                            startActivity(new Intent(IndividualRegistrationActivity.this, LoginActivity.class));
                             finish();
+                            Toast.makeText(getApplicationContext(), "sent email success", Toast.LENGTH_SHORT);
                         }
                         else {
                             overridePendingTransition(0, 0);
                             finish();
-                            overridePendingTransition(0, 0 );
-                            startActivity(getIntent());
+//                            overridePendingTransition(0, 0 );
+//                            startActivity(getIntent());
+                            Toast.makeText(getApplicationContext(), "sent email failed", Toast.LENGTH_SHORT);
                         }
                     }
                 });
@@ -199,7 +202,6 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         return password.length() >= 6;
     }
     private void registerNewUser() {
-//        TODO: check if username, email, password is added or not
         email = mEmailView.getText().toString().trim();
         password = mPasswordView.getText().toString().trim();
         uname = username.getText().toString();

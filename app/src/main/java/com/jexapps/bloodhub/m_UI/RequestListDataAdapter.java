@@ -10,18 +10,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.jexapps.bloodhub.R;
@@ -129,7 +126,7 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        BloodRequest request = (BloodRequest) requests.get(position);
+        BloodRequest request = requests.get(position);
         String key = keys.get(position);
         holder.cv.setTag(key);
         holder.mName.setText(request.name);
@@ -152,7 +149,8 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
         }
         try {
             final File localFile = File.createTempFile("images", "jpg");
-            FirebaseStorage.getInstance().getReference().child("bloodrequests").child(key).getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            FirebaseStorage.getInstance().getReference().child("bloodrequests").child(key)
+                    .getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     // Successfully downloaded data to local file
@@ -161,13 +159,15 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    //TODO: add default image instead
-                    holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.girl));
-//                    Toast.makeText(mContext,"Error loading image",Toast.LENGTH_SHORT).show();
+                    holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,
+                            R.drawable.girl));
+//                    Toast.makeText(mContext,"Error loading image: " + exception.toString(),
+//                            Toast.LENGTH_LONG).show();
                 }
             });
         } catch (Exception e){
             //IOException: error making temp image
+//            Toast.makeText(mContext, e.toString(), Toast.LENGTH_LONG);
         }
     }
 

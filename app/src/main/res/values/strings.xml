@@ -30,7 +30,7 @@
     </string>
 
     <!-- Strings related to Individual User Registeration -->
-    <string name="prompt_name">Name</string>
+    <string name="prompt_name">Name *</string>
     <string name="check_box">Agree to share my details</string>
 
     <!-- Strings related to Individual User Registeration -->
@@ -40,7 +40,7 @@
 
     <!-- Strings related to Emergency Request -->
     <string name="prompt_quan">Quantity</string>
-    <string name="prompt_loc">Location</string>
+    <string name="prompt_loc">Location (include city)*</string>
     <string name="action_submit_request">Submit Request</string>
     <string name="prompt_reason">Reason/Why</string>
 
@@ -81,7 +81,6 @@
     <string name="nav_report">Report a Problem</string>
     <string name="title_activity_individual_registration">IndividualRegistrationActivity</string>
     <string name="organization_name">Organization Name</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tems_cond">TemsCond</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
@@ -96,4 +95,6 @@
     <string name="key_drive">nearby_bdrive</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="email_verification_prompt">Enter your email address so that your password can be reset.</string>
+    <string name="send_email">Send Password Reset Email</string>
 </resources>

@@ -99,7 +99,6 @@ public class SettingsFragment extends Fragment {
         drive_switch.setChecked(sharedPref.getBoolean(getString(R.string.key_drive), true));
     };
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onSettingsFragmentInteraction(uri);
@@ -134,7 +133,6 @@ public class SettingsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onSettingsFragmentInteraction(Uri uri);
     }
 }

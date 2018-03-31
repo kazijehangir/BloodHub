@@ -43,10 +43,6 @@ public class MainActivityOrg extends AppCompatActivity
         OtherOrganizationsFragment.OnFragmentInteractionListener,
         ReportFragment.OnFragmentInteractionListener,
         SettingsOrgFragment.OnFragmentInteractionListener{
-    //TODO: add separate layout for organizations
-//    TODO: Understand inflating views. probably is fix to update email and photo
-//    inflating views is creating view and view-groups from an xml file/resource
-//    not sure if that helps.
     private DrawerLayout mDrawer;
     Button button_request, button_patient;
     FloatingActionButton fab_plus, fab_request, fab_appointment;
@@ -67,9 +63,6 @@ public class MainActivityOrg extends AppCompatActivity
             mEmail = user.getEmail();
 
         }
-//        TODO: comment this toast out when done debugging
-//        Toast.makeText(this, "Logged in " + mEmail + " successfully.",
-//                Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_org);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -182,10 +175,8 @@ public class MainActivityOrg extends AppCompatActivity
 
         mNav_email.setText(mEmail);
 
-//        TODO: Get name and image from database and display here
         getNameFromDatabase();
 //        mNav_image.setImageDrawable();
-//        TODO: Implement swipe views for home page
         LinearLayout lheader = (LinearLayout) header.findViewById(R.id.header);
         lheader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,7 +227,7 @@ public class MainActivityOrg extends AppCompatActivity
                 break;
             case R.id.nav_appointments:
                 fragmentClass = AppointmentsOrgFragment.class;
-//                TODO: Make appointments dynamic
+//                Make appointments dynamic
                 args.putString("appointments",null);
                 break;
             case R.id.nav_reviews:
@@ -292,7 +283,6 @@ public class MainActivityOrg extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-//        TODO: Implement search using this guide
 //        https://developer.android.com/training/search/setup.html
         //SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         //SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
@@ -308,9 +298,7 @@ public class MainActivityOrg extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-//        TODO: add search button
         if (id == R.id.action_settings) {
-//            TODO: add settings activity here
             return true;
         }
 
@@ -327,7 +315,6 @@ public class MainActivityOrg extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    //    TODO: Understand what OnFragmentInteractionListener is supposed to do
     @Override
     public void onAppointmentsOrgFragmentInteraction(Uri uri) {
 

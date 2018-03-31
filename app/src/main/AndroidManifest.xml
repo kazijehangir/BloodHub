@@ -43,7 +43,7 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ForgotPasswordActivity"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".LoginActivity"/>
         <activity
             android:name=".IndividualRegistrationActivity"
             android:parentActivityName=".LoginActivity">
@@ -149,8 +149,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jexapps.bloodhub.MainActivity" />
         </activity>
-        <activity
-            android:name=".OrgPatientDetail"
+
+        <activity android:name=".MyRequestDetail"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jexapps.bloodhub.MainActivity" />
+        </activity>
+        <activity android:name=".OrgPatientDetail"
             android:parentActivityName=".MainActivityOrg">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

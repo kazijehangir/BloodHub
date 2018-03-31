@@ -20,7 +20,7 @@
             android:id="@+id/left_vertical">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
                 android:id="@+id/request_picture"
                 android:src="@drawable/red_crescent" />
@@ -40,17 +40,28 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/name_label"
-                    android:layout_weight="1"
-                    android:layout_gravity="left"
-                    android:text="Name:"/>
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/name_text"
-                    android:layout_weight="0"
-                    android:layout_gravity="right"
-                    android:textStyle="normal|bold" />
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:maxHeight="40dp"
+                    android:textSize="16dp"
+                    android:layout_gravity="left"
+                    android:text="Name:"
+                    android:textStyle="normal|bold"/>
+                <!--<android.support.v7.widget.AppCompatTextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/name_label"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_gravity="left"-->
+                    <!--android:text="Name:"/>-->
+                <!--<android.support.v7.widget.AppCompatTextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/name_text"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:layout_gravity="right"-->
+                    <!--android:textStyle="normal|bold" />-->
             </android.support.v7.widget.LinearLayoutCompat>
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -68,6 +79,8 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ems="7"
+                    android:maxHeight="35dp"
                     android:id="@+id/email_text"
                     android:layout_weight="0"
                     android:layout_gravity="right"
@@ -112,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/address_text"
                     android:layout_weight="0"
+                    android:ems="7"
                     android:layout_gravity="right"
                     android:textStyle="normal|bold" />
             </android.support.v7.widget.LinearLayoutCompat>

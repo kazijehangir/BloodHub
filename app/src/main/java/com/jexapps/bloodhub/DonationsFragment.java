@@ -68,6 +68,23 @@ public class DonationsFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Donation donation = child.getValue(Donation.class);
+                    if(donation!= null){
+                        FirebaseDatabase.getInstance().getReference().child("bloodrequests").child(donation.requestid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                BloodRequest request = dataSnapshot.getValue(BloodRequest.class);
+                                if(request!=null){
+                                    donations.add(request);
+                                    numDonations.setText("LIVES SAVED: "+donations.size());
+                                    mAdapter.notifyDataSetChanged();
+                                }
+
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
                     FirebaseDatabase.getInstance().getReference().child("bloodrequests").child(donation.requestid).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -89,7 +106,6 @@ public class DonationsFragment extends Fragment {
         return donations;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onDonationsFragmentInteraction(uri);
@@ -124,7 +140,6 @@ public class DonationsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onDonationsFragmentInteraction(Uri uri);
     }
 }
