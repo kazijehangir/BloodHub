@@ -29,9 +29,12 @@ import java.util.Date;
 public class RequestDetail extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+
+    boolean isOwnRequest = false;
     DatabaseReference db;
     Dialog dialog;
     String request, name, needs, location, when, diagnosis, transport;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,20 @@ public class RequestDetail extends AppCompatActivity {
                     } else {
                         mTransport.setText("Not Available");
                     }
+                    if (user.getUid().equals(data.userid)) {
+                        isOwnRequest = true;
+                        setTitle("Request Info");
+                        Button donate = (Button) findViewById(R.id.request_detail_donate_button);
+                        donate.setText("Open in My Requests");
+                        donate.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(view.getContext(), MyRequestDetail.class);
+                                intent.putExtra("request", request);
+                                view.getContext().startActivity(intent);
+                            }
+                        });
+                    }
 
                 }
                 @Override
@@ -87,29 +104,32 @@ public class RequestDetail extends AppCompatActivity {
         }
 
         Button donate = (Button) findViewById(R.id.request_detail_donate_button);
-        donate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Context context = getApplicationContext();
-                Donation donation = new Donation(user.getUid(),request);
-                try {
-                    db.push().setValue(donation);
-                    dialog = new Dialog(RequestDetail.this);
-                    dialog.setTitle("Donation Confirmed");
-                    dialog.setContentView(R.layout.popup_request_detail);
-                    dialog.show();
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    final Button submit = (Button) dialog.findViewById(R.id.request_detail_dialog_ok);
-                    submit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                          finish();
-                        }
-                    });
-                } catch (DatabaseException e) {
-                    Toast.makeText(context,"Error occurred",Toast.LENGTH_SHORT).show();
+        if (!isOwnRequest) {
+            donate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final Context context = getApplicationContext();
+                    Donation donation = new Donation(user.getUid(),request);
+                    try {
+                        db.push().setValue(donation);
+                        dialog = new Dialog(RequestDetail.this);
+                        dialog.setTitle("Donation Confirmed");
+                        dialog.setContentView(R.layout.popup_request_detail);
+                        dialog.show();
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        final Button submit = (Button) dialog.findViewById(R.id.request_detail_dialog_ok);
+                        submit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                finish();
+                            }
+                        });
+                    } catch (DatabaseException e) {
+                        Toast.makeText(context,"Error occurred",Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 }
