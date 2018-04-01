@@ -50,10 +50,15 @@ public class MyDonationDataAdapter extends RecyclerView.Adapter<MyDonationDataAd
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyDonationDataAdapter.ViewHolder holder, int position) {
-        BloodRequest request = (BloodRequest) requests.get(position);
-        holder.mName.setText(request.name);
-        holder.mLocation.setText(request.location);
-        holder.mWhen.setText(DateFormat.getDateInstance().format(new Date(request.date)));
+        try{
+            BloodRequest request = (BloodRequest) requests.get(position);
+            holder.mName.setText(request.name);
+            holder.mLocation.setText(request.location);
+            holder.mWhen.setText(DateFormat.getDateInstance().format(new Date(request.date)));
+        } catch (Exception e){
+
+        };
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

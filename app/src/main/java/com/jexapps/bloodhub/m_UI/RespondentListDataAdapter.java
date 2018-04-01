@@ -31,7 +31,6 @@ public class RespondentListDataAdapter extends RecyclerView.Adapter<RespondentLi
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public TextView mName, mEmail, mContact, mAge;
-        public ImageButton delete, edit;
         protected CardView cv;
         //        public ImageView mImage, mTransportImage;
         public ViewHolder(final View itemView) {
@@ -65,9 +64,6 @@ public class RespondentListDataAdapter extends RecyclerView.Adapter<RespondentLi
     public RespondentListDataAdapter(ArrayList<User> user, Context context) {
         users = user;
         mContext = context;
-        for(User u : users){
-            Toast.makeText(mContext,"user: "+ u.username, Toast.LENGTH_SHORT).show();
-        }
     }
 
     // Create new views (invoked by the layout manager)

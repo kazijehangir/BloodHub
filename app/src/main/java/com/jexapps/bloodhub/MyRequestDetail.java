@@ -58,7 +58,6 @@ public class MyRequestDetail extends AppCompatActivity {
         setContentView(R.layout.fragment_my_request_details);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
-        Toast.makeText(this, "request: ", Toast.LENGTH_SHORT).show();
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
@@ -173,21 +172,20 @@ public class MyRequestDetail extends AppCompatActivity {
 //            public void onCancelled(DatabaseError databaseError) {
 //            }
 //        });
-        Toast.makeText(getApplicationContext(), "request: "+request, Toast.LENGTH_SHORT).show();
         db.orderByChild("requestid").equalTo(request).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot child: dataSnapshot.getChildren()){
                     Donation donation = child.getValue(Donation.class);
-                    Toast.makeText(getApplicationContext(), "donation: "+donation.toString(), Toast.LENGTH_SHORT).show();
                     dbUsers.child(donation.userid).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             User user = dataSnapshot.getValue(User.class);
-                            Toast.makeText(getApplicationContext(),"user: "+ user.username, Toast.LENGTH_SHORT).show();
                             users.add(user);
+                            mAdapter.notifyDataSetChanged();
                         }
+//                        mAdapter.;
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
