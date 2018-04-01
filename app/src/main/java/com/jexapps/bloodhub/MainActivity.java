@@ -1,18 +1,13 @@
 package com.jexapps.bloodhub;
 
-import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.widget.SearchView;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
-import android.content.Intent;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,12 +15,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.jexapps.bloodhub.m_Model.User;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jexapps.bloodhub.m_Model.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -229,7 +226,8 @@ public class MainActivity extends AppCompatActivity
         Bundle args = new Bundle();
         if (menuItem.getItemId() == R.id.signout) {
             mAuth.signOut();
-            Intent intent = new Intent(this,LoginActivity.class);
+            Intent intent = new Intent(this,SplashActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         switch(menuItem.getItemId()) {

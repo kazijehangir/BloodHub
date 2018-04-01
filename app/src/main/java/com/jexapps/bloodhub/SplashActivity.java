@@ -1,10 +1,8 @@
 package com.jexapps.bloodhub;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,10 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.jexapps.bloodhub.m_Model.User;
-
-import static android.R.attr.duration;
 
 /**
  * Created by mahnoor on 28/11/2016.
@@ -27,6 +22,7 @@ import static android.R.attr.duration;
 public class SplashActivity extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
+    private int backButtonCount = 0;
 
     private void setView(String userId, final String email) {
         final String uid = userId;
@@ -111,6 +107,15 @@ public class SplashActivity extends AppCompatActivity
                     startActivity(intent);
                 }
             });
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        if (backButtonCount <= 0) {
+            Toast.makeText(this, "Press the back button once again to close the application.", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        } else {
+            super.onBackPressed();
         }
     }
 }
