@@ -41,7 +41,8 @@ public class RequestMapFragment extends Fragment {
     private SimpleLocation location;
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1;
     private OnFragmentInteractionListener mListener;
-
+    private int permissionRequestCount = 0;
+    private final int REQUEST_LIMIT = 1;
     public RequestMapFragment() {
         // Required empty public constructor
     }
@@ -62,9 +63,13 @@ public class RequestMapFragment extends Fragment {
         }
         else {
             // Show rationale and request permission.
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+            if (permissionRequestCount < REQUEST_LIMIT) {
+                permissionRequestCount++;
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+            }
 
         }
         return rootView;
@@ -72,6 +77,7 @@ public class RequestMapFragment extends Fragment {
 
     public void setupMap() {
 
+        Log.d("JK", "setupMap: called ");
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
@@ -159,8 +165,24 @@ public class RequestMapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        location.beginUpdates();
-        mMapView.onResume();
+        // For showing a move to my location button googleMap.setMyLocationEnabled(true);
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            location.beginUpdates();
+            mMapView.onResume();
+            setupMap();
+        } else {
+            // Show rationale and request permission.
+            if (permissionRequestCount < REQUEST_LIMIT) {
+                permissionRequestCount++;
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+            }
+        }
+
     }
 
     @Override
