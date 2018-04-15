@@ -145,6 +145,12 @@ public class AddRequestActivity extends AppCompatActivity{
             quan = quantity.getSelectedItem().toString();
             diag = diagnosis.getSelectedItem().toString();
             num = number.getText().toString();
+            if (!((num.startsWith("+923") && num.length() == 13) ||
+                    (num.startsWith("03") && num.length() == 11))) {
+                number.setError(
+                        "Please enter a valid number in the +923XX XXXXXXX or 03XX XXXXXXX Format");
+                return;
+            }
             loc = location.getText().toString();
             transport_btn = (RadioButton) findViewById(transport_group.
                     getCheckedRadioButtonId());
@@ -286,3 +292,4 @@ public class AddRequestActivity extends AppCompatActivity{
         }
     }
 }
+
