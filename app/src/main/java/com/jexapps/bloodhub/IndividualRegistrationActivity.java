@@ -2,17 +2,14 @@ package com.jexapps.bloodhub;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
-import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -20,7 +17,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,10 +41,10 @@ import java.util.List;
 public class IndividualRegistrationActivity extends AppCompatActivity {
     ImageButton photo_btn;
     AutoCompleteTextView username, mEmailView;
-    EditText mPasswordView;
+    EditText mPasswordView, mContactView;
     Spinner bloodGroup;
     Uri image_file;
-    String email, password, uname, bgroup;
+    String email, password, uname, bgroup, contact;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -83,6 +79,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
         username = (AutoCompleteTextView) findViewById(R.id.name);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
+        mContactView = (EditText) findViewById(R.id.number);
 //        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         bloodGroup = (Spinner) findViewById(R.id.spin);
         try {
@@ -201,11 +198,15 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
     private boolean isPasswordValid(String password) {
         return password.length() >= 6;
     }
+    private boolean isContactValid(String contact){return ((contact.startsWith("+923") && contact.length() == 13) ||
+                (contact.startsWith("03") && contact.length() == 11));
+    }
     private void registerNewUser() {
         email = mEmailView.getText().toString().trim();
         password = mPasswordView.getText().toString().trim();
         uname = username.getText().toString();
         bgroup = bloodGroup.getSelectedItem().toString();
+        contact = mContactView.getText().toString().trim();
         if (uname.isEmpty()) {
             Toast.makeText(this, "You forgot to enter your name.",
                     Toast.LENGTH_SHORT).show();
@@ -224,37 +225,43 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                     } else {
 //                    register user with firebase
 //                    progressBar.setVisibility(View.VISIBLE);
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    Context context = getApplicationContext();
+                        if(!isContactValid(contact)){
+                            Toast.makeText(this, "Please enter a valid number in the +923XX XXXXXXX or 03XX XXXXXXX Format",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            mAuth.createUserWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            Context context = getApplicationContext();
 //                                    progressBar.setVisibility(View.GONE);
-                                    if (task.isSuccessful()) {
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        Toast.makeText(context, "Registration Successful!",
-                                                Toast.LENGTH_SHORT).show();
-                                        //set default subscriptions
-                                        int id = Arrays.asList(getResources().getStringArray(R.array.blood_groups)).indexOf(bgroup);
-                                        FirebaseMessaging.getInstance().subscribeToTopic("Request_"+id);
-                                        FirebaseMessaging.getInstance().subscribeToTopic("URGENT");
-                                        // take user to main screen
-                                        sendVerificationEmail();
-                                        writeNewUser(user.getUid(), user.getEmail());
+                                            if (task.isSuccessful()) {
+                                                FirebaseUser user = mAuth.getCurrentUser();
+                                                Toast.makeText(context, "Registration Successful!",
+                                                        Toast.LENGTH_SHORT).show();
+                                                //set default subscriptions
+                                                int id = Arrays.asList(getResources().getStringArray(R.array.blood_groups)).indexOf(bgroup);
+                                                FirebaseMessaging.getInstance().subscribeToTopic("Request_"+id);
+                                                FirebaseMessaging.getInstance().subscribeToTopic("URGENT");
+                                                // take user to main screen
+                                                sendVerificationEmail();
+                                                writeNewUser(user.getUid(), user.getEmail());
 
-                                        Intent intent = new Intent(context, LoginActivity.class);
-                                        startActivity(intent);
-                                    } else {
-                                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                            Toast.makeText(context, "User with this email already exists.", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(context, "Error creating user",
-                                                    Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(context, LoginActivity.class);
+                                                startActivity(intent);
+                                            } else {
+                                                if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                                    Toast.makeText(context, "User with this email already exists.", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(context, "Error creating user",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                            });
-                    }
+                                    });
+                            }
+                        }
+
                 }
             }
         }
