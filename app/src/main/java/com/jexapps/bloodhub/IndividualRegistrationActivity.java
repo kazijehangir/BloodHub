@@ -189,7 +189,7 @@ public class IndividualRegistrationActivity extends AppCompatActivity {
                 });
     }
     private void writeNewUser(String userId, String email){
-        User user = new User(uname, email, bgroup);
+        User user = new User(uname, email, contact, bgroup, "individual");
         mDatabase.child("users").child(userId).setValue(user);
     }
     private boolean isEmailValid(String email) {

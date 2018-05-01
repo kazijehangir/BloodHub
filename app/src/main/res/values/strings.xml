@@ -31,6 +31,7 @@
 
     <!-- Strings related to Individual User Registeration -->
     <string name="prompt_name">Name *</string>
+    <string name="prompt_number">Contact Number</string>
     <string name="check_box">Agree to share my details</string>
 
     <!-- Strings related to Individual User Registeration -->

@@ -33,7 +33,7 @@ public class RequestDetail extends AppCompatActivity {
     boolean isOwnRequest = false;
     DatabaseReference db;
     Dialog dialog;
-    String request, name, needs, location, when, diagnosis, transport;
+    String request, name, needs, location, when, diagnosis, transport, number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +92,8 @@ public class RequestDetail extends AppCompatActivity {
                             }
                         });
                     }
+                    TextView mNumber = findViewById(R.id.request_detail_contact);
+                    mNumber.setText(data.number);
 
                 }
                 @Override

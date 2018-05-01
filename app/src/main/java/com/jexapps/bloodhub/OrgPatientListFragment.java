@@ -60,8 +60,11 @@ public class OrgPatientListFragment extends Fragment {
                 keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Patient patient = child.getValue(Patient.class);
-                    patients.add(patient);
-                    keys.add(child.getKey());
+                    if(!patients.contains(patient)){
+                        patients.add(patient);
+                        keys.add(child.getKey());
+                    }
+
                 }
                 mAdapter.notifyDataSetChanged();
             }

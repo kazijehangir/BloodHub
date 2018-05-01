@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -39,9 +40,12 @@ import com.jexapps.bloodhub.m_UI.HttpDataHandler;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.text.DateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class AddRequestActivity extends AppCompatActivity{
     Dialog dialog;
@@ -83,7 +87,58 @@ public class AddRequestActivity extends AppCompatActivity{
 
         name = (AutoCompleteTextView) findViewById(R.id.name);
         bloodgroup = (Spinner) findViewById(R.id.spin);
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(bloodgroup);
+            popupWindow.setHeight(500);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+        }
+        List<String> bgroups = Arrays.asList(getResources().getStringArray(R.array.blood_groups));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_text_view, bgroups) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                v.setPadding(8, 8, 8, 15);
+                if (position == getCount()) {
+                    ((TextView)v.findViewById(R.id.text1)).setText("");
+                    ((TextView)v.findViewById(R.id.text1)).setHint(getItem(getCount()));
+                }
+                return v;
+            }
+            @Override
+            public int getCount() {
+                return super.getCount()-1;
+            }
+        };
+        adapter.setDropDownViewResource(R.layout.spinner_text_view);
+        bloodgroup.setAdapter(adapter);
+        bloodgroup.setSelection(adapter.getCount());
+
         quantity = (Spinner) findViewById(R.id.spin1);
+        List<String> quants = Arrays.asList(getResources().getStringArray(R.array.bag_quantity));
+        ArrayAdapter<String> adapterQuant = new ArrayAdapter<String>(this, R.layout.spinner_text_view, quants){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                v.setPadding(8, 8, 8, 15);
+                if (position == getCount()) {
+                    ((TextView)v.findViewById(R.id.text1)).setText("");
+                    ((TextView)v.findViewById(R.id.text1)).setHint("Quantity of Bag(s)");
+                }
+                return v;
+            }
+            @Override
+            public int getCount() {
+                return super.getCount()-1;
+            }
+        };
+        adapter.setDropDownViewResource(R.layout.spinner_text_view);
+        quantity.setAdapter(adapterQuant);
+        quantity.setSelection(adapterQuant.getCount());
+
         number = (EditText) findViewById(R.id.contact_num);
         location = (AutoCompleteTextView) findViewById(R.id.loc);
         when = (EditText) findViewById(R.id.editText);
@@ -92,8 +147,8 @@ public class AddRequestActivity extends AppCompatActivity{
         image = (TextView) findViewById(R.id.image_text);
 
         String[] hospitals = getResources().getStringArray(R.array.organizations_array);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
-        location.setAdapter(adapter);
+        ArrayAdapter<String> adapterhosp = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,hospitals);
+        location.setAdapter(adapterhosp);
 
         final EditText set = (EditText) findViewById(R.id.editText);
         set.setOnClickListener(new View.OnClickListener()
@@ -149,6 +204,8 @@ public class AddRequestActivity extends AppCompatActivity{
                     (num.startsWith("03") && num.length() == 11))) {
                 number.setError(
                         "Please enter a valid number in the +923XX XXXXXXX or 03XX XXXXXXX Format");
+                Toast.makeText(AddRequestActivity.this, "Please enter a valid number in the +923XX XXXXXXX or 03XX XXXXXXX Format",
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
             loc = location.getText().toString();

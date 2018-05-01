@@ -40,48 +40,66 @@
                 android:layout_marginTop="15dp">
                 <Spinner
                     android:id="@+id/spin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/blood_groups"
-                    android:layout_alignTop="@+id/bloodg"
-                    android:dropDownVerticalOffset="10dp"
-                    android:layout_centerHorizontal="true">
-                </Spinner>
-
-                <TextView
-                    android:id="@+id/bloodg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:text="Blood Group *"
-                    android:textColor="@color/fab1"
-                    android:textSize="18sp" />
+                    android:overlapAnchor="false"
+                    android:dropDownWidth="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:padding="0dp"
+                    style="@android:style/Widget.Holo.Light.Spinner" />
+                <!--<Spinner-->
+                    <!--android:id="@+id/spin"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:entries="@array/blood_groups"-->
+                    <!--android:layout_alignTop="@+id/bloodg"-->
+                    <!--android:dropDownVerticalOffset="10dp"-->
+                    <!--android:layout_centerHorizontal="true">-->
+                <!--</Spinner>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/bloodg"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_alignParentStart="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:text="Blood Group *"-->
+                    <!--android:textColor="@color/fab1"-->
+                    <!--android:textSize="18sp" />-->
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="15dp">
-                <TextView
-                    android:id="@+id/quantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quantity of bag (s) "
-                    android:textColor="@color/fab1"
-                    android:textSize="18sp" />
                 <Spinner
                     android:id="@+id/spin1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/bag_quantity"
-                    android:layout_marginLeft="17dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/quantity"
-                    android:layout_toEndOf="@+id/quantity">
-                </Spinner>
+                    android:overlapAnchor="false"
+                    android:dropDownWidth="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:padding="0dp"
+                    style="@android:style/Widget.Holo.Light.Spinner" />
+                <!--<TextView-->
+                    <!--android:id="@+id/quantity"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Quantity of bag (s) "-->
+                    <!--android:textColor="@color/fab1"-->
+                    <!--android:textSize="18sp" />-->
+                <!--<Spinner-->
+                    <!--android:id="@+id/spin1"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:entries="@array/bag_quantity"-->
+                    <!--android:layout_marginLeft="17dp"-->
+                    <!--android:layout_marginStart="17dp"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_toRightOf="@+id/quantity"-->
+                    <!--android:layout_toEndOf="@+id/quantity">-->
+                <!--</Spinner>-->
             </RelativeLayout>
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

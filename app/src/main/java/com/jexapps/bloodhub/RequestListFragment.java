@@ -73,8 +73,11 @@ public class RequestListFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     BloodRequest request = child.getValue(BloodRequest.class);
-                    requests.add(request);
-                    keys.add(child.getKey());
+                    if(!requests.contains(request)){
+                        requests.add(request);
+                        keys.add(child.getKey());
+                    }
+
                 }
                 mAdapter.notifyDataSetChanged();
             }

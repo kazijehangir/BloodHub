@@ -61,8 +61,11 @@ public class OrgDonorListFragment extends Fragment {
                 keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Donor donor = child.getValue(Donor.class);
-                    donors.add(donor);
-                    keys.add(child.getKey());
+                    if(!donors.contains(donor)){
+                        donors.add(donor);
+                        keys.add(child.getKey());
+                    }
+
                 }
                 mAdapter.notifyDataSetChanged();
             }

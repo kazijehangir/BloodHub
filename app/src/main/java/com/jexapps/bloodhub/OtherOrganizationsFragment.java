@@ -105,6 +105,7 @@ public class OtherOrganizationsFragment extends Fragment {
                 keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     User organization = child.getValue(User.class);
+                    if(!organizations.contains(organization))
                     organizations.add(organization);
                     keys.add(child.getKey());
                 }

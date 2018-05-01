@@ -159,7 +159,31 @@
             android:textStyle="normal|bold" />
 
     </android.support.v7.widget.LinearLayoutCompat>
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/cardview_top_padding"
+        android:id="@+id/contact_horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/request_detail_contact_label"
+            android:layout_weight="1"
+            android:layout_gravity="left"
+            android:text="Contact:"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/request_detail_contact"
+            android:layout_weight="0"
+            android:layout_gravity="right"
+            android:text="+923345562223"
+            android:fontFamily="sans-serif"
+            tools:layout_gravity="right"
+            android:textStyle="normal|bold" />
 
+    </android.support.v7.widget.LinearLayoutCompat>
     <Button
         android:text="Donate"
         android:layout_width="match_parent"

@@ -70,8 +70,10 @@ public class AppointmentsFragment extends Fragment {
                 keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     Appointment appointment = child.getValue(Appointment.class);
-                    appointments.add(appointment);
-                    keys.add(child.getKey());
+                    if(!appointments.contains(appointment)) {
+                        appointments.add(appointment);
+                        keys.add(child.getKey());
+                    }
                 }
                 numAppointments.setText("Appointments: "+appointments.size());
                 mAdapter.notifyDataSetChanged();

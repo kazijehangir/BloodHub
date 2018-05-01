@@ -160,7 +160,7 @@ public class RequestListDataAdapter extends RecyclerView.Adapter<RequestListData
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     holder.mImage.setImageDrawable(ContextCompat.getDrawable(mContext,
-                            R.drawable.girl));
+                            R.drawable.boy));
 //                    Toast.makeText(mContext,"Error loading image: " + exception.toString(),
 //                            Toast.LENGTH_LONG).show();
                 }

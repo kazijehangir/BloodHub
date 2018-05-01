@@ -22,7 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
 import com.jexapps.bloodhub.m_Model.Donation;
 import com.jexapps.bloodhub.m_UI.MyDonationDataAdapter;
-import com.jexapps.bloodhub.m_UI.MyRequestDataAdapter;
 
 import java.util.ArrayList;
 
@@ -67,17 +66,17 @@ public class DonationsFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    Donation donation = child.getValue(Donation.class);
+                    final Donation donation = child.getValue(Donation.class);
                     if(donation!= null){
                         FirebaseDatabase.getInstance().getReference().child("bloodrequests").child(donation.requestid).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 BloodRequest request = dataSnapshot.getValue(BloodRequest.class);
-                                if(request!=null){
+                                if(request!=null && !donations.contains(donation)){
                                     donations.add(request);
                                     numDonations.setText("LIVES SAVED: "+donations.size());
-                                    mAdapter.notifyDataSetChanged();
                                 }
+                                mAdapter.notifyDataSetChanged();
 
                             }
                             @Override

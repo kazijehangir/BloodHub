@@ -15,10 +15,11 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String username, String email, String blood_group) {
+    public User(String username, String email, String number, String blood_group, String accType) {
         this.username = username;
         this.email = email;
         this.account_type = "individual";
+        this.number = number;
         this.blood_group = blood_group;
         this.created_at = Calendar.getInstance().getTime().getTime();
     }
