@@ -1,7 +1,9 @@
 package com.jexapps.bloodhub;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -45,26 +47,31 @@ public class AddEmergencyRequestActivity extends AppCompatActivity {
     String pname, bgroup, quan, diag, num, loc, mEmail;
     double lat = -1, lng = -1;
     Boolean transport;
+    String newRequestKey;
+    SharedPreferences sharedPref;
+    SharedPreferences.Editor editor;
 
-    String requestConfirmationTextStr = "Dummy test message.";
-    String confirmationLink = "google.com";
+//    String requestConfirmationTextStr = "Dummy test message.";
+//    String confirmationLink = "google.com";
 
     DatabaseReference db;
 
     // Find your Account Sid and Auth Token at twilio.com/console
     public static final String ACCOUNT_SID =
             "AC8cafc06aa846c148f46ceb38abb713cb";
-    public static final String AUTH_TOKEN =
-            "a1be8c230a1ede6964544fd63bb7537c";
+//    public static final String AUTH_TOKEN =
+//            "a1be8c230a1ede6964544fd63bb7537c";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_emergency_request);
+        sharedPref = this.getSharedPreferences("EmergencyRequests", Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
         //INITIALIZE FIREBASE DB
         db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
         setTitle("Emergency Request");
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+//        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         name = (AutoCompleteTextView) findViewById(R.id.name);
         bloodgroup = (Spinner) findViewById(R.id.spin);
@@ -107,6 +114,9 @@ public class AddEmergencyRequestActivity extends AppCompatActivity {
                 }
                 String address = loc + ", Pakistan";
                 new GetCoordinates().execute(address.replace(" ", "+"));
+
+
+
             }
         });
     }
@@ -144,28 +154,26 @@ public class AddEmergencyRequestActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Error locating hospital",Toast.LENGTH_SHORT).show();
             }
 
-
             String regToken = FirebaseInstanceId.getInstance().getToken();
             BloodRequest request = new BloodRequest(null, pname, bgroup, quan, num, loc,
                     lat + ((Math.random() - 0.5) / 4000),
                     lng + ((Math.random() - 0.5) / 4000),
                     diag, new Date().getTime(), transport, regToken);
-            db.push().setValue(request);
 
-            confirmationLink = "https://www.google.com.pk/search?q=firebase+url+to+do+certain+action";
-            requestConfirmationTextStr = "Hi " + pname + ". Your request for " + quan +
-                    "bags of " + bgroup + " blood has been received." + "" +
-                    " Donors will contact you on this number directly. " +
-                    "Please click this link: " + confirmationLink +
-                    " to confirm that you have received the blood.\n Thank you for using BloodHub.";
+            DatabaseReference newRequest = db.push();
+            newRequestKey = newRequest.getKey();
+            newRequest.setValue(request);
 
-            Message message = Message
-                    .creator(new PhoneNumber(num), // to
-                            new PhoneNumber("+15093153816"), // from
-                            requestConfirmationTextStr)
-                    .create();
-            Log.d("JK", "onPostExecute: Message sent, emergency request" + message.getSid());
+            String existingKeys = sharedPref.getString("keys", "");
 
+            String newKeys;
+            if (existingKeys != "") {
+                newKeys = existingKeys + ":" + newRequestKey;
+            } else {
+                newKeys = newRequestKey;
+            }
+            editor.putString("keys", newKeys);
+            editor.commit();
 
             dialog = new Dialog(AddEmergencyRequestActivity.this);
             dialog.setContentView(R.layout.popup_submit);

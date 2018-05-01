@@ -251,13 +251,13 @@ public class AddRequestActivity extends AppCompatActivity{
                     });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Toast.makeText(getApplicationContext(), "Error uploading image",
-                        Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Toast.makeText(getApplicationContext(), "Error uploading image",
+                            Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
             String regToken = FirebaseInstanceId.getInstance().getToken();
             BloodRequest request = new BloodRequest(user.getUid(), pname, bgroup,
                     quan, num, loc, lat, lng, diag, pdate.getTime(), transport,
