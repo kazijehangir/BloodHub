@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jexapps.bloodhub.m_Model.BloodRequest;
-import com.jexapps.bloodhub.m_UI.MyRequestDataAdapter;
+import com.jexapps.bloodhub.m_UI.EmergencyRequestDataAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +26,7 @@ import java.util.Arrays;
 public class ManageEmergencyRequestsActivity extends AppCompatActivity {
     DatabaseReference db;
     ArrayList<BloodRequest> requests;
+    ArrayList<String> mykeys;
     ArrayList<String> keys;
 
     private RecyclerView mRecyclerView;
@@ -47,20 +48,21 @@ public class ManageEmergencyRequestsActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new RecycleMarginDecoration(this));
         db = FirebaseDatabase.getInstance().getReference().child("bloodrequests");
         fetchData();
-        mAdapter = new MyRequestDataAdapter(requests,keys, this);
+        mAdapter = new EmergencyRequestDataAdapter(requests,keys, this);
         mRecyclerView.setAdapter(mAdapter);
 
     }
     //Getting data from database
     public void fetchData() {
         requests = new ArrayList<BloodRequest>();
+        mykeys = new ArrayList<String>();
         keys = new ArrayList<String>();
 
         SharedPreferences sharedPref = this.getSharedPreferences(
                 "EmergencyRequests", this.MODE_PRIVATE);
         String existingKeys = sharedPref.getString("keys", "");
 
-        keys = new ArrayList<>(Arrays.asList(existingKeys.split(":")));
+        mykeys = new ArrayList<>(Arrays.asList(existingKeys.split(":")));
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -68,10 +70,12 @@ public class ManageEmergencyRequestsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 requests.clear();
+                keys.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    if (keys.contains(child.getKey())) {
+                    if (mykeys.contains(child.getKey())) {
                         BloodRequest request = child.getValue(BloodRequest.class);
                         requests.add(request);
+                        keys.add(child.getKey());
                     }
                 }
                 numRequests.setText("Total Requests: "+requests.size());
